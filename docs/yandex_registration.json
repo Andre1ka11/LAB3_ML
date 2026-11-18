@@ -1,0 +1,69 @@
+{
+  "config": {
+    "model": "gpt://b1gq6d9aarsdqtd0vvam/yandexgpt-5.1",
+    "endpoint": "https://ai.api.cloud.yandex.net/v1/responses",
+    "temperature": 0,
+    "max_output_tokens": 4096,
+    "thinking_mode": "default; no explicit thinking parameter requested",
+    "bank_version": "1.0.0-draft",
+    "bank_sha256": "5bbd63fecaadde46c4d64ebdc3ca742f27ff59b523c9c534ae40e6d8c8230e25",
+    "prompt_sha256": "8750df9af135e760c827110f7891c16ade38534b8e70d061e0d7b3118dff9eb9",
+    "requests_sha256": "c6aa3c22c3a96010b533c0d814a3a10769bc419d70b2b6ae62786a8804a6e595",
+    "rate_rub_per_token": 0.0008,
+    "tariff_checked": "2026-11-19"
+  },
+  "forecasts": {
+    "H5": "confirm",
+    "H10": "confirm",
+    "H12": "confirm"
+  },
+  "criteria_confirmed": true,
+  "criteria": {
+    "language": "ru",
+    "parser_version": "1.1-outer-markdown-only",
+    "normalization": "Only a single outer Markdown JSON fence may be removed; record strict_format_ok=false and markdown_wrapper. Do not change answers or code. Apply identically to all models.",
+    "primary_model": "YandexGPT Pro 5.1",
+    "H5": {
+      "forecast": "confirm",
+      "comparison": "YandexGPT vs Qwen3 4B (qwen3:4b); local digest and quantization recorded before local run",
+      "tasks": "A01-A08 and B01-B08",
+      "statistic": "(accuracy_Yandex_A-accuracy_Qwen_A)-(accuracy_Yandex_B-accuracy_Qwen_B)",
+      "interval": "1000 paired bootstrap resamples within A/B, seed 42, 95% percentile CI",
+      "decision": "confirm if lower>0; reject if upper<=0; otherwise insufficient_data",
+      "limitation": "Only 8 tasks/type; size is confounded with training and quantization."
+    },
+    "H10": {
+      "forecast": "confirm",
+      "tasks": "A+B+F: 24 tasks",
+      "correctness": "Numeric tolerance in bank; boolean verdict for B; F07 insufficient_data. Explanations evaluated separately.",
+      "statistic": "mean(confidence/100)-accuracy on parseable answers with valid confidence; explicitly report coverage, missing confidences and full-denominator accuracy",
+      "interval": "1000 bootstrap draws of task groups, seed 42; paired F variants kept together; 95% percentile CI",
+      "decision": "confirm if lower>0; reject if upper<=0; otherwise insufficient_data",
+      "secondary": "ECE with bins [0,.2,.4,.6,.8,1], include 1 in last bin; reliability diagram; ECE is not a directional overconfidence test"
+    },
+    "H12": {
+      "forecast": "confirm",
+      "test_rows": 100,
+      "shots": [
+        5,
+        20
+      ],
+      "baseline": "LogisticRegression with same six features, same train5/train20 and same test",
+      "primary_metric": "F1 minority class (label 1)",
+      "secondary_metric": "balanced_accuracy; GaussianNB and constant-majority baseline also reported",
+      "noninferiority_margin": 0.05,
+      "interval": "1000 paired bootstrap test-row resamples, seed 42; one-sided 95% bounds at percentiles 5 and 95",
+      "decision": "5-shot: lower delta > -0.05 supports noninferiority, upper delta < -0.05 contradicts it. 20-shot: upper delta < 0 supports loss, lower delta >= 0 contradicts it. Confirm H12 only if both expected parts supported; reject if either contradicted; otherwise insufficient_data. delta=F1_LLM-F1_LR.",
+      "baseline_disclosure": "Classical baseline outputs known before registration; LLM E answers not yet obtained."
+    },
+    "multiple_comparisons": "Three predeclared exploratory hypotheses; report effect sizes and intervals without claiming familywise-controlled significance. Four-model paired accuracy comparisons additionally use exact McNemar, with Holm correction for that separate family.",
+    "pilot_disclosure": {
+      "requests": 5,
+      "tokens": 1635,
+      "cost_rub": 1.308,
+      "format": "All 5 responses fenced; offline normalization only; pilot excluded from all hypothesis scores."
+    },
+    "forecasts_date": "2026-11-19",
+    "results_not_yet_obtained": "No main-bank or E LLM calls before this registration."
+  }
+}
