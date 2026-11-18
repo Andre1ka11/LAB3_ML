@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "tasks": 40,
+  "counts": {
+    "A": 8,
+    "B": 8,
+    "C": 7,
+    "D": 8,
+    "E": 1,
+    "F": 8
+  },
+  "pilot_tasks_excluded": 5,
+  "independent_numeric_checks": 15,
+  "reference_programs_executed": 8,
+  "classification_test_rows": 100,
+  "classification_requests_per_language": 300,
+  "api_calls": 0,
+  "human_checks_pending": [
+    "самостоятельное решение и проверка задач командой",
+    "минимум 20 задач, придуманных/существенно переработанных участниками",
+    "двойная слепая оценка C и D после получения реальных ответов моделей"
+  ]
+}

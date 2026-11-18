@@ -1,0 +1,5 @@
+{"row_id": "bc_135", "features": {"mean radius": 12.77, "mean texture": 22.47, "mean area": 506.3, "mean smoothness": 0.09055, "mean concavity": 0.04711, "mean symmetry": 0.1585}, "label": 1}
+{"row_id": "bc_178", "features": {"mean radius": 13.01, "mean texture": 22.22, "mean area": 526.4, "mean smoothness": 0.06251, "mean concavity": 0.001595, "mean symmetry": 0.1395}, "label": 0}
+{"row_id": "bc_185", "features": {"mean radius": 10.08, "mean texture": 15.11, "mean area": 317.5, "mean smoothness": 0.09267, "mean concavity": 0.001597, "mean symmetry": 0.1703}, "label": 0}
+{"row_id": "bc_313", "features": {"mean radius": 11.54, "mean texture": 10.72, "mean area": 409.1, "mean smoothness": 0.08597, "mean concavity": 0.01367, "mean symmetry": 0.1833}, "label": 0}
+{"row_id": "bc_517", "features": {"mean radius": 19.89, "mean texture": 20.26, "mean area": 1214.0, "mean smoothness": 0.1037, "mean concavity": 0.1411, "mean symmetry": 0.1802}, "label": 1}
