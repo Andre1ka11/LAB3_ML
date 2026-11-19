@@ -24,6 +24,15 @@ python -m venv --system-site-packages .venv
 
 ## Повтор генерации
 
+На этой машине скачанные веса также зарегистрированы в стандартном кэше Hugging Face (hard link, без дополнительной копии 2.5 ГБ). Путь можно получить без сети:
+
+```powershell
+$qwenModelPath = python -c "from huggingface_hub import hf_hub_download; print(hf_hub_download('Qwen/Qwen3-4B-GGUF','Qwen3-4B-Q4_K_M.gguf',revision='bc640142c66e1fdd12af0bd68f40445458f3869b',local_files_only=True))"
+.venv/Scripts/python.exe local_runner.py --model-path $qwenModelPath --stage all
+```
+
+На другом компьютере сначала скачать веса:
+
 ```powershell
 python -c "from huggingface_hub import hf_hub_download; print(hf_hub_download('Qwen/Qwen3-4B-GGUF','Qwen3-4B-Q4_K_M.gguf',revision='bc640142c66e1fdd12af0bd68f40445458f3869b',local_dir='../models'))"
 .venv/Scripts/python.exe local_runner.py --model-path ../models/Qwen3-4B-Q4_K_M.gguf --stage pilot
