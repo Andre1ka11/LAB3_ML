@@ -1,0 +1,11 @@
+{
+  "responses": 5,
+  "parsed": 4,
+  "strict_format": 4,
+  "versions": [
+    "GigaChat-2:2.0.28.2"
+  ],
+  "cost_estimate_rub": 0.08995999999999998,
+  "excluded_from_evaluation": true,
+  "parameter_changes": "None; malformed pilot preserved and not repeated."
+}

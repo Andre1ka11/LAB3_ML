@@ -1,0 +1,78 @@
+{
+  "config": {
+    "model": "Qwen/Qwen3-4B-GGUF:Q4_K_M",
+    "endpoint": "in-process llama-cpp-python CUDA",
+    "temperature": 0,
+    "max_output_tokens": 4096,
+    "thinking_mode": "disabled by empty think block in Qwen3 chat template",
+    "bank_version": "1.0.0-draft",
+    "bank_sha256": "5bbd63fecaadde46c4d64ebdc3ca742f27ff59b523c9c534ae40e6d8c8230e25",
+    "prompt_sha256": "8750df9af135e760c827110f7891c16ade38534b8e70d061e0d7b3118dff9eb9",
+    "requests_sha256": "eca86410be1a5b2e6d5b4cbdf62bbdfbe70337274d0e3a45fe70fb2ba2971b39",
+    "rate_rub_per_token": 0,
+    "tariff_checked": null,
+    "seed": 42,
+    "n_ctx": 8192,
+    "n_gpu_layers": -1,
+    "quantization": "Q4_K_M",
+    "revision": "bc640142c66e1fdd12af0bd68f40445458f3869b",
+    "repeat_penalty": 1.0,
+    "top_p": 1.0
+  },
+  "weights_sha256": "7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5",
+  "weights_bytes": 2497280256,
+  "model_source": "https://huggingface.co/Qwen/Qwen3-4B-GGUF/tree/bc640142c66e1fdd12af0bd68f40445458f3869b",
+  "forecasts": {
+    "H5": "confirm",
+    "H10": "confirm",
+    "H12": "confirm"
+  },
+  "criteria": {
+    "language": "ru",
+    "parser_version": "1.1-outer-markdown-only",
+    "normalization": "Only a single outer Markdown JSON fence may be removed; record strict_format_ok=false and markdown_wrapper. Do not change answers or code. Apply identically to all models.",
+    "primary_model": "Qwen3-4B Q4_K_M; YandexGPT comparison fixed for H5",
+    "H5": {
+      "forecast": "confirm",
+      "comparison": "YandexGPT vs Qwen3 4B (qwen3:4b); local digest and quantization recorded before local run",
+      "tasks": "A01-A08 and B01-B08",
+      "statistic": "(accuracy_Yandex_A-accuracy_Qwen_A)-(accuracy_Yandex_B-accuracy_Qwen_B)",
+      "interval": "1000 paired bootstrap resamples within A/B, seed 42, 95% percentile CI",
+      "decision": "confirm if lower>0; reject if upper<=0; otherwise insufficient_data",
+      "limitation": "Only 8 tasks/type; size is confounded with training and quantization."
+    },
+    "H10": {
+      "forecast": "confirm",
+      "tasks": "A+B+F: 24 tasks",
+      "correctness": "Numeric tolerance in bank; boolean verdict for B; F07 insufficient_data. Explanations evaluated separately.",
+      "statistic": "mean(confidence/100)-accuracy on parseable answers with valid confidence; explicitly report coverage, missing confidences and full-denominator accuracy",
+      "interval": "1000 bootstrap draws of task groups, seed 42; paired F variants kept together; 95% percentile CI",
+      "decision": "confirm if lower>0; reject if upper<=0; otherwise insufficient_data",
+      "secondary": "ECE with bins [0,.2,.4,.6,.8,1], include 1 in last bin; reliability diagram; ECE is not a directional overconfidence test"
+    },
+    "H12": {
+      "forecast": "confirm",
+      "test_rows": 100,
+      "shots": [
+        5,
+        20
+      ],
+      "baseline": "LogisticRegression with same six features, same train5/train20 and same test",
+      "primary_metric": "F1 minority class (label 1)",
+      "secondary_metric": "balanced_accuracy; GaussianNB and constant-majority baseline also reported",
+      "noninferiority_margin": 0.05,
+      "interval": "1000 paired bootstrap test-row resamples, seed 42; one-sided 95% bounds at percentiles 5 and 95",
+      "decision": "5-shot: lower delta > -0.05 supports noninferiority, upper delta < -0.05 contradicts it. 20-shot: upper delta < 0 supports loss, lower delta >= 0 contradicts it. Confirm H12 only if both expected parts supported; reject if either contradicted; otherwise insufficient_data. delta=F1_LLM-F1_LR.",
+      "baseline_disclosure": "Classical baseline and YandexGPT outputs known before local generations."
+    },
+    "multiple_comparisons": "Three predeclared exploratory hypotheses; report effect sizes and intervals without claiming familywise-controlled significance. Four-model paired accuracy comparisons additionally use exact McNemar, with Holm correction for that separate family.",
+    "forecasts_date": "2026-11-19",
+    "results_not_yet_obtained": "No local pilot/main/E generations yet. YandexGPT outputs and classical baseline known; forecasts adopted from team registration, not independently human-authored."
+  },
+  "limitations": [
+    "Qwen3 non-thinking template explicitly selected; YandexGPT uses provider default.",
+    "Q4_K_M quantization and training differ; H5 does not isolate causal size effect.",
+    "temperature=0 follows shared protocol; Qwen recommends non-greedy settings for normal use.",
+    "Local API charge is zero; energy and equipment costs are unknown, not zero."
+  ]
+}

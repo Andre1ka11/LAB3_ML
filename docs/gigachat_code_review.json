@@ -1,0 +1,74 @@
+{
+  "D01": {
+    "source_sha256": "4be75912a6e9f88832d5cf6552347bc619ecff5b8c2b6b4494c96b9d350d6531",
+    "raw_text_sha256": "b153b3353bd3bb29c235d75b91e6db23798a920b96fdf6e7cad70edf44bd66f1",
+    "start": 215,
+    "end": 1375,
+    "extraction": "first fenced region, exact substring",
+    "technical_inspection": "Inspected numpy/sklearn only. Uses estimator.score (accuracy), labels it balanced_accuracy; stdout is Python dict.",
+    "reviewer": "Codex technical review; not two independent human ratings"
+  },
+  "D02": {
+    "source_sha256": "cdac73d4836fbf90d999447aa84a51227e3653083af9552e3d955b34e66d7b25",
+    "raw_text_sha256": "09bd792881e0956a8d325fe13ce64830ed6911051edf092c2e69ca885e3a1222",
+    "start": 244,
+    "end": 1543,
+    "extraction": "first fenced region, exact substring",
+    "technical_inspection": "Inspected sklearn/numpy only; Pipeline used without import; preserve NameError.",
+    "reviewer": "Codex technical review; not two independent human ratings"
+  },
+  "D03": {
+    "source_sha256": "a2282eb6414ac1debfe073cdcbfa4148d5935884f43ffb41b6961663fc541b40",
+    "raw_text_sha256": "d63f9fb33d990f04f873dd61852ee2b54dd7e82fcb4e6d81d8a92717d1cb007c",
+    "start": 443,
+    "end": 1642,
+    "extraction": "first fenced region, exact substring",
+    "technical_inspection": "Inspected sklearn only; train-only CV and test score; stdout Python dict.",
+    "reviewer": "Codex technical review; not two independent human ratings"
+  },
+  "D04": {
+    "source_sha256": "7e20baeaccd4e31b9281c42b54b0fc2829c86d62c1f24953a9c3c56334659913",
+    "raw_text_sha256": "be695fdcc3dacb1e770c6c52858655be8962ecd7edbc4dc48ba4655e1093b18e",
+    "start": 204,
+    "end": 1291,
+    "extraction": "first fenced region, exact substring",
+    "technical_inspection": "Inspected sklearn only; output key balance_accuracy differs from required balanced_accuracy.",
+    "reviewer": "Codex technical review; not two independent human ratings"
+  },
+  "D05": {
+    "source_sha256": "7d1c1442879ce40145bed0a7e2b5a19d90e4615a272466a33ed59ee294dee8d4",
+    "raw_text_sha256": "11e87e8f50e8849c68856c4a1f51a625870807e0c5ad5559751ee102d1651872",
+    "start": 235,
+    "end": 1144,
+    "extraction": "first fenced region, exact substring",
+    "technical_inspection": "Inspected sklearn/json references only; Pipeline and json imports missing; preserve NameError.",
+    "reviewer": "Codex technical review; not two independent human ratings"
+  },
+  "D06": {
+    "source_sha256": "783ca64f75b93a6aa87ec7897d4aade7950c60428153507470d99b3f94b1fdc3",
+    "raw_text_sha256": "ca35cdb3f437c2bcc23302d815976a917a67d70f4cde238f1ae3dc6b3e99686e",
+    "start": 25,
+    "end": 938,
+    "extraction": "first triple-quoted region, exact substring",
+    "technical_inspection": "Inspected sklearn/json only; body of invalid triple-quoted JSON answer, no code edits.",
+    "reviewer": "Codex technical review; not two independent human ratings"
+  },
+  "D07": {
+    "source_sha256": "58b52eb2b77b7122ce44b77c747f7afb5250e822ffa3a2d85cfdc38660902e4e",
+    "raw_text_sha256": "4e93c537e1e86de9876223cff1d6f64a1df4175aa1e5deca30a7989e1781c038",
+    "start": 230,
+    "end": 919,
+    "extraction": "first fenced region, exact substring",
+    "technical_inspection": "Inspected sklearn only; descriptive clustering; stdout Python dict.",
+    "reviewer": "Codex technical review; not two independent human ratings"
+  },
+  "D08": {
+    "source_sha256": "a79c2e0d670dc7394ef7c171693d824ee3e69798b335850b08569ac22a77f981",
+    "raw_text_sha256": "099798dadc56d62c8e4eb2603c92ecd9a568f9835585f8f3f0b1531603232374",
+    "start": 192,
+    "end": 1096,
+    "extraction": "first fenced region, exact substring",
+    "technical_inspection": "Inspected sklearn only; correct original class mapping, JSON stdout rounded to three decimals.",
+    "reviewer": "Codex technical review; not two independent human ratings"
+  }
+}

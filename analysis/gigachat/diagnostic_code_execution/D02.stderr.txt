@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<project>/D02.py", line 22, in <module>
+    pipeline = Pipeline([
+               ^^^^^^^^
+NameError: name 'Pipeline' is not defined

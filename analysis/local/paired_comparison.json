@@ -1,0 +1,7 @@
+{
+  "n": 24,
+  "yandex_only_correct": 4,
+  "local_only_correct": 0,
+  "exact_two_sided_p": 0.125,
+  "scope": "One available LLM pair on A+B+F; no four-model family yet; exploratory."
+}

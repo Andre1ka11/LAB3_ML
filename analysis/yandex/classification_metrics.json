@@ -1,0 +1,186 @@
+[
+  {
+    "model": "YandexGPT",
+    "shots": 0,
+    "f1_minority": 0.0,
+    "balanced_accuracy": 0.0,
+    "accuracy": 0.0,
+    "coverage": 0.0,
+    "abstentions": 100,
+    "ci": {
+      "f1_minority": [
+        0.0,
+        0.0
+      ],
+      "balanced_accuracy": [
+        0.0,
+        0.0
+      ],
+      "accuracy": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "model": "YandexGPT",
+    "shots": 5,
+    "f1_minority": 0.7708333333333334,
+    "balanced_accuracy": 0.8253968253968254,
+    "accuracy": 0.78,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.6666666666666666,
+        0.8571428571428571
+      ],
+      "balanced_accuracy": [
+        0.765625,
+        0.8846153846153846
+      ],
+      "accuracy": [
+        0.7,
+        0.86
+      ]
+    }
+  },
+  {
+    "model": "YandexGPT",
+    "shots": 20,
+    "f1_minority": 0.9014084507042254,
+    "balanced_accuracy": 0.9165594165594166,
+    "accuracy": 0.93,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.8213846604215457,
+        0.9620487576183778
+      ],
+      "balanced_accuracy": [
+        0.8523726763432645,
+        0.9701426024955437
+      ],
+      "accuracy": [
+        0.88,
+        0.97
+      ]
+    }
+  },
+  {
+    "model": "LogisticRegression",
+    "shots": 5,
+    "f1_minority": 0.8043478260869565,
+    "balanced_accuracy": 0.8571428571428572,
+    "accuracy": 0.82,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.7073170731707317,
+        0.8863636363636364
+      ],
+      "balanced_accuracy": [
+        0.7971014492753623,
+        0.9127257799671592
+      ],
+      "accuracy": [
+        0.75,
+        0.89
+      ]
+    }
+  },
+  {
+    "model": "LogisticRegression",
+    "shots": 20,
+    "f1_minority": 0.9117647058823529,
+    "balanced_accuracy": 0.9189189189189189,
+    "accuracy": 0.94,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.8275632183908046,
+        0.9722222222222222
+      ],
+      "balanced_accuracy": [
+        0.8529244652406418,
+        0.972972972972973
+      ],
+      "accuracy": [
+        0.89,
+        0.98
+      ]
+    }
+  },
+  {
+    "model": "GaussianNB",
+    "shots": 5,
+    "f1_minority": 0.8043478260869565,
+    "balanced_accuracy": 0.8571428571428572,
+    "accuracy": 0.82,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.7045374519846351,
+        0.8868448637316562
+      ],
+      "balanced_accuracy": [
+        0.7954545454545454,
+        0.9152542372881356
+      ],
+      "accuracy": [
+        0.74,
+        0.9
+      ]
+    }
+  },
+  {
+    "model": "GaussianNB",
+    "shots": 20,
+    "f1_minority": 0.8181818181818182,
+    "balanced_accuracy": 0.848991848991849,
+    "accuracy": 0.88,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.6984126984126984,
+        0.9090909090909091
+      ],
+      "balanced_accuracy": [
+        0.7680700174142796,
+        0.9208791208791209
+      ],
+      "accuracy": [
+        0.81,
+        0.94
+      ]
+    }
+  },
+  {
+    "model": "constant_majority",
+    "shots": 0,
+    "f1_minority": 0.0,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.63,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.0,
+        0.0
+      ],
+      "balanced_accuracy": [
+        0.5,
+        0.5
+      ],
+      "accuracy": [
+        0.53,
+        0.7202499999999997
+      ]
+    }
+  }
+]

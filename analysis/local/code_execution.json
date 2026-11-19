@@ -1,0 +1,118 @@
+[
+  {
+    "task_id": "D01",
+    "source_sha256": "9827482c6a1abab33d4cb8633bdfff1634649d2413016a589df4a2bec441361e",
+    "exit_code": 1,
+    "pass_at_1": false,
+    "output_is_json": false,
+    "metrics_match_reference": false,
+    "metrics": null,
+    "status": "executed_first_answer",
+    "format_error": null,
+    "stderr": "  File \"<project>/D01.py\", line 13\n    x_train, x_test, y_train, y y_test = train_test_split(x, y, test_size=0.25, random_state=42, stratify=y)\n                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?\n",
+    "stderr_original_sha256": "089b3f694df51e082ef90247b6ade44a3d13c4d9a4df5c8e1f08d146200c4b6a",
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D02",
+    "source_sha256": "da8ba0bed21d0fcc863a07c8f9a46cd163ab07ecaec47c270991956904a81665",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics_match_reference": true,
+    "metrics": {
+      "f1": 0.52,
+      "balanced_accuracy": 0.7571996027805363
+    },
+    "status": "executed_first_answer",
+    "format_error": null,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D03",
+    "source_sha256": "182d104fc2e24c7f1ff7c2a44a92422c79b6e50850f9b2a9b5a801111ca77920",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": false,
+    "metrics_match_reference": false,
+    "metrics": null,
+    "status": "executed_first_answer",
+    "format_error": null,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D04",
+    "source_sha256": null,
+    "exit_code": null,
+    "pass_at_1": false,
+    "output_is_json": false,
+    "metrics_match_reference": false,
+    "metrics": null,
+    "status": "not_executable_response_format",
+    "format_error": "invalid_json",
+    "stderr": "",
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D05",
+    "source_sha256": null,
+    "exit_code": null,
+    "pass_at_1": false,
+    "output_is_json": false,
+    "metrics_match_reference": false,
+    "metrics": null,
+    "status": "not_executable_response_format",
+    "format_error": "invalid_answer_type",
+    "stderr": "",
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D06",
+    "source_sha256": "59604d552446a8c97fe767a82d36ac7ff63f32046ebd852732fc4606ac5cd10b",
+    "exit_code": 1,
+    "pass_at_1": false,
+    "output_is_json": false,
+    "metrics_match_reference": false,
+    "metrics": null,
+    "status": "executed_first_answer",
+    "format_error": null,
+    "stderr": "Traceback (most recent call last):\n  File \"<project>/D06.py\", line 33, in <module>\n    print(json.dumps({\n          ^^^^^^^^^^^^\n  File \"<python>/Lib/json/__init__.py\", line 234, in dumps\n    return cls(\n           ^^^^\n  File \"<python>/Lib/json/encoder.py\", line 155, in __init__\n    self.item_separator, self.key_separator = separators\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: not enough values to unpack (expected 2, got 1)\n",
+    "stderr_original_sha256": "ae6116d48672dd192a05329ec1585cff18b339307d49d891937da202f6d954d1",
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D07",
+    "source_sha256": "0aa00b17bea3a68bdac3e47f9900571a51bd896cd1249116d79ea991077c408e",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": false,
+    "metrics_match_reference": false,
+    "metrics": null,
+    "status": "executed_first_answer",
+    "format_error": null,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D08",
+    "source_sha256": "781495d3031b976b7879d456897c0fff24db8201150442e72b854eaeb767a650",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics_match_reference": true,
+    "metrics": {
+      "balanced_accuracy": 0.9228511530398322,
+      "f1_malignant": 0.9108910891089109
+    },
+    "status": "executed_first_answer",
+    "format_error": null,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "methodology_review": "pending_two_independent_reviewers"
+  }
+]

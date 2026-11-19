@@ -1,0 +1,92 @@
+{
+  "responses": 344,
+  "unique_requests": 344,
+  "counts": {
+    "pilot": 5,
+    "main": 39,
+    "zero": 100,
+    "five": 100,
+    "twenty": 100
+  },
+  "known_cost_rub": 248.4592,
+  "budget_ledger_rub": 266.4575999999999,
+  "unknown_attempt_reserve_rub": 17.99839999999989,
+  "tokens": 310574,
+  "main_and_E_cost_rub": 247.15120000000002,
+  "auto_ABF": {
+    "accuracy": 0.5416666666666666,
+    "ci_low": 0.3333333333333333,
+    "ci_high": 0.75
+  },
+  "auto_ABF_n": 24,
+  "code_pass_at_1": 0.75,
+  "code_json_output_rate": 0.625,
+  "format_errors": {
+    "markdown_wrapper": 236,
+    "invalid_answer_type": 101,
+    "invalid_json": 2
+  },
+  "refusals_E_zero": 100,
+  "review_items": 23,
+  "overall_39_accuracy": null,
+  "reason": "C and D require two independent reviews; B explanation scores also pending",
+  "bootstrap_iterations": 1000,
+  "seed": 42,
+  "api_calls_during_analysis": 0,
+  "hypotheses_status": {
+    "H5": "pending_other_model",
+    "H10": "confirm",
+    "H12": "insufficient_data"
+  },
+  "manual_review": {
+    "B": {
+      "n_required": 8,
+      "n_paired_scores": 0,
+      "kappa": null,
+      "status": "pending"
+    },
+    "C": {
+      "n_required": 7,
+      "n_paired_scores": 0,
+      "kappa": null,
+      "status": "pending"
+    },
+    "D": {
+      "n_required": 8,
+      "n_paired_scores": 0,
+      "flag_agreement": {
+        "leakage": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "test_tuning": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "train_evaluation": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "wrong_metric": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "missing_stratification": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "missing_seed": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        }
+      },
+      "status": "pending"
+    }
+  }
+}

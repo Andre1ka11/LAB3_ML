@@ -16,8 +16,7 @@ results/models/**/process.stderr.log
 results/models/**/.process.json
 analysis/**/.matplotlib/
 
-# Raw recovery copies; full API responses are preserved in events.jsonl.
+# DeepSeek runtime artifacts
 results/models/**/*.response.txt
-
 results/models/**/.watchdog.lock
 results/models/**/watchdog.log

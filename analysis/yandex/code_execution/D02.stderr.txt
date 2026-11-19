@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<project>/D02.py", line 35, in <module>
+    print(json.dumps({"f1": f1, "balanced_accuracy": balanced_acc}))
+          ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'?

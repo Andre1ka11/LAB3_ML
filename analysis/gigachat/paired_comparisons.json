@@ -1,0 +1,35 @@
+{
+  "family": "Three available models, 24 A/B/F tasks; exploratory comparisons",
+  "results": [
+    {
+      "first": "YandexGPT",
+      "second": "Qwen3-4B",
+      "n": 24,
+      "first_only_correct": 4,
+      "second_only_correct": 0,
+      "p_exact": 0.125,
+      "p_holm": 0.375,
+      "significant_05": false
+    },
+    {
+      "first": "YandexGPT",
+      "second": "GigaChat-2",
+      "n": 24,
+      "first_only_correct": 2,
+      "second_only_correct": 0,
+      "p_exact": 0.5,
+      "p_holm": 1,
+      "significant_05": false
+    },
+    {
+      "first": "Qwen3-4B",
+      "second": "GigaChat-2",
+      "n": 24,
+      "first_only_correct": 0,
+      "second_only_correct": 2,
+      "p_exact": 0.5,
+      "p_holm": 1,
+      "significant_05": false
+    }
+  ]
+}
