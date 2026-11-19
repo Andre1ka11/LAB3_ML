@@ -1,0 +1,13 @@
+﻿model,status,n
+YandexGPT,markdown_wrapper,236
+YandexGPT,invalid_answer_type,101
+YandexGPT,invalid_json,2
+Qwen3-4B,none,238
+Qwen3-4B,response_not_completed,1
+Qwen3-4B,invalid_answer_type,98
+Qwen3-4B,invalid_json,2
+GigaChat-2,none,327
+GigaChat-2,invalid_json,10
+GigaChat-2,invalid_answer_type,2
+DeepSeek,none,201
+DeepSeek,response_not_completed,138

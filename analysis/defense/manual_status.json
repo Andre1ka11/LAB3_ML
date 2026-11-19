@@ -1,0 +1,98 @@
+[
+  {
+    "model": "YandexGPT",
+    "type": "B",
+    "required": 8,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "YandexGPT",
+    "type": "C",
+    "required": 7,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "YandexGPT",
+    "type": "D",
+    "required": 8,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "Qwen3-4B",
+    "type": "B",
+    "required": 8,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "Qwen3-4B",
+    "type": "C",
+    "required": 7,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "Qwen3-4B",
+    "type": "D",
+    "required": 8,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "GigaChat-2",
+    "type": "B",
+    "required": 8,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "GigaChat-2",
+    "type": "C",
+    "required": 7,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "GigaChat-2",
+    "type": "D",
+    "required": 8,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "DeepSeek",
+    "type": "B",
+    "required": 8,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "DeepSeek",
+    "type": "C",
+    "required": 7,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  },
+  {
+    "model": "DeepSeek",
+    "type": "D",
+    "required": 8,
+    "paired_reviews": 0,
+    "status": "pending",
+    "kappa": null
+  }
+]

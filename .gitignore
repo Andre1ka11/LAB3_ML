@@ -4,6 +4,7 @@
 __pycache__/
 *.pyc
 .venv/
+.venv-defense/
 .cache/
 .ipynb_checkpoints/
 tmp/
@@ -20,3 +21,6 @@ analysis/**/.matplotlib/
 results/models/**/*.response.txt
 results/models/**/.watchdog.lock
 results/models/**/watchdog.log
+
+# Optional defense probes are not original experiment data
+analysis/defense/live_probes/

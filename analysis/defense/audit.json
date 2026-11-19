@@ -1,0 +1,89 @@
+{
+  "models": [
+    {
+      "model": "YandexGPT",
+      "responses": 344,
+      "starts": 346,
+      "uncertain": 2,
+      "authorized_network_retries": 2,
+      "registration_commit": "ad4612fba96817c0841903816cf8935808fb954c",
+      "registration_git_verified": true,
+      "registration_before_main": true,
+      "commit_utc": "2026-11-18T21:56:38+00:00",
+      "cost_usage_verified": true,
+      "first_response_utc": "2026-11-18T21:45:22.948177+00:00",
+      "last_response_utc": "2026-11-19T06:51:44.826753+00:00",
+      "first_main_started_utc": "2026-11-18T21:59:54.461432+00:00",
+      "model_id": "gpt://b1gq6d9aarsdqtd0vvam/yandexgpt-5.1",
+      "versions_returned": [
+        "gpt://b1gq6d9aarsdqtd0vvam/yandexgpt-5.1"
+      ],
+      "journal_sha256": "9c077957dacb5cdba6fd583b24f7a62c34367ee6246f8ea3d0b67bfb78145889"
+    },
+    {
+      "model": "Qwen3-4B",
+      "responses": 344,
+      "starts": 344,
+      "uncertain": 0,
+      "authorized_network_retries": 0,
+      "registration_commit": "16950bcd5f757ef67de1d6867ce48386f9cdf3a0",
+      "registration_git_verified": true,
+      "registration_before_main": true,
+      "commit_utc": "2026-11-19T11:45:57+00:00",
+      "cost_usage_verified": true,
+      "first_response_utc": "2026-11-19T11:48:11.279193+00:00",
+      "last_response_utc": "2026-11-19T11:54:35.425107+00:00",
+      "first_main_started_utc": "2026-11-19T11:48:41.034864+00:00",
+      "model_id": "Qwen/Qwen3-4B-GGUF:Q4_K_M",
+      "versions_returned": [
+        "Qwen/Qwen3-4B-GGUF:Q4_K_M"
+      ],
+      "journal_sha256": "fa12d29c61cf56a5086eb272425fa2cf13250c1ff9c56334e1a9da1d1f6453ac"
+    },
+    {
+      "model": "GigaChat-2",
+      "responses": 344,
+      "starts": 344,
+      "uncertain": 0,
+      "authorized_network_retries": 0,
+      "registration_commit": "9b810f0903ab41e5d0fd9defb0b85a61d916eed7",
+      "registration_git_verified": true,
+      "registration_before_main": true,
+      "commit_utc": "2026-11-19T17:54:05+00:00",
+      "cost_usage_verified": true,
+      "first_response_utc": "2026-11-19T17:54:06.764513+00:00",
+      "last_response_utc": "2026-11-19T17:58:46.634577+00:00",
+      "first_main_started_utc": "2026-11-19T17:54:28.690365+00:00",
+      "model_id": "GigaChat-2",
+      "versions_returned": [
+        "GigaChat-2:2.0.28.2"
+      ],
+      "journal_sha256": "35eb6a01b95cfb32865722fed51b642371d29f490880118bb176f28aa727cf58"
+    },
+    {
+      "model": "DeepSeek",
+      "responses": 344,
+      "starts": 363,
+      "uncertain": 19,
+      "authorized_network_retries": 19,
+      "registration_commit": "0cac26cc471d39d7c76ef6272c4e637c3e4edbae",
+      "registration_git_verified": true,
+      "registration_before_main": true,
+      "commit_utc": "2026-11-19T09:17:29+00:00",
+      "cost_usage_verified": true,
+      "first_response_utc": "2026-11-19T09:10:32.650966+00:00",
+      "last_response_utc": "2026-11-19T17:56:36.218398+00:00",
+      "first_main_started_utc": "2026-11-19T09:20:04.418434+00:00",
+      "model_id": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+      "versions_returned": [
+        "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash"
+      ],
+      "journal_sha256": "dae7bee7a242d95cd9c1a650e7aaa04e790be2c0a58ec7324164fac778061c2c"
+    }
+  ],
+  "frozen_files_verified": 149,
+  "all_prompt_texts_identical": true,
+  "splits_disjoint": true,
+  "source_commit": "1d1ce750aa7e8dcc33d7edb135852affef6369d6",
+  "limits": "Logs/hashes are internally consistent evidence, not signed provider attestations. Compare Billing externally if needed."
+}

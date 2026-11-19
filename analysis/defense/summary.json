@@ -1,0 +1,14 @@
+{
+  "models": 4,
+  "responses": 1376,
+  "pilot": 20,
+  "evaluated_requests": 1356,
+  "ABF_tasks_per_model": 24,
+  "classification_rows_per_shots": 100,
+  "manual_reviews_pending": true,
+  "overall_39_accuracy": null,
+  "analysis_api_calls": 0,
+  "generated_code_executions": 0,
+  "seed": 42,
+  "bootstrap_draws": 1000
+}

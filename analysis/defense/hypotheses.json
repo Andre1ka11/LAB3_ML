@@ -1,0 +1,292 @@
+{
+  "H5_primary_Yandex_vs_Qwen": {
+    "statistic_gap_A_minus_gap_B": -0.125,
+    "ci_low": -0.5,
+    "ci_high": 0.25,
+    "decision": "insufficient_data",
+    "n_A": 8,
+    "n_B": 8,
+    "seed": 42,
+    "bootstrap_iterations": 1000
+  },
+  "H10": {
+    "YandexGPT": {
+      "n_total": 24,
+      "n_valid": 22,
+      "coverage": 0.9166666666666666,
+      "mean_confidence": 0.9931818181818183,
+      "accuracy_on_valid": 0.5909090909090909,
+      "full_denominator_accuracy": 0.5416666666666666,
+      "gap": 0.4022727272727273,
+      "ci_low": 0.18745535714285713,
+      "ci_high": 0.625,
+      "ece": 0.40227272727272734,
+      "decision": "confirm",
+      "bins": [
+        {
+          "bin_low": 0.0,
+          "bin_high": 0.2,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.2,
+          "bin_high": 0.4,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.4,
+          "bin_high": 0.6,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.6,
+          "bin_high": 0.8,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.8,
+          "bin_high": 1.0,
+          "n": 22,
+          "mean_confidence": 0.9931818181818183,
+          "accuracy": 0.5909090909090909
+        }
+      ]
+    },
+    "Qwen3-4B": {
+      "n_total": 24,
+      "n_valid": 22,
+      "coverage": 0.9166666666666666,
+      "mean_confidence": 0.8636363636363636,
+      "accuracy_on_valid": 0.4090909090909091,
+      "full_denominator_accuracy": 0.375,
+      "gap": 0.45454545454545453,
+      "ci_low": 0.21422619047619043,
+      "ci_high": 0.6650795454545454,
+      "ece": 0.45454545454545464,
+      "decision": "confirm",
+      "bins": [
+        {
+          "bin_low": 0.0,
+          "bin_high": 0.2,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.2,
+          "bin_high": 0.4,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.4,
+          "bin_high": 0.6,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.6,
+          "bin_high": 0.8,
+          "n": 6,
+          "mean_confidence": 0.7333333333333334,
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "bin_low": 0.8,
+          "bin_high": 1.0,
+          "n": 16,
+          "mean_confidence": 0.9125000000000001,
+          "accuracy": 0.3125
+        }
+      ]
+    },
+    "GigaChat-2": {
+      "n_total": 24,
+      "n_valid": 22,
+      "coverage": 0.9166666666666666,
+      "mean_confidence": 0.9272727272727272,
+      "accuracy_on_valid": 0.5,
+      "full_denominator_accuracy": 0.4583333333333333,
+      "gap": 0.4272727272727273,
+      "ci_low": 0.21248511904761908,
+      "ci_high": 0.6432022727272727,
+      "ece": 0.42727272727272725,
+      "decision": "confirm",
+      "bins": [
+        {
+          "bin_low": 0.0,
+          "bin_high": 0.2,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.2,
+          "bin_high": 0.4,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.4,
+          "bin_high": 0.6,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.6,
+          "bin_high": 0.8,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.8,
+          "bin_high": 1.0,
+          "n": 22,
+          "mean_confidence": 0.9272727272727272,
+          "accuracy": 0.5
+        }
+      ]
+    },
+    "DeepSeek": {
+      "n_total": 24,
+      "n_valid": 24,
+      "coverage": 1.0,
+      "mean_confidence": 0.9979166666666668,
+      "accuracy_on_valid": 1.0,
+      "full_denominator_accuracy": 1.0,
+      "gap": -0.002083333333333335,
+      "ci_low": -0.004090909090909095,
+      "ci_high": -0.0007142857142857149,
+      "ece": 0.002083333333333215,
+      "decision": "reject",
+      "bins": [
+        {
+          "bin_low": 0.0,
+          "bin_high": 0.2,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.2,
+          "bin_high": 0.4,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.4,
+          "bin_high": 0.6,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.6,
+          "bin_high": 0.8,
+          "n": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_low": 0.8,
+          "bin_high": 1.0,
+          "n": 24,
+          "mean_confidence": 0.9979166666666668,
+          "accuracy": 1.0
+        }
+      ]
+    }
+  },
+  "H12": {
+    "YandexGPT": {
+      "decision": "insufficient_data",
+      "comparisons": [
+        {
+          "shots": 5,
+          "delta_f1_llm_minus_lr": -0.03351449275362317,
+          "one_sided_95_lower": -0.07400379506641375,
+          "one_sided_95_upper": 0.00035392535392503316,
+          "decision": "insufficient_data"
+        },
+        {
+          "shots": 20,
+          "delta_f1_llm_minus_lr": -0.01035625517812755,
+          "one_sided_95_lower": -0.07047606908418841,
+          "one_sided_95_upper": 0.057967356396802235,
+          "decision": "insufficient_data"
+        }
+      ]
+    },
+    "Qwen3-4B": {
+      "decision": "insufficient_data",
+      "comparisons": [
+        {
+          "shots": 5,
+          "delta_f1_llm_minus_lr": 0.04622688655672158,
+          "one_sided_95_lower": -0.01032617171857687,
+          "one_sided_95_upper": 0.10910561929979397,
+          "decision": "confirm"
+        },
+        {
+          "shots": 20,
+          "delta_f1_llm_minus_lr": -0.007655116841257081,
+          "one_sided_95_lower": -0.0683356315046456,
+          "one_sided_95_upper": 0.058142321346770436,
+          "decision": "insufficient_data"
+        }
+      ]
+    },
+    "GigaChat-2": {
+      "decision": "reject",
+      "comparisons": [
+        {
+          "shots": 5,
+          "delta_f1_llm_minus_lr": -0.19277757815307228,
+          "one_sided_95_lower": -0.25363048334358507,
+          "one_sided_95_upper": -0.13967070043426183,
+          "decision": "reject"
+        },
+        {
+          "shots": 20,
+          "delta_f1_llm_minus_lr": -0.09248759744861801,
+          "one_sided_95_lower": -0.16803774094757704,
+          "one_sided_95_upper": -0.015306584980651988,
+          "decision": "confirm"
+        }
+      ]
+    },
+    "DeepSeek": {
+      "decision": "insufficient_data",
+      "comparisons": [
+        {
+          "shots": 5,
+          "delta_f1_llm_minus_lr": -0.06905370843989767,
+          "one_sided_95_lower": -0.18104787459398397,
+          "one_sided_95_upper": 0.032560667340748244,
+          "decision": "insufficient_data"
+        },
+        {
+          "shots": 20,
+          "delta_f1_llm_minus_lr": -0.2572192513368984,
+          "one_sided_95_lower": -0.37354115479115485,
+          "one_sided_95_upper": -0.1569611291486291,
+          "decision": "confirm"
+        }
+      ]
+    }
+  }
+}

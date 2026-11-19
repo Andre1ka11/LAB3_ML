@@ -1,0 +1,56 @@
+[
+  {
+    "first": "YandexGPT",
+    "second": "Qwen3-4B",
+    "first_only_correct": 4,
+    "second_only_correct": 0,
+    "p_exact": 0.125,
+    "p_holm": 0.375,
+    "significant_05": false
+  },
+  {
+    "first": "YandexGPT",
+    "second": "GigaChat-2",
+    "first_only_correct": 2,
+    "second_only_correct": 0,
+    "p_exact": 0.5,
+    "p_holm": 1.0,
+    "significant_05": false
+  },
+  {
+    "first": "YandexGPT",
+    "second": "DeepSeek",
+    "first_only_correct": 0,
+    "second_only_correct": 11,
+    "p_exact": 0.0009765625,
+    "p_holm": 0.00390625,
+    "significant_05": true
+  },
+  {
+    "first": "Qwen3-4B",
+    "second": "GigaChat-2",
+    "first_only_correct": 0,
+    "second_only_correct": 2,
+    "p_exact": 0.5,
+    "p_holm": 1.0,
+    "significant_05": false
+  },
+  {
+    "first": "Qwen3-4B",
+    "second": "DeepSeek",
+    "first_only_correct": 0,
+    "second_only_correct": 15,
+    "p_exact": 6.103515625e-05,
+    "p_holm": 0.0003662109375,
+    "significant_05": true
+  },
+  {
+    "first": "GigaChat-2",
+    "second": "DeepSeek",
+    "first_only_correct": 0,
+    "second_only_correct": 13,
+    "p_exact": 0.000244140625,
+    "p_holm": 0.001220703125,
+    "significant_05": true
+  }
+]

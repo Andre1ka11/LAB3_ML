@@ -1,0 +1,494 @@
+[
+  {
+    "model": "YandexGPT",
+    "shots": 0,
+    "f1_minority": 0.0,
+    "balanced_accuracy": 0.0,
+    "accuracy": 0.0,
+    "coverage": 0.0,
+    "abstentions": 100,
+    "ci": {
+      "f1_minority": [
+        0.0,
+        0.0
+      ],
+      "balanced_accuracy": [
+        0.0,
+        0.0
+      ],
+      "accuracy": [
+        0.0,
+        0.0
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        0,
+        0,
+        63
+      ],
+      [
+        0,
+        0,
+        37
+      ]
+    ],
+    "explicit_refusals": 100,
+    "incomplete": 0,
+    "selective_accuracy": null,
+    "selective_f1": null,
+    "correct_positive": 0,
+    "correct_negative": 0
+  },
+  {
+    "model": "YandexGPT",
+    "shots": 5,
+    "f1_minority": 0.7708333333333334,
+    "balanced_accuracy": 0.8253968253968254,
+    "accuracy": 0.78,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.6666666666666666,
+        0.8571428571428571
+      ],
+      "balanced_accuracy": [
+        0.765625,
+        0.8846153846153846
+      ],
+      "accuracy": [
+        0.7,
+        0.86
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        41,
+        22,
+        0
+      ],
+      [
+        0,
+        37,
+        0
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 0,
+    "selective_accuracy": 0.78,
+    "selective_f1": 0.7708333333333334,
+    "correct_positive": 37,
+    "correct_negative": 41
+  },
+  {
+    "model": "YandexGPT",
+    "shots": 20,
+    "f1_minority": 0.9014084507042254,
+    "balanced_accuracy": 0.9165594165594166,
+    "accuracy": 0.93,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.8213846604215457,
+        0.9620487576183778
+      ],
+      "balanced_accuracy": [
+        0.8523726763432645,
+        0.9701426024955437
+      ],
+      "accuracy": [
+        0.88,
+        0.97
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        61,
+        2,
+        0
+      ],
+      [
+        5,
+        32,
+        0
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 0,
+    "selective_accuracy": 0.93,
+    "selective_f1": 0.9014084507042254,
+    "correct_positive": 32,
+    "correct_negative": 61
+  },
+  {
+    "model": "Qwen3-4B",
+    "shots": 0,
+    "f1_minority": 0.0,
+    "balanced_accuracy": 0.015873015873015872,
+    "accuracy": 0.02,
+    "coverage": 0.04,
+    "abstentions": 96,
+    "ci": {
+      "f1_minority": [
+        0.0,
+        0.0
+      ],
+      "balanced_accuracy": [
+        0.0,
+        0.04033492429229755
+      ],
+      "accuracy": [
+        0.0,
+        0.05
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        2,
+        0,
+        61
+      ],
+      [
+        2,
+        0,
+        35
+      ]
+    ],
+    "explicit_refusals": 96,
+    "incomplete": 0,
+    "selective_accuracy": 0.5,
+    "selective_f1": 0.0,
+    "correct_positive": 0,
+    "correct_negative": 2
+  },
+  {
+    "model": "Qwen3-4B",
+    "shots": 5,
+    "f1_minority": 0.8505747126436781,
+    "balanced_accuracy": 0.8968253968253967,
+    "accuracy": 0.87,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.7631265664160402,
+        0.925
+      ],
+      "balanced_accuracy": [
+        0.8467741935483871,
+        0.9470242681047766
+      ],
+      "accuracy": [
+        0.8,
+        0.9302499999999998
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        50,
+        13,
+        0
+      ],
+      [
+        0,
+        37,
+        0
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 0,
+    "selective_accuracy": 0.87,
+    "selective_f1": 0.8505747126436781,
+    "correct_positive": 37,
+    "correct_negative": 50
+  },
+  {
+    "model": "Qwen3-4B",
+    "shots": 20,
+    "f1_minority": 0.9041095890410958,
+    "balanced_accuracy": 0.9221364221364221,
+    "accuracy": 0.93,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.8249632352941176,
+        0.9620487576183778
+      ],
+      "balanced_accuracy": [
+        0.8615036465036465,
+        0.9708767851989362
+      ],
+      "accuracy": [
+        0.87975,
+        0.97
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        60,
+        3,
+        0
+      ],
+      [
+        4,
+        33,
+        0
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 0,
+    "selective_accuracy": 0.93,
+    "selective_f1": 0.9041095890410958,
+    "correct_positive": 33,
+    "correct_negative": 60
+  },
+  {
+    "model": "GigaChat-2",
+    "shots": 0,
+    "f1_minority": 0.5401459854014599,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.37,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.43719242125984253,
+        0.6394557823129252
+      ],
+      "balanced_accuracy": [
+        0.5,
+        0.5
+      ],
+      "accuracy": [
+        0.27975000000000005,
+        0.47
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        0,
+        63,
+        0
+      ],
+      [
+        0,
+        37,
+        0
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 0,
+    "selective_accuracy": 0.37,
+    "selective_f1": 0.5401459854014599,
+    "correct_positive": 37,
+    "correct_negative": 0
+  },
+  {
+    "model": "GigaChat-2",
+    "shots": 5,
+    "f1_minority": 0.6115702479338843,
+    "balanced_accuracy": 0.626984126984127,
+    "accuracy": 0.53,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.5,
+        0.7096774193548387
+      ],
+      "balanced_accuracy": [
+        0.5737704918032787,
+        0.685192652329749
+      ],
+      "accuracy": [
+        0.43,
+        0.63
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        16,
+        47,
+        0
+      ],
+      [
+        0,
+        37,
+        0
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 0,
+    "selective_accuracy": 0.53,
+    "selective_f1": 0.6115702479338843,
+    "correct_positive": 37,
+    "correct_negative": 16
+  },
+  {
+    "model": "GigaChat-2",
+    "shots": 20,
+    "f1_minority": 0.8192771084337349,
+    "balanced_accuracy": 0.8642213642213643,
+    "accuracy": 0.85,
+    "coverage": 1.0,
+    "abstentions": 0,
+    "ci": {
+      "f1_minority": [
+        0.720906976744186,
+        0.9
+      ],
+      "balanced_accuracy": [
+        0.7922916666666667,
+        0.9274276312304678
+      ],
+      "accuracy": [
+        0.78,
+        0.92
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        51,
+        12,
+        0
+      ],
+      [
+        3,
+        34,
+        0
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 0,
+    "selective_accuracy": 0.85,
+    "selective_f1": 0.8192771084337349,
+    "correct_positive": 34,
+    "correct_negative": 51
+  },
+  {
+    "model": "DeepSeek",
+    "shots": 0,
+    "f1_minority": 0.8064516129032258,
+    "balanced_accuracy": 0.7346632346632347,
+    "accuracy": 0.75,
+    "coverage": 0.76,
+    "abstentions": 24,
+    "ci": {
+      "f1_minority": [
+        0.67795243302351,
+        0.9014084507042254
+      ],
+      "balanced_accuracy": [
+        0.6460877431026685,
+        0.8218470083718752
+      ],
+      "accuracy": [
+        0.67,
+        0.83
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        50,
+        0,
+        13
+      ],
+      [
+        1,
+        25,
+        11
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 24,
+    "selective_accuracy": 0.9868421052631579,
+    "selective_f1": 0.9803921568627451,
+    "correct_positive": 25,
+    "correct_negative": 50
+  },
+  {
+    "model": "DeepSeek",
+    "shots": 5,
+    "f1_minority": 0.7352941176470589,
+    "balanced_accuracy": 0.49656799656799655,
+    "accuracy": 0.45,
+    "coverage": 0.51,
+    "abstentions": 49,
+    "ci": {
+      "f1_minority": [
+        0.6037586103623839,
+        0.8405879446640315
+      ],
+      "balanced_accuracy": [
+        0.4016158169409875,
+        0.5926640926640927
+      ],
+      "accuracy": [
+        0.36,
+        0.5402499999999998
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        20,
+        6,
+        37
+      ],
+      [
+        0,
+        25,
+        12
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 49,
+    "selective_accuracy": 0.8823529411764706,
+    "selective_f1": 0.8928571428571429,
+    "correct_positive": 25,
+    "correct_negative": 20
+  },
+  {
+    "model": "DeepSeek",
+    "shots": 20,
+    "f1_minority": 0.6545454545454545,
+    "balanced_accuracy": 0.3781638781638782,
+    "accuracy": 0.35,
+    "coverage": 0.35,
+    "abstentions": 65,
+    "ci": {
+      "f1_minority": [
+        0.49122807017543857,
+        0.786910084451068
+      ],
+      "balanced_accuracy": [
+        0.2833116883116883,
+        0.474533892180951
+      ],
+      "accuracy": [
+        0.26,
+        0.44
+      ]
+    },
+    "confusion_0_1_abstain": [
+      [
+        17,
+        0,
+        46
+      ],
+      [
+        0,
+        18,
+        19
+      ]
+    ],
+    "explicit_refusals": 0,
+    "incomplete": 65,
+    "selective_accuracy": 1.0,
+    "selective_f1": 1.0,
+    "correct_positive": 18,
+    "correct_negative": 17
+  }
+]
