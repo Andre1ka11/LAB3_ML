@@ -1,0 +1,132 @@
+[
+  {
+    "task_id": "E01",
+    "row_id": "bc_007",
+    "shots": 0,
+    "prompt": "Учебная бинарная классификация. Метки: 0 - доброкачественный, 1 - злокачественный. По шести измерениям предскажите метку нового объекта.\nНовый объект: средний радиус: 13.71; средняя текстура: 20.83; средняя площадь: 577.9; средняя гладкость: 0.1189; средняя вогнутость: 0.09366; средняя симметрия: 0.2196",
+    "raw_response": "",
+    "true_label": 1,
+    "provider_status": "incomplete",
+    "incomplete_details": {
+      "reason": "max_output_tokens"
+    },
+    "usage": {
+      "input_tokens": 391,
+      "input_tokens_details": {
+        "cached_tokens": 256,
+        "tool_tokens": 0
+      },
+      "output_tokens": 4096,
+      "output_tokens_details": {
+        "reasoning_tokens": 4096
+      },
+      "total_tokens": 4487
+    },
+    "selection": "First saved incomplete classification responses after the automatic A/B/F errors; not an invented reasoning trace.",
+    "student_analysis": ""
+  },
+  {
+    "task_id": "E01",
+    "row_id": "bc_039",
+    "shots": 0,
+    "prompt": "Учебная бинарная классификация. Метки: 0 - доброкачественный, 1 - злокачественный. По шести измерениям предскажите метку нового объекта.\nНовый объект: средний радиус: 13.48; средняя текстура: 20.82; средняя площадь: 559.2; средняя гладкость: 0.1016; средняя вогнутость: 0.1063; средняя симметрия: 0.172",
+    "raw_response": "",
+    "true_label": 1,
+    "provider_status": "incomplete",
+    "incomplete_details": {
+      "reason": "max_output_tokens"
+    },
+    "usage": {
+      "input_tokens": 390,
+      "input_tokens_details": {
+        "cached_tokens": 256,
+        "tool_tokens": 0
+      },
+      "output_tokens": 4096,
+      "output_tokens_details": {
+        "reasoning_tokens": 4096
+      },
+      "total_tokens": 4486
+    },
+    "selection": "First saved incomplete classification responses after the automatic A/B/F errors; not an invented reasoning trace.",
+    "student_analysis": ""
+  },
+  {
+    "task_id": "E01",
+    "row_id": "bc_064",
+    "shots": 0,
+    "prompt": "Учебная бинарная классификация. Метки: 0 - доброкачественный, 1 - злокачественный. По шести измерениям предскажите метку нового объекта.\nНовый объект: средний радиус: 12.68; средняя текстура: 23.84; средняя площадь: 499.0; средняя гладкость: 0.1122; средняя вогнутость: 0.1128; средняя симметрия: 0.1905",
+    "raw_response": "",
+    "true_label": 1,
+    "provider_status": "incomplete",
+    "incomplete_details": {
+      "reason": "max_output_tokens"
+    },
+    "usage": {
+      "input_tokens": 391,
+      "input_tokens_details": {
+        "cached_tokens": 256,
+        "tool_tokens": 0
+      },
+      "output_tokens": 4096,
+      "output_tokens_details": {
+        "reasoning_tokens": 4096
+      },
+      "total_tokens": 4487
+    },
+    "selection": "First saved incomplete classification responses after the automatic A/B/F errors; not an invented reasoning trace.",
+    "student_analysis": ""
+  },
+  {
+    "task_id": "E01",
+    "row_id": "bc_075",
+    "shots": 0,
+    "prompt": "Учебная бинарная классификация. Метки: 0 - доброкачественный, 1 - злокачественный. По шести измерениям предскажите метку нового объекта.\nНовый объект: средний радиус: 16.07; средняя текстура: 19.65; средняя площадь: 817.7; средняя гладкость: 0.09168; средняя вогнутость: 0.09769; средняя симметрия: 0.1798",
+    "raw_response": "",
+    "true_label": 1,
+    "provider_status": "incomplete",
+    "incomplete_details": {
+      "reason": "max_output_tokens"
+    },
+    "usage": {
+      "input_tokens": 391,
+      "input_tokens_details": {
+        "cached_tokens": 256,
+        "tool_tokens": 0
+      },
+      "output_tokens": 4096,
+      "output_tokens_details": {
+        "reasoning_tokens": 4096
+      },
+      "total_tokens": 4487
+    },
+    "selection": "First saved incomplete classification responses after the automatic A/B/F errors; not an invented reasoning trace.",
+    "student_analysis": ""
+  },
+  {
+    "task_id": "E01",
+    "row_id": "bc_086",
+    "shots": 0,
+    "prompt": "Учебная бинарная классификация. Метки: 0 - доброкачественный, 1 - злокачественный. По шести измерениям предскажите метку нового объекта.\nНовый объект: средний радиус: 14.48; средняя текстура: 21.46; средняя площадь: 648.2; средняя гладкость: 0.09444; средняя вогнутость: 0.1204; средняя симметрия: 0.2075",
+    "raw_response": "",
+    "true_label": 1,
+    "provider_status": "incomplete",
+    "incomplete_details": {
+      "reason": "max_output_tokens"
+    },
+    "usage": {
+      "input_tokens": 391,
+      "input_tokens_details": {
+        "cached_tokens": 256,
+        "tool_tokens": 0
+      },
+      "output_tokens": 4096,
+      "output_tokens_details": {
+        "reasoning_tokens": 4096
+      },
+      "total_tokens": 4487
+    },
+    "selection": "First saved incomplete classification responses after the automatic A/B/F errors; not an invented reasoning trace.",
+    "student_analysis": ""
+  }
+]

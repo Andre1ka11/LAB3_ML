@@ -16,6 +16,6 @@
   "tariff_checked": "2026-11-19",
   "tariff_source": "https://aistudio.yandex.ru/ru/docs/ai-studio/pricing",
   "cost_basis": "Published RUB rates and reported usage; not a Billing statement. Missing cache details are charged at the full input rate.",
-  "budget_rub": 300,
+  "budget_rub": 600,
   "pilot_budget_rub": 10
 }

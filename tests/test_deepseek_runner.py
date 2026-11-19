@@ -263,5 +263,45 @@ class RunnerTests(unittest.TestCase):
         self.assertNotIn("test-secret", (self.directory / "events.jsonl").read_text())
 
 
+    def test_transport_has_separate_connect_and_response_timeouts(self):
+        connection = Mock()
+        server = connection.getresponse.return_value
+        server.status = 200
+        server.read.return_value = response().encode()
+        with patch.object(r.http.client, "HTTPSConnection", return_value=connection) as factory:
+            raw = r.send(self.pilot[0]["payload"], "test-secret")
+        self.assertEqual(json.loads(raw)["status"], "completed")
+        self.assertEqual(factory.call_args.kwargs["timeout"], 15)
+        connection.sock.settimeout.assert_called_once_with(360)
+        self.assertEqual(json.loads(connection.request.call_args.kwargs["body"]), self.pilot[0]["payload"])
+        connection.close.assert_called_once()
+
+    def test_network_error_records_phase_detail_and_redacts_key(self):
+        connection = Mock()
+        connection.connect.side_effect = TimeoutError("connect failed test-secret")
+        with patch.object(r.http.client, "HTTPSConnection", return_value=connection):
+            with self.assertRaises(r.StopRun):
+                self.execute(r.send)
+        event = r.load_lines(self.directory / "events.jsonl")[-1]
+        self.assertEqual(event["error"], "TimeoutError")
+        self.assertEqual(event["transport_phase"], "connect")
+        self.assertIn("<redacted>", event["error_detail"])
+        self.assertNotIn("test-secret", event["error_detail"])
+        connection.close.assert_called_once()
+
+    def test_http_failure_keeps_provider_diagnostics(self):
+        connection = Mock()
+        server = connection.getresponse.return_value
+        server.status = 403
+        server.reason = "Forbidden"
+        server.read.return_value = b'{"message":"denied"}'
+        with patch.object(r.http.client, "HTTPSConnection", return_value=connection):
+            with self.assertRaises(r.StopRun):
+                self.execute(r.send)
+        event = r.load_lines(self.directory / "events.jsonl")[-1]
+        self.assertEqual(event["event"], "rejected")
+        self.assertIn("denied", event["provider_error"])
+
+
 if __name__ == "__main__":
     unittest.main()

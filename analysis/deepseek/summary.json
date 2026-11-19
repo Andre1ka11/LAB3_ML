@@ -1,0 +1,89 @@
+{
+  "model": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+  "scope": "39 main + 100 zero + 100 five + 100 twenty; pilot excluded",
+  "captured_utc": "2026-11-19T18:36:46.108334+00:00",
+  "snapshot_responses": 344,
+  "evaluated_requests": 339,
+  "inventory_at_capture": {
+    "pilot": 5,
+    "main": 39,
+    "zero": 100,
+    "five": 100,
+    "twenty": 100
+  },
+  "auto_ABF_n": 24,
+  "auto_ABF": {
+    "accuracy": 1.0,
+    "ci_low": 1.0,
+    "ci_high": 1.0
+  },
+  "overall_39_accuracy": null,
+  "code_pass_at_1": 1.0,
+  "code_metrics_matched": 8,
+  "format_errors": {
+    "none": 201,
+    "response_not_completed": 138
+  },
+  "scope_estimated_cost_rub": 436.55620000000005,
+  "known_response_cost_rub": 437.22830000000005,
+  "budget_ledger_rub": 524.9791000000012,
+  "uncertain_attempt_reserve_rub": 87.7508000000011,
+  "cost_note": "Published tariff applied to returned usage; not Billing. Ledger additionally retains conservative reserves for network attempts without responses.",
+  "manual_review": {
+    "B": {
+      "n_required": 8,
+      "n_paired_scores": 0,
+      "kappa": null,
+      "status": "pending"
+    },
+    "C": {
+      "n_required": 7,
+      "n_paired_scores": 0,
+      "kappa": null,
+      "status": "pending"
+    },
+    "D": {
+      "n_required": 8,
+      "n_paired_scores": 0,
+      "flag_agreement": {
+        "leakage": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "test_tuning": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "train_evaluation": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "wrong_metric": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "missing_stratification": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "missing_seed": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        }
+      },
+      "status": "pending"
+    }
+  },
+  "analysis_api_calls": 0,
+  "hypotheses_status": {
+    "H5": "not_evaluated_here",
+    "H10": "reject",
+    "H12": "insufficient_data"
+  }
+}

@@ -1,5 +1,7 @@
 """Resumable DeepSeek experiment through Yandex AI Studio. Dry-run is the default; stdlib only."""
 import argparse
+import http.client
+import io
 import contextlib
 import csv
 import hashlib
@@ -11,7 +13,7 @@ import subprocess
 import sys
 import time
 from datetime import datetime, timezone
-from urllib.request import Request, urlopen
+from urllib.parse import urlsplit
 from urllib.error import HTTPError
 
 ROOT = Path(__file__).resolve().parent
@@ -292,11 +294,37 @@ def authorize_retry(directory, request_id, note):
                          "reserved_cost_retained": True})
 
 
+class TransportFailure(Exception):
+    def __init__(self, phase, error):
+        self.phase = phase
+        self.error_type = type(error).__name__
+        super().__init__(str(error))
+
+
 def send(payload, key):
-    request = Request(ENDPOINT, data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-                      headers={"Authorization": f"Api-Key {key}", "Content-Type": "application/json"}, method="POST")
-    with urlopen(request, timeout=180) as response:
-        return response.read().decode("utf-8")
+    endpoint = urlsplit(ENDPOINT)
+    connection = http.client.HTTPSConnection(endpoint.hostname, endpoint.port or 443, timeout=15)
+    phase = "connect"
+    try:
+        connection.connect()
+        connection.sock.settimeout(360)
+        phase = "send_request"
+        connection.request("POST", endpoint.path,
+                           body=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+                           headers={"Authorization": f"Api-Key {key}", "Content-Type": "application/json"})
+        phase = "wait_response"
+        response = connection.getresponse()
+        phase = "read_response"
+        body = response.read()
+        if response.status >= 400:
+            raise HTTPError(ENDPOINT, response.status, response.reason, response.headers, io.BytesIO(body))
+        return body.decode("utf-8")
+    except HTTPError:
+        raise
+    except Exception as error:
+        raise TransportFailure(phase, error) from error
+    finally:
+        connection.close()
 
 
 def registration(root, config):
@@ -388,7 +416,10 @@ def run(root, directory, config, rows, stage, key, budget, pilot_budget, transpo
                     raise StopRun(f"HTTP {error.code}: прогон остановлен. Проверьте доступ/лимит; не запускайте бесконечные повторы.")
                 except Exception as error:
                     append(journal, {**base, "event": "uncertain", "timestamp_utc": now(),
-                                     "error": type(error).__name__, "cost_rub": None})
+                                     "error": getattr(error, "error_type", type(error).__name__), "cost_rub": None,
+                                     "error_detail": str(error).replace(key, "<redacted>")[:2000],
+                                     "transport_phase": getattr(error, "phase", "unknown"),
+                                     "latency_s": time.perf_counter() - started})
                     raise StopRun("Ответ не получен надёжно; возможна тарификация. Автоповтора не будет.")
                 # Persist response before attempting JSON parsing. If parsing crashes, replay can rebuild it.
                 raw_path = directory / f"{rid}.response.txt"

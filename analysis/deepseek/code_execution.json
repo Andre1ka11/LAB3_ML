@@ -1,0 +1,128 @@
+[
+  {
+    "task_id": "D01",
+    "source_sha256": "33c54ce905498c40e68ffee7295a619a56fe150bc0e3e2d9a2242049cc91bc0f",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "best_C": 10,
+      "balanced_accuracy": 0.9794549266247379
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true,
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D02",
+    "source_sha256": "4038a669eb299582380abf812078572712a8d26dafb30ea3973ce445f9ad846f",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "f1": 0.52,
+      "balanced_accuracy": 0.7571996027805363
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true,
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D03",
+    "source_sha256": "f36a6a7273bd9c93d82b99283aba1bd2f1e9d4b98ceee22cc322e1e7e5693461",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "best_k": 7,
+      "test_accuracy": 0.9473684210526315
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true,
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D04",
+    "source_sha256": "ca29f9af6131c3d512bfef28b24bd572ed1f45b52b4e05855cbf32759fa878e2",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "balanced_accuracy": 0.7425373134328358,
+      "f1": 0.6153846153846154
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true,
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D05",
+    "source_sha256": "18da0bdc1602e5394cd056d98eac1e2e6248effe45a90867fe494945477c3872",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "test_accuracy": 0.9111111111111111
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true,
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D06",
+    "source_sha256": "e3759f43cd0c56b892c8e1844fd327717018d21d4949c064c0a87deb0a8986ee",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "rmse": 53.85344583676594,
+      "r2": 0.45260276297191926
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true,
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D07",
+    "source_sha256": "955405cb26eee5937c48bf2d3abe989f2a1ef1578ca83dca5701ba6fb0a04e84",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "silhouette": 0.8783134858331793
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true,
+    "methodology_review": "pending_two_independent_reviewers"
+  },
+  {
+    "task_id": "D08",
+    "source_sha256": "018c1111fbb357c844c1072af8a1a677b7f79134b3a309e05c2bb8c92f86296c",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "balanced_accuracy": 0.9228511530398322,
+      "f1_malignant": 0.9108910891089109
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true,
+    "methodology_review": "pending_two_independent_reviewers"
+  }
+]
