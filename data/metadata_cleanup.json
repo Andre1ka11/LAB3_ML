@@ -1,0 +1,21 @@
+{
+  "change": "Редакционная правка только source.citation. Условия, эталоны, параметры и тексты запросов не менялись.",
+  "files": {
+    "data/tasks.jsonl": {
+      "before_sha256": "f67f624d200848f09c2bcf8bc30086cbb1c2b9bb24262f4ae4c2b303ad255c84",
+      "after_sha256": "cad03e72797066c139ca79de4c3d8c297111d05e28acaec5dcc979c9c2fbd74d",
+      "semantic_sha256": "41393cd595a8488ed9da0411b0f1dac7775c3ccf9feb4fcfac46fbd9bf7043b6"
+    },
+    "data/pilot_tasks.jsonl": {
+      "before_sha256": "8348a88841f2158f28db6af0973f83c3df7e88fbca07e28a853ff19cd24479c2",
+      "after_sha256": "49a314c952f53f48cf83098cd581c8da87fd3cdda71bb6a7dd113eb6239b27da",
+      "semantic_sha256": "f4ef81f4fc1477ec9f3e2098b238042048fcbc8d8305596f5daee2aae1a72de1"
+    },
+    "data/tasks.csv": {
+      "before_sha256": "974fb0c344d2496ad8cf27a3f041095992f3570871eec7bfafbd4a783b5cc99a",
+      "after_sha256": "651e186c12d2038734428ab9bb90c8e0581dc12e4c60b29e32e73222a396c101",
+      "semantic_sha256": "5b788d2151dce9364b843cc41ed74a1bec0d108b0e5558077fce6c88e5ed2edd"
+    }
+  },
+  "registered_manifest_sha256": "5bbd63fecaadde46c4d64ebdc3ca742f27ff59b523c9c534ae40e6d8c8230e25"
+}

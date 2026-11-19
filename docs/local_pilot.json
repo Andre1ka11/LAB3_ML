@@ -1,0 +1,8 @@
+{
+  "requests": 5,
+  "parsed_expected_answer_type": 4,
+  "pilot_excluded": true,
+  "P04": "Valid JSON but number instead of requested code; preserved as invalid_answer_type; no retry or prompt change.",
+  "main_gate": "All five calls completed; correct task answer type is a model quality issue, not connectivity. Gate amendment after pilot, before main.",
+  "generation_parameter_changes": null
+}

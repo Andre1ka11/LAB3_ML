@@ -1,0 +1,4 @@
+  File "<project>/D01.py", line 13
+    x_train, x_test, y_train, y y_test = train_test_split(x, y, test_size=0.25, random_state=42, stratify=y)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?

@@ -1,0 +1,15 @@
+{
+  "model": "gpt://b1gq6d9aarsdqtd0vvam/yandexgpt-5.1",
+  "endpoint": "https://ai.api.cloud.yandex.net/v1/responses",
+  "temperature": 0,
+  "max_output_tokens": 4096,
+  "thinking_mode": "default; no explicit thinking parameter requested",
+  "bank_version": "1.0.0-draft",
+  "bank_sha256": "5bbd63fecaadde46c4d64ebdc3ca742f27ff59b523c9c534ae40e6d8c8230e25",
+  "prompt_sha256": "8750df9af135e760c827110f7891c16ade38534b8e70d061e0d7b3118dff9eb9",
+  "requests_sha256": "c6aa3c22c3a96010b533c0d814a3a10769bc419d70b2b6ae62786a8804a6e595",
+  "rate_rub_per_token": 0.0008,
+  "tariff_checked": "2026-11-19",
+  "budget_rub": 1000,
+  "pilot_budget_rub": 10
+}

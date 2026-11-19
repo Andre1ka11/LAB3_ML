@@ -1,0 +1,20 @@
+{
+  "model": "Qwen/Qwen3-4B-GGUF:Q4_K_M",
+  "endpoint": "in-process llama-cpp-python CUDA",
+  "temperature": 0,
+  "max_output_tokens": 4096,
+  "thinking_mode": "disabled by empty think block in Qwen3 chat template",
+  "bank_version": "1.0.0-draft",
+  "bank_sha256": "5bbd63fecaadde46c4d64ebdc3ca742f27ff59b523c9c534ae40e6d8c8230e25",
+  "prompt_sha256": "8750df9af135e760c827110f7891c16ade38534b8e70d061e0d7b3118dff9eb9",
+  "requests_sha256": "eca86410be1a5b2e6d5b4cbdf62bbdfbe70337274d0e3a45fe70fb2ba2971b39",
+  "rate_rub_per_token": 0,
+  "tariff_checked": null,
+  "seed": 42,
+  "n_ctx": 8192,
+  "n_gpu_layers": -1,
+  "quantization": "Q4_K_M",
+  "revision": "bc640142c66e1fdd12af0bd68f40445458f3869b",
+  "repeat_penalty": 1.0,
+  "top_p": 1.0
+}

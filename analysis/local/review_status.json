@@ -1,0 +1,51 @@
+{
+  "B": {
+    "n_required": 8,
+    "n_paired_scores": 0,
+    "kappa": null,
+    "status": "pending"
+  },
+  "C": {
+    "n_required": 7,
+    "n_paired_scores": 0,
+    "kappa": null,
+    "status": "pending"
+  },
+  "D": {
+    "n_required": 8,
+    "n_paired_scores": 0,
+    "flag_agreement": {
+      "leakage": {
+        "n": 0,
+        "kappa": null,
+        "agreement": null
+      },
+      "test_tuning": {
+        "n": 0,
+        "kappa": null,
+        "agreement": null
+      },
+      "train_evaluation": {
+        "n": 0,
+        "kappa": null,
+        "agreement": null
+      },
+      "wrong_metric": {
+        "n": 0,
+        "kappa": null,
+        "agreement": null
+      },
+      "missing_stratification": {
+        "n": 0,
+        "kappa": null,
+        "agreement": null
+      },
+      "missing_seed": {
+        "n": 0,
+        "kappa": null,
+        "agreement": null
+      }
+    },
+    "status": "pending"
+  }
+}

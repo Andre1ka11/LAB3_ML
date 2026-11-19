@@ -1,0 +1,24 @@
+﻿task_id,type,score_0_2,rationale,leakage,test_tuning,train_evaluation,wrong_metric,missing_stratification,missing_seed,pass_at_1,assessment_status
+B01,B,2,Вердикт верен: PCA не использует метки и максимизирует дисперсию.,,,,,,,,preliminary_single_review
+B02,B,2,Вердикт верен; указана связь некалиброванности с нарушением предположения независимости.,,,,,,,,preliminary_single_review
+B03,B,1,Утечка через статистики test объяснена верно. Не указан обязательный способ исправления: fit только на train и внутри CV.,,,,,,,,preliminary_single_review
+B04,B,2,Различие ROC-AUC и precision при конкретном пороге объяснено; зависимость от базовой частоты указана.,,,,,,,,preliminary_single_review
+B05,B,2,Правильно объяснены штраф за нарушения зазора и более слабая регуляризация при росте C.,,,,,,,,preliminary_single_review
+B06,B,2,"Правильно связаны масштаб признака, расстояние и возможная смена соседей.",,,,,,,,preliminary_single_review
+B07,B,1,Вердикт верен. Фраза об обучении каждого дерева на разных наборах признаков неточна для обычного RandomForest: случайное подмножество выбирается при поиске разбиений в узлах.,,,,,,,,preliminary_single_review
+B08,B,2,"Верно названы целевая функция, зависимость от инициализации и возможность локального минимума.",,,,,,,,preliminary_single_review
+C01,C,1,"Логистическая регрессия, масштабирование и риск p>n разумны. Не описаны настройка регуляризации, стратификация и fit preprocessing внутри CV.",,,,,,,,preliminary_single_review
+C02,C,2,"Предложены KMeans, стандартизация, выбор k методом локтя и инженерная проверка центроидов; это допустимое решение по рубрике.",,,,,,,,preliminary_single_review
+C03,C,1,"Бустинг и линейный baseline подходят. Порядок preprocessing до разбиения неоднозначен и создаёт риск утечки; не указаны fit только train, CV и доступность признаков в момент прогноза.",,,,,,,,preliminary_single_review
+C04,C,1,"Модель и отказ от accuracy обоснованы, стоимость ошибок упомянута. Не задан подбор порога на validation/OOF; не описана явная оценка суммарной стоимости.",,,,,,,,preliminary_single_review
+C05,C,1,"Временное разбиение и прошлые лаги корректны. Не предложен сезонный наивный baseline, не выбрана метрика, не уточнено использование прогноза погоды вместо будущих фактических значений.",,,,,,,,preliminary_single_review
+C06,C,1,"PCA выбран верно, отсутствие гарантии разделения классов объяснено. Пропущены требуемые preprocessing и оценка explained variance.",,,,,,,,preliminary_single_review
+C07,C,1,"NB и логистическая регрессия для sparse текста подходят, уплотнение не нужно, macro-метрики упомянуты. Нет схемы разбиения/CV и fit vectorizer на train; список в поле answer нарушает требуемый тип, что фиксируется отдельно.",,,,,,,,preliminary_single_review
+D01,D,,"Pipeline и CV построены корректно, C выбран только на train. Запуск успешен, метрики совпали. stdout является Python dict, а не JSON; это нарушение формата, не утечка.",0,0,0,0,0,0,True,preliminary_single_review
+D02,D,,"Imputer/scaler обучаются в Pipeline на train, метрики и seed заданы верно. Программа не запустилась: отсутствует import json. Код не исправлялся.",0,0,0,0,0,0,False,preliminary_single_review
+D03,D,,"Scaler внутри Pipeline/CV, k выбран только на train, stratify и seed заданы. Запуск и метрики корректны.",0,0,0,0,0,0,True,preliminary_single_review
+D04,D,,"Случайный лес обучен на train, test отделён со стратификацией, метрики дисбаланса и seed корректны. Запуск успешен.",0,0,0,0,0,0,True,preliminary_single_review
+D05,D,,Scaler и PCA обучены внутри Pipeline только на train. Стратификация и seed заданы. Запуск и accuracy корректны.,0,0,0,0,0,0,True,preliminary_single_review
+D06,D,,"Train/test, Pipeline и R2 корректны; стратификация для регрессии неприменима. Запуск прерван: mean_squared_error(...,squared=False) не поддерживается в зафиксированном sklearn 1.7.2. Код не исправлялся.",0,0,0,0,N/A,0,False,preliminary_single_review
+D07,D,,"Описательная кластеризация: fit на всех 300 объектах допустим по условию; holdout/стратификация неприменимы. Silhouette рассчитан по масштабированным признакам, seed и n_init заданы.",N/A,N/A,N/A,0,N/A,0,True,preliminary_single_review
+D08,D,,"GaussianNB обучен только на train; исходная кодировка классов и pos_label=0 соблюдены. Стратификация, seed и метрики корректны.",0,0,0,0,0,0,True,preliminary_single_review
