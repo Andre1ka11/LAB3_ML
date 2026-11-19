@@ -43,7 +43,8 @@ def run(model_path, stage):
     committed = json.loads(subprocess.check_output(['git','show',commit+':docs/local_registration.json'],cwd=ROOT))
     if registration != committed:
         raise ValueError('Commit registration before any generation')
-    sha = hashlib.file_digest(model_path.open('rb'),'sha256').hexdigest()
+    with model_path.open('rb') as weights:
+        sha = hashlib.file_digest(weights,'sha256').hexdigest()
     if sha != registration['weights_sha256']:
         raise ValueError('Unexpected model weights')
     RUN.mkdir(parents=True,exist_ok=True)
@@ -52,7 +53,10 @@ def run(model_path, stage):
         if cfg.exists() and json.loads(cfg.read_text()) != config:
             raise ValueError('Changed configuration')
         cfg.write_text(json.dumps(config,indent=2),encoding='utf-8')
-        (RUN/'registration_commit.txt').write_text(commit+'\n',encoding='utf-8')
+        anchor=RUN/'registration_commit.txt'
+        if anchor.exists() and anchor.read_text(encoding='utf-8').strip()!=commit:
+            raise ValueError('Registration changed after the run began')
+        if not anchor.exists():anchor.write_text(commit+'\n',encoding='utf-8')
         events = RUN/'events.jsonl'
         done,_,_ = common.replay(common.load_lines(events))
         selected = [r for r in rows if stage=='all' or r['stage']==stage]

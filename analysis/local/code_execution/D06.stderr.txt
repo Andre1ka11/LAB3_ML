@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<project>/D06.py", line 33, in <module>
+    print(json.dumps({
+          ^^^^^^^^^^^^
+  File "<python>/Lib/json/__init__.py", line 234, in dumps
+    return cls(
+           ^^^^
+  File "<python>/Lib/json/encoder.py", line 155, in __init__
+    self.item_separator, self.key_separator = separators
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 2, got 1)

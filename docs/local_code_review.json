@@ -1,0 +1,42 @@
+{
+  "D01": {
+    "source_sha256": "9827482c6a1abab33d4cb8633bdfff1634649d2413016a589df4a2bec441361e",
+    "inspection": "Inspected: only numpy/sklearn operations and print; syntax typo y y_test. Execute unchanged to record failure.",
+    "reviewer": "Codex technical inspection; not independent human grading"
+  },
+  "D02": {
+    "source_sha256": "da8ba0bed21d0fcc863a07c8f9a46cd163ab07ecaec47c270991956904a81665",
+    "inspection": "Inspected: numpy/sklearn train-only pipeline, no file/network operations.",
+    "reviewer": "Codex technical inspection; not independent human grading"
+  },
+  "D03": {
+    "source_sha256": "182d104fc2e24c7f1ff7c2a44a92422c79b6e50850f9b2a9b5a801111ca77920",
+    "inspection": "Inspected: numpy/sklearn CV; final expression without print; no file/network operations.",
+    "reviewer": "Codex technical inspection; not independent human grading"
+  },
+  "D04": {
+    "source_sha256": null,
+    "inspection": "Invalid outer JSON; no executable extraction or repair allowed.",
+    "reviewer": "Codex technical inspection; not independent human grading"
+  },
+  "D05": {
+    "source_sha256": null,
+    "inspection": "Number rather than code; no executable extraction.",
+    "reviewer": "Codex technical inspection; not independent human grading"
+  },
+  "D06": {
+    "source_sha256": "59604d552446a8c97fe767a82d36ac7ff63f32046ebd852732fc4606ac5cd10b",
+    "inspection": "Inspected: numpy/sklearn/json only; corrcoef is not R2; separators string likely invalid. Preserve.",
+    "reviewer": "Codex technical inspection; not independent human grading"
+  },
+  "D07": {
+    "source_sha256": "0aa00b17bea3a68bdac3e47f9900571a51bd896cd1249116d79ea991077c408e",
+    "inspection": "Inspected: standalone dictionary literal only. Does not compute requested clustering.",
+    "reviewer": "Codex technical inspection; not independent human grading"
+  },
+  "D08": {
+    "source_sha256": "781495d3031b976b7879d456897c0fff24db8201150442e72b854eaeb767a650",
+    "inspection": "Inspected: sklearn/numpy/json only, split fit predict metrics print; no file/network operations.",
+    "reviewer": "Codex technical inspection; not independent human grading"
+  }
+}
