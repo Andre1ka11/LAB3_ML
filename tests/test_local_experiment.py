@@ -3,12 +3,14 @@ from pathlib import Path
 import sys
 import unittest
 import json
+from importlib.metadata import PackageNotFoundError
+from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT/'scripts')]
 import local_runner
 import yandex_runner
-from analyze_local import h5_comparison
+from analyze_local import analysis_package_versions, h5_comparison
 
 
 class LocalTests(unittest.TestCase):
@@ -38,6 +40,22 @@ class LocalTests(unittest.TestCase):
     def test_truncated_answer_does_not_become_success(self):
         raw={'status':'incomplete','output':[{'content':[{'type':'output_text','text':json.dumps({'answer':.2,'explanation':'','confidence':99})}]}]}
         self.assertEqual(yandex_runner.parse_response(raw,'number'),(None,'response_not_completed'))
+
+
+    def test_offline_analysis_does_not_require_inference_backend(self):
+        def available(name):
+            if name == 'llama-cpp-python':
+                raise PackageNotFoundError(name)
+            return 'test-version'
+        with patch('analyze_local.version', side_effect=available):
+            packages = analysis_package_versions()
+        self.assertIsNone(packages['llama-cpp-python'])
+        self.assertEqual(packages['numpy'], 'test-version')
+
+    def test_missing_analysis_dependency_is_not_hidden(self):
+        with patch('analyze_local.version', side_effect=PackageNotFoundError('numpy')):
+            with self.assertRaises(PackageNotFoundError):
+                analysis_package_versions()
 
 
 if __name__=='__main__':unittest.main()

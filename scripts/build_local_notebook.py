@@ -50,20 +50,58 @@ API локальной модели не тарифицируется. Элек�
 
 Для H12 delta=F1_Qwen−F1_LR. При 5-shot нижняя односторонняя 95% граница должна быть >−0.05; при 20-shot верхняя <0. Парный bootstrap использует одни и те же тестовые строки. Критерии взяты из регистрации Yandex до ответов Qwen.'''),
     code("show_csv('classification_metrics.csv')\nshow_json('classification_metrics.json')\nfigure('classification_f1.png')\nprint(json.dumps(hypotheses['H12'],ensure_ascii=False,indent=2))\nfigure('h12_delta.png')\nfigure('cost_accuracy.png')"),
-    md('''## Все ответы C/D и результаты запуска D
+    md('''## C: выбор метода — ответы модели
 
-Исходные ответы и код отображаются без исправлений. Для D отдельно показаны факт запуска, формат stdout и совпадение метрик с эталоном. Техническая проверка не заменяет двух слепых оценок методологии. Повторный Run All читает сохранённые stdout/stderr.'''),
+Для каждой задачи показаны условие, исходный ответ, обоснование и уверенность модели. Ответы могут содержать ошибки и отказы: здесь они отображаются без исправлений. Если JSON корректен, но тип answer не соответствует протоколу, ответ всё равно виден с пометкой ошибки формата; его оценка не меняется.'''),
     code('''records=[json.loads(s) for s in (ROOT/'results/models/local/qwen3-4b-q4-v1/responses.jsonl').read_text(encoding='utf-8').splitlines()]
 tasks={r['id']:r for r in [json.loads(s) for s in (ROOT/'data/tasks.jsonl').read_text(encoding='utf-8').splitlines()]}
-def pre(value):return '<pre style="white-space:pre-wrap">'+html.escape(value if isinstance(value,str) else json.dumps(value,ensure_ascii=False,indent=2))+'</pre>'
-for r in records:
-    if r['stage']=='main' and r['task_id'][0] in 'CD':
-        text='\\n'.join(p['text'] for block in r['raw_response']['output'] for p in block['content'])
-        display(HTML('<h3>'+r['task_id']+'</h3>'+pre(tasks[r['task_id']]['text_ru'])+pre(text)))
-        if r['task_id'].startswith('D'):
-            for suffix in ['stdout.txt','stderr.txt']:
-                p=OUT/'code_execution'/(r['task_id']+'.'+suffix)
-                if p.exists():display(HTML('<b>'+suffix+'</b>'+pre(p.read_text(encoding='utf-8'))))
+executions={r['task_id']:r for r in json.loads((OUT/'code_execution.json').read_text(encoding='utf-8'))}
+
+def pre(value):
+    if not isinstance(value,str):
+        value=json.dumps(value,ensure_ascii=False,indent=2)
+    return '<pre style="white-space:pre-wrap">'+html.escape(value)+'</pre>'
+
+def show_answers(prefix):
+    for r in sorted([r for r in records if r['stage']=='main' and r['task_id'].startswith(prefix)],key=lambda r:r['task_id']):
+        text='\\n'.join(part.get('text','') for block in r['raw_response'].get('output',[]) for part in (block.get('content') or []) if part.get('type')=='output_text')
+        obj=r.get('parsed')
+        if obj is None:
+            # Decode valid JSON for display only. Scoring and original records stay unchanged.
+            try:
+                candidate=json.loads(text)
+                obj=candidate if isinstance(candidate,dict) else None
+            except ValueError:
+                obj=None
+        content='<h3>'+r['task_id']+'</h3><b>Условие</b>'+pre(tasks[r['task_id']]['text_ru'])
+        if r.get('error'):
+            content+='<p><b>Ошибка формата:</b> '+html.escape(r['error'])+'</p>'
+        if obj is not None and 'answer' in obj:
+            label='Код модели' if prefix=='D' and isinstance(obj['answer'],str) else 'Ответ модели'
+            content+='<b>'+label+'</b>'+pre(obj['answer'])
+            if prefix=='D' and not isinstance(obj['answer'],str):
+                content+='<p>Модель не предоставила код: поле answer имеет другой тип.</p>'
+            if 'explanation' in obj:
+                content+='<b>Обоснование модели</b>'+pre(obj['explanation'])
+            if 'confidence' in obj:
+                content+='<p><b>Уверенность модели:</b> '+html.escape(str(obj['confidence']))+'%</p>'
+        else:
+            content+='<b>Исходный ответ модели (JSON не удалось разобрать)</b>'+pre(text)
+        display(HTML(content))
+        if prefix=='D':
+            result=executions[r['task_id']]
+            display(HTML('<b>Сохранённый результат проверки</b>'+pre({k:result[k] for k in ['status','exit_code','pass_at_1','output_is_json','metrics_match_reference']})))
+            for suffix,label in [('stdout.txt','Вывод программы (stdout)'),('stderr.txt','Ошибки программы (stderr)')]:
+                path=OUT/'code_execution'/(r['task_id']+'.'+suffix)
+                if path.exists():
+                    value=path.read_text(encoding='utf-8')
+                    display(HTML('<b>'+label+'</b>'+(pre(value) if value else '<p>Пустой вывод.</p>')))
+
+show_answers('C')'''),
+    md('''## D: код модели и результаты его запуска
+
+Ниже код отображается обычным многострочным текстом. Показаны сохранённые stdout/stderr, факт запуска и совпадение метрик с эталоном. Run All не выполняет код модели повторно. Если модель прислала число вместо кода или некорректный JSON, показан именно этот исходный ответ. Предварительная техническая проверка не заменяет двух независимых оценок методологии.'''),
+    code('''show_answers('D')
 show_csv('code_metrics.csv')
 show_json('code_execution.json')'''),
     md('''## Независимая проверка и разбор ошибок

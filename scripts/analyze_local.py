@@ -1,7 +1,7 @@
 """Offline local-model analysis using the same scoring functions as Yandex."""
 import csv
 import hashlib
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 import json
 import os
 from pathlib import Path
@@ -20,6 +20,17 @@ from analyze_yandex import (read_json, read_lines, write_json, write_csv, auto_c
     make_review_pack, review_status, execute_code, raw_text)
 
 OUT = ROOT/'analysis/local'
+
+
+def analysis_package_versions():
+    packages = {name: version(name) for name in
+                ['numpy', 'scipy', 'scikit-learn', 'matplotlib', 'nbformat', 'nbclient']}
+    # The inference backend is optional when recalculating saved responses.
+    try:
+        packages['llama-cpp-python'] = version('llama-cpp-python')
+    except PackageNotFoundError:
+        packages['llama-cpp-python'] = None
+    return packages
 
 
 def h5_comparison(large, small):
@@ -147,7 +158,8 @@ def analyze():
         'registration_commit':(local_runner.RUN/'registration_commit.txt').read_text().strip(),
         'seed':42,'bootstrap_iterations':1000,'model_calls':0})
     write_json(OUT/'environment.json',{'python':platform.python_version(),'platform':platform.platform(),
-        'packages':{p:version(p) for p in ['numpy','scipy','scikit-learn','matplotlib','llama-cpp-python','nbformat','nbclient']}})
+        'packages':analysis_package_versions(),
+        'purpose':'Environment for offline analysis; original generation packages are recorded in package-versions.txt.'})
     plot(types,large,classification,hypotheses,costs)
     return summary
 
