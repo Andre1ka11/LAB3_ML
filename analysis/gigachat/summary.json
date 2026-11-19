@@ -1,0 +1,84 @@
+{
+  "responses": 344,
+  "pilot": 5,
+  "main": 39,
+  "classification": 300,
+  "model_versions_returned": [
+    "GigaChat-2:2.0.28.2"
+  ],
+  "auto_ABF": {
+    "accuracy": 0.4583333333333333,
+    "ci_low": 0.25,
+    "ci_high": 0.6666666666666666
+  },
+  "auto_ABF_n": 24,
+  "code_pass_at_1": 0.0,
+  "code_metrics_match": 0,
+  "strict_format_errors": 12,
+  "hypotheses_status": {
+    "H5": "insufficient_data",
+    "H10": "confirm",
+    "H12": "reject"
+  },
+  "overall_39_accuracy": null,
+  "manual_review": {
+    "B": {
+      "n_required": 8,
+      "n_paired_scores": 0,
+      "kappa": null,
+      "status": "pending"
+    },
+    "C": {
+      "n_required": 7,
+      "n_paired_scores": 0,
+      "kappa": null,
+      "status": "pending"
+    },
+    "D": {
+      "n_required": 8,
+      "n_paired_scores": 0,
+      "flag_agreement": {
+        "leakage": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "test_tuning": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "train_evaluation": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "wrong_metric": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "missing_stratification": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        },
+        "missing_seed": {
+          "n": 0,
+          "kappa": null,
+          "agreement": null
+        }
+      },
+      "status": "pending"
+    }
+  },
+  "analysis_model_calls": 0,
+  "api_cost_estimate_rub": 3.9534299999999996,
+  "actual_cash_payment_rub": 0,
+  "cost_note": "Freemium; published package-equivalent estimate, not actual charge or purchased package.",
+  "generation_seconds": 252.08900250003717,
+  "billable_tokens": 60822,
+  "cached_input_tokens": 256174,
+  "token_usage_note": "prompt_tokens excludes precached_prompt_tokens; total_tokens is billable, cached tokens are free",
+  "diagnostic_code_runs": 6
+}

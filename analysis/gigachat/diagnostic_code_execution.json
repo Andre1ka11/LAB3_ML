@@ -1,0 +1,123 @@
+[
+  {
+    "task_id": "D01",
+    "source_sha256": "4be75912a6e9f88832d5cf6552347bc619ecff5b8c2b6b4494c96b9d350d6531",
+    "exit_code": 0,
+    "runs_without_error": true,
+    "output_is_json": false,
+    "metrics": {
+      "best_C": 10,
+      "balanced_accuracy": 0.9790209790209791
+    },
+    "metrics_match_reference": true,
+    "primary_score_changed": false,
+    "assessment": "secondary post-hoc extraction; primary invalid JSON remains failure",
+    "inspection_note": "Inspected numpy/sklearn only. Uses estimator.score (accuracy), labels it balanced_accuracy; stdout is Python dict.",
+    "stderr": ""
+  },
+  {
+    "task_id": "D02",
+    "source_sha256": "cdac73d4836fbf90d999447aa84a51227e3653083af9552e3d955b34e66d7b25",
+    "exit_code": 1,
+    "runs_without_error": false,
+    "output_is_json": false,
+    "metrics": null,
+    "metrics_match_reference": false,
+    "primary_score_changed": false,
+    "assessment": "secondary post-hoc extraction; primary invalid JSON remains failure",
+    "inspection_note": "Inspected sklearn/numpy only; Pipeline used without import; preserve NameError.",
+    "stderr": "Traceback (most recent call last):\n  File \"<project>/D02.py\", line 22, in <module>\n    pipeline = Pipeline([\n               ^^^^^^^^\nNameError: name 'Pipeline' is not defined\n"
+  },
+  {
+    "task_id": "D03",
+    "source_sha256": "a2282eb6414ac1debfe073cdcbfa4148d5935884f43ffb41b6961663fc541b40",
+    "exit_code": 0,
+    "runs_without_error": true,
+    "output_is_json": false,
+    "metrics": {
+      "best_k": 7,
+      "test_accuracy": 0.9473684210526315
+    },
+    "metrics_match_reference": true,
+    "primary_score_changed": false,
+    "assessment": "secondary post-hoc extraction; primary invalid JSON remains failure",
+    "inspection_note": "Inspected sklearn only; train-only CV and test score; stdout Python dict.",
+    "stderr": ""
+  },
+  {
+    "task_id": "D04",
+    "source_sha256": "7e20baeaccd4e31b9281c42b54b0fc2829c86d62c1f24953a9c3c56334659913",
+    "exit_code": 0,
+    "runs_without_error": true,
+    "output_is_json": true,
+    "metrics": {
+      "balance_accuracy": 0.74,
+      "f1": 0.62
+    },
+    "metrics_match_reference": false,
+    "primary_score_changed": false,
+    "assessment": "secondary post-hoc extraction; primary invalid JSON remains failure",
+    "inspection_note": "Inspected sklearn only; output key balance_accuracy differs from required balanced_accuracy.",
+    "stderr": ""
+  },
+  {
+    "task_id": "D05",
+    "source_sha256": "7d1c1442879ce40145bed0a7e2b5a19d90e4615a272466a33ed59ee294dee8d4",
+    "exit_code": 1,
+    "runs_without_error": false,
+    "output_is_json": false,
+    "metrics": null,
+    "metrics_match_reference": false,
+    "primary_score_changed": false,
+    "assessment": "secondary post-hoc extraction; primary invalid JSON remains failure",
+    "inspection_note": "Inspected sklearn/json references only; Pipeline and json imports missing; preserve NameError.",
+    "stderr": "Traceback (most recent call last):\n  File \"<project>/D05.py\", line 16, in <module>\n    pipeline = Pipeline([\n               ^^^^^^^^\nNameError: name 'Pipeline' is not defined\n"
+  },
+  {
+    "task_id": "D06",
+    "source_sha256": "783ca64f75b93a6aa87ec7897d4aade7950c60428153507470d99b3f94b1fdc3",
+    "exit_code": 0,
+    "runs_without_error": true,
+    "output_is_json": true,
+    "metrics": {
+      "rmse": 53.85344583676594,
+      "r2": 0.45260276297191926
+    },
+    "metrics_match_reference": true,
+    "primary_score_changed": false,
+    "assessment": "secondary post-hoc extraction; primary invalid JSON remains failure",
+    "inspection_note": "Inspected sklearn/json only; body of invalid triple-quoted JSON answer, no code edits.",
+    "stderr": ""
+  },
+  {
+    "task_id": "D07",
+    "source_sha256": "58b52eb2b77b7122ce44b77c747f7afb5250e822ffa3a2d85cfdc38660902e4e",
+    "exit_code": 0,
+    "runs_without_error": true,
+    "output_is_json": false,
+    "metrics": {
+      "silhouette": 0.8783134858331793
+    },
+    "metrics_match_reference": true,
+    "primary_score_changed": false,
+    "assessment": "secondary post-hoc extraction; primary invalid JSON remains failure",
+    "inspection_note": "Inspected sklearn only; descriptive clustering; stdout Python dict.",
+    "stderr": ""
+  },
+  {
+    "task_id": "D08",
+    "source_sha256": "a79c2e0d670dc7394ef7c171693d824ee3e69798b335850b08569ac22a77f981",
+    "exit_code": 0,
+    "runs_without_error": true,
+    "output_is_json": true,
+    "metrics": {
+      "balanced_accuracy": 0.923,
+      "f1_malignant": 0.911
+    },
+    "metrics_match_reference": true,
+    "primary_score_changed": false,
+    "assessment": "secondary post-hoc extraction; primary invalid JSON remains failure",
+    "inspection_note": "Inspected sklearn only; correct original class mapping, JSON stdout rounded to three decimals.",
+    "stderr": ""
+  }
+]
