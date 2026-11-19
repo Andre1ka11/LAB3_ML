@@ -68,5 +68,5 @@ def review(root,records_by_model):
             report += [f"#### {r['task_id']} — "+(f"{r['score_0_2']}/2" if r['type'] in 'BC' else 'методология кода'),'',r['notes'],'']
             if r['type']=='D':report += ['Флаги: '+', '.join(f'{k}={v}' for k,v in r['flags'].items())+'.','']
             report += [f"Исходный request_id: `{r['request_id']}`; SHA256 ответа: `{r['response_sha256']}`.",'']
-    (root/'docs/expert_review.md').write_text('\n'.join(report)+'\n',encoding='utf-8')
+    (root/'docs/expert_review.md').write_text('\n'.join(report).rstrip()+'\n',encoding='utf-8')
     return full_bank

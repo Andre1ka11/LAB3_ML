@@ -648,4 +648,3 @@ Pipeline обучен на train; RMSE через sqrt(MSE), R² через r2_s
 Флаги: leakage=0, test_tuning=0, train_evaluation=0, wrong_metric=0, missing_stratification=0, missing_seed=0.
 
 Исходный request_id: `c07910b6e76883e1ba2c9927d74e88042e4fc30b69cbc22f0f766562d721f5f3`; SHA256 ответа: `40982406f8f98dd2b68ad3e46d131ef20893cb587c4de398b15bc66e9f830830`.
-
