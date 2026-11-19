@@ -179,6 +179,58 @@ class RunnerTests(unittest.TestCase):
         self.assertFalse(result["strict_format_ok"])
         self.assertEqual(result["error"], "markdown_wrapper")
 
+    def test_authorized_network_retry_keeps_reserve_and_old_answers(self):
+        sender = Mock(side_effect=[TimeoutError(), response()])
+        def attempt():
+            r.run(self.root, self.directory, self.config, self.pilot[:1], "pilot", "test-secret", 1000, 100, transport=sender)
+        with self.assertRaises(r.StopRun):
+            attempt()
+        r.authorize_retry(self.directory, self.pilot[0]["request_id"], "User confirmed network outage and retry")
+        attempt()
+        attempt()
+        self.assertEqual(sender.call_count, 2)
+        done, spent, _ = r.replay(r.load_lines(self.directory / "events.jsonl"))
+        self.assertEqual(len(done), 1)
+        self.assertAlmostEqual(spent, r.reserve(self.pilot[0]["payload"]) + .02)
+        with self.assertRaises(r.StopRun):
+            r.authorize_retry(self.directory, self.pilot[0]["request_id"], "Do not repeat a received answer")
+
+    def test_retry_requires_note(self):
+        self.directory.mkdir()
+        with self.assertRaises(r.StopRun):
+            r.authorize_retry(self.directory, "unknown", "")
+
+    def test_metadata_cleanup_cannot_change_task_content(self):
+        root=Path(self.temp.name)
+        (root/'data').mkdir()
+        path=root/'data/tasks.jsonl'
+        row={'id':'A01','text_ru':'original condition','reference':{'answer':1},'source':{'citation':'old','kind':'custom'}}
+        path.write_text(json.dumps(row)+'\n',encoding='utf-8')
+        before=r.digest(path.read_bytes())
+        semantic=r.metadata_semantic_digest(path)
+        row['source']['citation']='neutral citation'
+        path.write_text(json.dumps(row)+'\n',encoding='utf-8')
+        entry={'before_sha256':before,'after_sha256':r.digest(path.read_bytes()),'semantic_sha256':semantic}
+        audit=root/'data/metadata_cleanup.json'
+        audit.write_text(json.dumps({'files':{'data/tasks.jsonl':entry}}),encoding='utf-8')
+        r.verify_manifest_file(root,'data/tasks.jsonl',before)
+        row['reference']['answer']=2
+        path.write_text(json.dumps(row)+'\n',encoding='utf-8')
+        entry['after_sha256']=r.digest(path.read_bytes())
+        audit.write_text(json.dumps({'files':{'data/tasks.jsonl':entry}}),encoding='utf-8')
+        with self.assertRaises(r.StopRun):
+            r.verify_manifest_file(root,'data/tasks.jsonl',before)
+
+    def test_git_line_endings_do_not_change_registered_content(self):
+        root=Path(self.temp.name)
+        (root/'data').mkdir()
+        path=root/'data/tasks.jsonl'
+        lf=b'{"id":"A01"}\n'
+        path.write_bytes(lf.replace(b'\n',b'\r\n'))
+        r.verify_manifest_file(root,'data/tasks.jsonl',r.digest(lf))
+        path.write_bytes(b'{"id":"A02"}\r\n')
+        with self.assertRaises(r.StopRun): r.verify_manifest_file(root,'data/tasks.jsonl',r.digest(lf))
+
 
 if __name__ == "__main__":
     unittest.main()

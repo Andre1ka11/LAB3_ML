@@ -14,3 +14,4 @@ results/models/**/*.tmp
 results/models/**/process.stdout.log
 results/models/**/process.stderr.log
 results/models/**/.process.json
+analysis/**/.matplotlib/

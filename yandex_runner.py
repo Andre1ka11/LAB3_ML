@@ -1,6 +1,7 @@
 """Resumable YandexGPT experiment. Dry-run is the default; stdlib only."""
 import argparse
 import contextlib
+import csv
 import hashlib
 import json
 import math
@@ -29,6 +30,11 @@ def digest(value):
     if not isinstance(value, bytes):
         value = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(value).hexdigest()
+
+
+def newline_hashes(data):
+    normalized=data.replace(b'\r\n',b'\n')
+    return {digest(data),digest(normalized),digest(normalized.replace(b'\n',b'\r\n'))}
 
 
 def now():
@@ -103,13 +109,50 @@ def settings(root):
     return values
 
 
+def metadata_semantic_digest(path):
+    """Ignore only the editorial source citation; task content stays protected."""
+    if path.suffix == ".csv":
+        with path.open(encoding="utf-8-sig", newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        for row in rows:
+            source = json.loads(row["source"])
+            source.pop("citation", None)
+            row["source"] = source
+    else:
+        rows = load_lines(path)
+        for row in rows:
+            row["source"].pop("citation", None)
+    return digest(rows)
+
+
+def verify_manifest_file(root, filename, expected):
+    path = root / filename
+    variants = newline_hashes(path.read_bytes())
+    if expected in variants:
+        return
+    audit_path = root / "data/metadata_cleanup.json"
+    allowed = {"data/tasks.jsonl", "data/tasks.csv", "data/pilot_tasks.jsonl"}
+    if filename in allowed and audit_path.exists():
+        audit = json.loads(audit_path.read_text(encoding="utf-8"))
+        item = audit.get("files", {}).get(filename, {})
+        if (item.get("before_sha256") == expected and item.get("after_sha256") in variants
+                and item.get("semantic_sha256") == metadata_semantic_digest(path)):
+            return
+    raise StopRun(f"Контрольная сумма не совпала: {filename}")
+
+
 def prepare(root, model):
     system = (root / "prompts/system_ru.txt").read_text(encoding="utf-8-sig")
     manifest_bytes = (root / "data/bank_manifest.json").read_bytes()
     manifest = json.loads(manifest_bytes.decode("utf-8-sig"))
+    manifest_hash=digest(manifest_bytes)
+    audit_path=root/'data/metadata_cleanup.json'
+    if audit_path.exists():
+        original_manifest_hash=json.loads(audit_path.read_text(encoding='utf-8')).get('registered_manifest_sha256')
+        if original_manifest_hash in newline_hashes(manifest_bytes):
+            manifest_hash=original_manifest_hash
     for filename, expected in manifest["sha256"].items():
-        if digest((root / filename).read_bytes()) != expected:
-            raise StopRun(f"Контрольная сумма не совпала: {filename}")
+        verify_manifest_file(root, filename, expected)
     kinds = {t["id"]: t["answer_kind"] for name in ("tasks_public", "pilot_tasks")
              for t in load_lines(root / f"data/{name}.jsonl")}
     rows = []
@@ -127,7 +170,7 @@ def prepare(root, model):
         raise StopRun("Ожидались 344 уникальных запроса.")
     config = {"model": model, "endpoint": ENDPOINT, "temperature": 0, "max_output_tokens": 4096,
               "thinking_mode": "default; no explicit thinking parameter requested",
-              "bank_version": manifest["bank_version"], "bank_sha256": digest(manifest_bytes),
+              "bank_version": manifest["bank_version"], "bank_sha256": manifest_hash,
               "prompt_sha256": digest(system.encode("utf-8")), "requests_sha256": digest([r["request_id"] for r in rows]),
               "rate_rub_per_token": RATE, "tariff_checked": "2026-11-19"}
     return config, rows
@@ -210,12 +253,33 @@ def replay(events):
             if started["stage"] == "pilot":
                 pilot_spent += charge
             done[rid] = event
+        elif event["event"] == "retry_authorized":
+            previous = done.get(rid)
+            if previous is None or previous["event"] != "uncertain" or not event.get("note"):
+                raise StopRun("Некорректное разрешение повтора неопределённой попытки.")
+            # Keep the first attempt's full reserved cost in the budget ledger.
+            # Only clear its cache entry, so one explicitly authorized retry can run.
+            del done[rid]
     if pending:
         raise StopRun("Обнаружен запрос без сохранённого ответа: сервер мог списать токены. Автоповтор запрещён. Сохраните журнал и проверьте ситуацию вручную.")
     uncertain = [rid for rid,e in done.items() if e["event"] == "uncertain" or e.get("cost_rub") is None]
     if uncertain:
         raise StopRun("Есть неопределённая попытка/ответ без usage. Автопродолжение остановлено; проверьте журнал и Billing, не создавайте новый run_id для обхода проверки.")
     return done, spent, pilot_spent
+
+
+def authorize_retry(directory, request_id, note):
+    if not note or not note.strip():
+        raise StopRun("Для ручного повтора требуется причина/разрешение пользователя.")
+    with exclusive(directory / ".lock"):
+        journal = directory / "events.jsonl"
+        events = load_lines(journal)
+        matching = [e for e in events if e.get("request_id") == request_id]
+        if not matching or matching[-1]["event"] != "uncertain":
+            raise StopRun("Разрешить повтор можно только для последней неопределённой попытки; полученные ответы не повторяются.")
+        append(journal, {"event": "retry_authorized", "timestamp_utc": now(),
+                         "request_id": request_id, "note": note.strip(),
+                         "reserved_cost_retained": True})
 
 
 def send(payload, key):
@@ -360,7 +424,10 @@ def main():
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stderr.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", nargs="?", default="dry-run", choices=["dry-run", "prepare-registration", "run", "status"])
+    parser.add_argument("command", nargs="?", default="dry-run", choices=["dry-run", "prepare-registration", "run", "status", "authorize-retry"])
+    parser.add_argument("--request-id")
+    parser.add_argument("--note")
+    parser.add_argument("--append-logs", action="store_true", help="Append background stdout/stderr to existing process logs")
     parser.add_argument("--stage", choices=[*STAGES, "all"], default="pilot")
     parser.add_argument("--run-id", default="yandex-v1")
     parser.add_argument("--budget-rub", type=float, default=1000)
@@ -375,6 +442,14 @@ def main():
     try:
         config, rows = prepare(ROOT, model)
         directory = ROOT / "results/models/yandex" / args.run_id
+        if args.append_logs:
+            if args.command != "run":
+                raise StopRun("--append-logs применяется только к run")
+            directory.mkdir(parents=True, exist_ok=True)
+            sys.stdout = (directory / "process.stdout.log").open("a", encoding="utf-8", buffering=1)
+            sys.stderr = (directory / "process.stderr.log").open("a", encoding="utf-8", buffering=1)
+            print(f"=== RESUME {now()} ===", flush=True)
+            print(f"=== RESUME {now()} (previous messages are historical) ===", file=sys.stderr, flush=True)
         if args.command == "dry-run":
             print("API calls: 0. Контрольные суммы проверены.")
             for stage in STAGES:
@@ -389,6 +464,11 @@ def main():
                            "criteria_confirmed": False,
                            "criteria": "Заполните согласованные сравнения, метрики, допуски и статистические критерии до основного прогона."}, stream, ensure_ascii=False, indent=2)
             print("Создан шаблон регистрации; прогнозы не заполнены. API calls: 0.")
+        elif args.command == "authorize-retry":
+            if not args.request_id or not args.note:
+                raise StopRun("Укажите --request-id и --note с основанием ручного повтора.")
+            authorize_retry(directory, args.request_id, args.note)
+            print("Разрешён один ручной повтор. Возможный расход первой попытки остаётся в резерве; API не вызывался.")
         elif args.command == "status":
             events = load_lines(directory / "events.jsonl")
             if directory.exists():

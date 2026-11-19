@@ -1,0 +1,122 @@
+[
+  {
+    "task_id": "D01",
+    "source_sha256": "9b5ac5c9f0a8fd29dc77f70ae4dd6a10993ecab56f52d99662a2391eb4163371",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": false,
+    "metrics": {
+      "best_C": 10,
+      "balanced_accuracy": 0.9794549266247379
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "methodology_review": "pending_two_independent_reviewers",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true
+  },
+  {
+    "task_id": "D02",
+    "source_sha256": "f737f8e088d63ecbd4e72d9d5325e71a1efa153b77475ec384af22f65ab4bd78",
+    "exit_code": 1,
+    "pass_at_1": false,
+    "output_is_json": false,
+    "metrics": null,
+    "metrics_match_reference": false,
+    "stderr": "Traceback (most recent call last):\n  File \"<project>/D02.py\", line 35, in <module>\n    print(json.dumps({\"f1\": f1, \"balanced_accuracy\": balanced_acc}))\n          ^^^^\nNameError: name 'json' is not defined. Did you forget to import 'json'?\n",
+    "methodology_review": "pending_two_independent_reviewers",
+    "stderr_original_sha256": "243d0324395ba28ba8a126b7decdf0c1877e50eb6adfabe1a22543113294b749",
+    "traceback_paths_normalized": true
+  },
+  {
+    "task_id": "D03",
+    "source_sha256": "8725e9967da7fff9571802732e7e9a9f9bbec9005a3720746e3606e0c7cbba05",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "best_k": 7,
+      "test_accuracy": 0.9473684210526315
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "methodology_review": "pending_two_independent_reviewers",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true
+  },
+  {
+    "task_id": "D04",
+    "source_sha256": "3846b87c22bf9cc9cc8883474f91f630647e1f59804a2789a9759be80e25e100",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "balanced_accuracy": 0.7425373134328358,
+      "f1": 0.6153846153846154
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "methodology_review": "pending_two_independent_reviewers",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true
+  },
+  {
+    "task_id": "D05",
+    "source_sha256": "baefddd7238927635eae4d0453e9e5ec44e5f052b1adb9d5cdfb481a980f4378",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "test_accuracy": 0.9111111111111111
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "methodology_review": "pending_two_independent_reviewers",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true
+  },
+  {
+    "task_id": "D06",
+    "source_sha256": "4b858bf9558a551f1329bd4433dc7790d20d4508e9847f04edd65247057b2110",
+    "exit_code": 1,
+    "pass_at_1": false,
+    "output_is_json": false,
+    "metrics": null,
+    "metrics_match_reference": false,
+    "stderr": "Traceback (most recent call last):\n  File \"<project>/D06.py\", line 23, in <module>\n    rmse = mean_squared_error(y_test, y_pred, squared=False)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<python>/Lib/site-packages/sklearn/utils/_param_validation.py\", line 196, in wrapper\n    params = func_sig.bind(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<python>/Lib/inspect.py\", line 3280, in bind\n    return self._bind(args, kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<python>/Lib/inspect.py\", line 3269, in _bind\n    raise TypeError(\nTypeError: got an unexpected keyword argument 'squared'\n",
+    "methodology_review": "pending_two_independent_reviewers",
+    "stderr_original_sha256": "e3f4d29268bb2e08685a4aafc6a52019f75e985850afab1c37ee75e510adb0e1",
+    "traceback_paths_normalized": true
+  },
+  {
+    "task_id": "D07",
+    "source_sha256": "c8c83165382d11bf4a650bd87364cc5e426b411e40a691b16b88ac6ce05bceb1",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "silhouette_score": 0.8783134858331793
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "methodology_review": "pending_two_independent_reviewers",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true
+  },
+  {
+    "task_id": "D08",
+    "source_sha256": "c68700963ef922ff3e85a9a8e52916c93e48a49c0177375d496d261c0da4e2e1",
+    "exit_code": 0,
+    "pass_at_1": true,
+    "output_is_json": true,
+    "metrics": {
+      "balanced_accuracy": 0.9228511530398322,
+      "f1_malignant": 0.9108910891089109
+    },
+    "metrics_match_reference": true,
+    "stderr": "",
+    "methodology_review": "pending_two_independent_reviewers",
+    "stderr_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "traceback_paths_normalized": true
+  }
+]

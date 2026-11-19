@@ -1,0 +1,882 @@
+# Материалы независимой проверки
+
+Модель и технические ID скрыты. Для настоящей слепой оценки нужно перемешать этот пакет с ответами остальных моделей; пакет только одного участника сам по себе этого не обеспечивает. Ключ review_key.json проверяющим не передавать.
+
+B и C: score_0_2 по рубрике. D: шесть флагов ошибок 0/1; N/A там, где критерий неприменим. Не исправлять ответ или код. Два проверяющих заполняют отдельные CSV независимо. После сравнения оценок рассчитывается Cohen kappa; при <0.6 уточнить рубрику и переоценить. Не заменять пропуски нулями.
+
+## R001 (тип D)
+
+Напишите полный автономный Python-код на sklearn без загрузки данных из сети. Создайте make_classification(n_samples=600,n_features=10,n_informative=5,n_redundant=2,weights=[0.9,0.1],class_sep=1.0,random_state=42). Разбейте test_size=0.25,random_state=42,stratify=y. Обучите RandomForestClassifier(n_estimators=200,max_depth=6,class_weight='balanced',random_state=42,n_jobs=1) на train. Напечатайте JSON с balanced_accuracy и f1 для класса 1 на test. Все неуказанные параметры оставьте по умолчанию. Код должен запускаться без исправлений.
+
+Ответ модели:
+
+```
+{
+    "answer": "from sklearn.datasets import make_classification\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import balanced_accuracy_score, f1_score\nimport json\n\n# Создание датасета\nX, y = make_classification(n_samples=600, n_features=10, n_informative=5, n_redundant=2, weights=[0.9, 0.1], class_sep=1.0, random_state=42)\n\n# Разделение на тренировочную и тестовую выборки\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)\n\n# Инициализация и обучение модели\nclf = RandomForestClassifier(n_estimators=200, max_depth=6, class_weight='balanced', random_state=42, n_jobs=1)\nclf.fit(X_train, y_train)\n\n# Предсказания на тестовой выборке\ny_pred = clf.predict(X_test)\n\n# Расчет метрик\nbalanced_acc = balanced_accuracy_score(y_test, y_pred)\nf1 = f1_score(y_test, y_pred, pos_label=1)\n\n# Вывод результатов в формате JSON\nresults = {\"balanced_accuracy\": balanced_acc, \"f1\": f1}\nprint(json.dumps(results, indent=4))",
+    "explanation": "Код создает синтетический датасет, разделяет его на тренировочную и тестовую выборки, обучает модель RandomForestClassifier и выводит метрики balanced_accuracy и f1 для класса 1 в формате JSON. Все параметры указаны согласно заданию.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": {
+      "code_path": "data/reference_code/D04.py",
+      "metrics": {
+        "balanced_accuracy": 0.7425373134328358,
+        "f1": 0.6153846153846154
+      }
+    },
+    "solution_ru": "Эталонный код и фактические метрики получаются локальным запуском; см. reference.code_path и results/reference/code_metrics.json."
+  },
+  "rubric": {
+    "pass_at_1": "Запуск извлечённого кода без правок с первой попытки (JSON-декодирование строки answer не является правкой).",
+    "correctness": "Все метрики отличаются от эталона не более чем на 0.01 абсолютных; best_C/best_k должны совпасть точно.",
+    "methodology": [
+      "fit preprocessing только на train и внутри CV",
+      "подбор только по train/CV",
+      "оценка на отдельном test, кроме описательной D07",
+      "правильная метрика и pos_label",
+      "стратификация для классификации",
+      "фиксированные random_state там, где применимо"
+    ],
+    "manual_review": "Два независимых слепых проверяющих; для каждой методологической ошибки 0/1, затем Cohen kappa. Если kappa<0.6, уточнить рубрику и переоценить. Это не оценка LLM самим эталонным кодом."
+  }
+}
+```
+
+## R002 (тип C)
+
+Есть 25 000 независимых строк по деталям: 15 числовых и 4 категориальных признака, местами пропуски; целевая переменная - наличие дефекта. Связи предположительно нелинейны. Предложите сильный табличный baseline и честное сравнение с простой моделью.
+
+Ответ модели:
+
+```
+{
+    "answer": "Для baseline можно использовать XGBoost или LightGBM, так как эти алгоритмы хорошо работают с табличными данными, учитывают нелинейные зависимости и справляются с пропусками (при использовании соответствующих методов обработки, например, импутации). Для честного сравнения подойдёт логистическая регрессия с OHE (One-Hot Encoding) для категориальных признаков и стандартной нормализацией числовых признаков. Перед обучением моделей необходимо провести предобработку данных: обработать пропуски, закодировать категориальные признаки, разделить выборку на тренировочную и тестовую (например, в соотношении 80/20). Качество моделей можно сравнивать по метрикам AUC-ROC, F1-score, precision и recall на тестовой выборке.",
+    "explanation": "XGBoost и LightGBM являются мощными градиентными бустингами, которые часто показывают хорошие результаты на табличных данных. Логистическая регрессия служит хорошим базовым линейным методом для сравнения, так как она проста, интерпретируема и позволяет оценить, насколько нелинейные модели выигрывают за счёт учёта сложных зависимостей.",
+    "confidence": 90
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": "Градиентный бустинг по деревьям с корректной обработкой категорий/пропусков; допустим random forest. Сравнить с логистической регрессией в Pipeline на одном фиксированном стратифицированном разбиении и одной выбранной по балансу классов метрике. Подбор только по train/CV, проверить доступность признаков в момент прогноза.",
+    "solution_ru": "Градиентный бустинг по деревьям с корректной обработкой категорий/пропусков; допустим random forest. Сравнить с логистической регрессией в Pipeline на одном фиксированном стратифицированном разбиении и одной выбранной по балансу классов метрике. Подбор только по train/CV, проверить доступность признаков в момент прогноза."
+  },
+  "rubric": {
+    "0": "Непригодное решение или критическая методологическая ошибка.",
+    "1": "Основной метод разумен, но один или несколько обязательных аспектов существенно не раскрыты.",
+    "2": "Обоснованное решение раскрывает все три критерия без критических ошибок.",
+    "criteria": [
+      "нелинейная табличная модель",
+      "корректная обработка категорий и пропусков",
+      "единое разбиение/метрика и отсутствие утечки"
+    ],
+    "accepted_alternatives": "CatBoost допустим концептуально, но не требуется для запуска эталонного кода банка."
+  }
+}
+```
+
+## R003 (тип D)
+
+Напишите полный автономный Python-код на sklearn без загрузки данных из сети. На load_iris отложите test_size=0.25 с random_state=42 и stratify=y. В Pipeline(StandardScaler(),KNeighborsClassifier(weights='uniform',metric='minkowski',p=2)) выберите n_neighbors из [3,5,7,9] через GridSearchCV(scoring='accuracy',cv=StratifiedKFold(3,shuffle=True,random_state=42),n_jobs=1) только на train. Напечатайте JSON с best_k и test accuracy. Все неуказанные параметры оставьте по умолчанию. Код должен запускаться без исправлений.
+
+Ответ модели:
+
+```
+{
+    "answer": "from sklearn.datasets import load_iris\nfrom sklearn.model_selection import train_test_split, GridSearchCV, StratifiedKFold\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.pipeline import Pipeline\nimport json\n\n# Загрузка данных\niris = load_iris()\nX, y = iris.data, iris.target\n\n# Разделение данных\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)\n\n# Создание пайплайна\npipeline = Pipeline([\n    ('scaler', StandardScaler()),\n    ('knn', KNeighborsClassifier(weights='uniform', metric='minkowski', p=2))\n])\n\n# Настройка GridSearchCV\nparam_grid = {'knn__n_neighbors': [3, 5, 7, 9]}\ngrid_search = GridSearchCV(\n    estimator=pipeline,\n    param_grid=param_grid,\n    scoring='accuracy',\n    cv=StratifiedKFold(n_splits=3, shuffle=True, random_state=42),\n    n_jobs=1\n)\n\n# Обучение модели\ngrid_search.fit(X_train, y_train)\n\n# Получение лучшего значения n_neighbors\nbest_k = grid_search.best_params_['knn__n_neighbors']\n\n# Оценка модели на тестовом наборе\ntest_accuracy = grid_search.score(X_test, y_test)\n\n# Вывод результата в формате JSON\nresult = {\n    'best_k': best_k,\n    'test_accuracy': test_accuracy\n}\nprint(json.dumps(result, indent=4))",
+    "explanation": "Код загружает данные Iris, разделяет их на тренировочную и тестовую выборки, создаёт пайплайн с масштабированием и KNN, настраивает GridSearchCV для выбора оптимального числа соседей, обучает модель и выводит JSON с лучшим значением n_neighbors и точностью на тестовой выборке.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": {
+      "code_path": "data/reference_code/D03.py",
+      "metrics": {
+        "best_k": 7,
+        "accuracy": 0.9473684210526315
+      }
+    },
+    "solution_ru": "Эталонный код и фактические метрики получаются локальным запуском; см. reference.code_path и results/reference/code_metrics.json."
+  },
+  "rubric": {
+    "pass_at_1": "Запуск извлечённого кода без правок с первой попытки (JSON-декодирование строки answer не является правкой).",
+    "correctness": "Все метрики отличаются от эталона не более чем на 0.01 абсолютных; best_C/best_k должны совпасть точно.",
+    "methodology": [
+      "fit preprocessing только на train и внутри CV",
+      "подбор только по train/CV",
+      "оценка на отдельном test, кроме описательной D07",
+      "правильная метрика и pos_label",
+      "стратификация для классификации",
+      "фиксированные random_state там, где применимо"
+    ],
+    "manual_review": "Два независимых слепых проверяющих; для каждой методологической ошибки 0/1, затем Cohen kappa. Если kappa<0.6, уточнить рубрику и переоценить. Это не оценка LLM самим эталонным кодом."
+  }
+}
+```
+
+## R004 (тип D)
+
+Напишите полный автономный Python-код на sklearn без загрузки данных из сети. Загрузите load_breast_cancer. Сохраните исходную кодировку y: 0=malignant,1=benign. Сделайте train_test_split(test_size=0.25,random_state=42,stratify=y). Обучите GaussianNB(var_smoothing=1e-9) на train без масштабирования. На test напечатайте JSON с balanced_accuracy и f1_malignant (pos_label=0). Не переобозначайте классы. Все неуказанные параметры оставьте по умолчанию. Код должен запускаться без исправлений.
+
+Ответ модели:
+
+```
+{
+    "answer": "from sklearn.datasets import load_breast_cancer\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.naive_bayes import GaussianNB\nfrom sklearn.metrics import balanced_accuracy_score, f1_score\nimport json\n\ndata = load_breast_cancer()\nX, y = data.data, data.target\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)\n\nmodel = GaussianNB(var_smoothing=1e-9)\nmodel.fit(X_train, y_train)\n\ny_pred = model.predict(X_test)\n\nbalanced_acc = balanced_accuracy_score(y_test, y_pred)\nf1_malignant = f1_score(y_test, y_pred, pos_label=0)\n\nresults = {\n    \"balanced_accuracy\": balanced_acc,\n    \"f1_malignant\": f1_malignant\n}\n\nprint(json.dumps(results, indent=4))",
+    "explanation": "Код загружает данные, разделяет их на тренировочную и тестовую выборки, обучает модель GaussianNB и выводит метрики в формате JSON. Все параметры и условия задания учтены.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": {
+      "code_path": "data/reference_code/D08.py",
+      "metrics": {
+        "balanced_accuracy": 0.9228511530398322,
+        "f1_malignant": 0.9108910891089109
+      }
+    },
+    "solution_ru": "Эталонный код и фактические метрики получаются локальным запуском; см. reference.code_path и results/reference/code_metrics.json."
+  },
+  "rubric": {
+    "pass_at_1": "Запуск извлечённого кода без правок с первой попытки (JSON-декодирование строки answer не является правкой).",
+    "correctness": "Все метрики отличаются от эталона не более чем на 0.01 абсолютных; best_C/best_k должны совпасть точно.",
+    "methodology": [
+      "fit preprocessing только на train и внутри CV",
+      "подбор только по train/CV",
+      "оценка на отдельном test, кроме описательной D07",
+      "правильная метрика и pos_label",
+      "стратификация для классификации",
+      "фиксированные random_state там, где применимо"
+    ],
+    "manual_review": "Два независимых слепых проверяющих; для каждой методологической ошибки 0/1, затем Cohen kappa. Если kappa<0.6, уточнить рубрику и переоценить. Это не оценка LLM самим эталонным кодом."
+  }
+}
+```
+
+## R005 (тип D)
+
+Напишите полный автономный Python-код на sklearn без загрузки данных из сети. Создайте make_classification(n_samples=500,n_features=12,n_informative=6,n_redundant=2,weights=[0.85,0.15],random_state=42). Затем rng=np.random.default_rng(42); X[rng.random(X.shape)<0.1]=np.nan. Разбейте test_size=0.25,random_state=42,stratify=y. Обучите только на train Pipeline(SimpleImputer(strategy='median'),StandardScaler(),LogisticRegression(class_weight='balanced',max_iter=2000,random_state=42)). На test напечатайте JSON с f1 (положительный класс 1) и balanced_accuracy. Не используйте test для fit. Все неуказанные параметры оставьте по умолчанию. Код должен запускаться без исправлений.
+
+Ответ модели:
+
+```
+{
+    "answer": "import numpy as np\nfrom sklearn.datasets import make_classification\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.impute import SimpleImputer\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.metrics import f1_score, balanced_accuracy_score\n\n# Создание датасета\nX, y = make_classification(n_samples=500, n_features=12, n_informative=6, n_redundant=2, weights=[0.85, 0.15], random_state=42)\n\n# Введение пропусков\nrng = np.random.default_rng(42)\nX[rng.random(X.shape) < 0.1] = np.nan\n\n# Разделение на train и test\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)\n\n# Создание и обучение пайплайна\npipeline = Pipeline([\n    ('imputer', SimpleImputer(strategy='median')),\n    ('scaler', StandardScaler()),\n    ('logreg', LogisticRegression(class_weight='balanced', max_iter=2000, random_state=42))\n])\n\npipeline.fit(X_train, y_train)\n\n# Предсказания и метрики\ny_pred = pipeline.predict(X_test)\nf1 = f1_score(y_test, y_pred, pos_label=1)\nbalanced_acc = balanced_accuracy_score(y_test, y_pred)\n\n# Вывод результатов\nprint(json.dumps({\"f1\": f1, \"balanced_accuracy\": balanced_acc}))",
+    "explanation": "Код создаёт датасет, вводит пропуски, разделяет данные на train и test, обучает пайплайн с импутацией, масштабированием и логистической регрессией, а затем выводит f1 и balanced_accuracy на test в формате JSON.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": {
+      "code_path": "data/reference_code/D02.py",
+      "metrics": {
+        "f1": 0.52,
+        "balanced_accuracy": 0.7571996027805363
+      }
+    },
+    "solution_ru": "Эталонный код и фактические метрики получаются локальным запуском; см. reference.code_path и results/reference/code_metrics.json."
+  },
+  "rubric": {
+    "pass_at_1": "Запуск извлечённого кода без правок с первой попытки (JSON-декодирование строки answer не является правкой).",
+    "correctness": "Все метрики отличаются от эталона не более чем на 0.01 абсолютных; best_C/best_k должны совпасть точно.",
+    "methodology": [
+      "fit preprocessing только на train и внутри CV",
+      "подбор только по train/CV",
+      "оценка на отдельном test, кроме описательной D07",
+      "правильная метрика и pos_label",
+      "стратификация для классификации",
+      "фиксированные random_state там, где применимо"
+    ],
+    "manual_review": "Два независимых слепых проверяющих; для каждой методологической ошибки 0/1, затем Cohen kappa. Если kappa<0.6, уточнить рубрику и переоценить. Это не оценка LLM самим эталонным кодом."
+  }
+}
+```
+
+## R006 (тип D)
+
+Напишите полный автономный Python-код на sklearn без загрузки данных из сети. На load_breast_cancer сделайте train_test_split(test_size=0.25, random_state=42, stratify=y). В Pipeline StandardScaler -> SVC(kernel='rbf', gamma='scale') подберите C из [0.1,1,10] через GridSearchCV(scoring='balanced_accuracy', cv=StratifiedKFold(3, shuffle=True, random_state=42), n_jobs=1). Поиск видит только train. На test один раз вычислите balanced_accuracy. Напечатайте JSON с best_C и balanced_accuracy. Все неуказанные параметры оставьте по умолчанию. Код должен запускаться без исправлений.
+
+Ответ модели:
+
+```
+{
+    "answer": "from sklearn.datasets import load_breast_cancer\nfrom sklearn.model_selection import train_test_split, GridSearchCV, StratifiedKFold\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.svm import SVC\nfrom sklearn.metrics import balanced_accuracy_score\n\ndata = load_breast_cancer()\nX, y = data.data, data.target\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.25, random_state=42, stratify=y\n)\n\npipeline = Pipeline([\n    ('scaler', StandardScaler()),\n    ('svc', SVC(kernel='rbf', gamma='scale'))\n])\n\nparam_grid = {'svc__C': [0.1, 1, 10]}\n\ngrid_search = GridSearchCV(\n    estimator=pipeline,\n    param_grid=param_grid,\n    scoring='balanced_accuracy',\n    cv=StratifiedKFold(3, shuffle=True, random_state=42),\n    n_jobs=1\n)\n\ngrid_search.fit(X_train, y_train)\n\nbest_C = grid_search.best_params_['svc__C']\ny_pred = grid_search.predict(X_test)\nbalanced_acc = balanced_accuracy_score(y_test, y_pred)\n\nprint({\n    'best_C': best_C,\n    'balanced_accuracy': balanced_acc\n})",
+    "explanation": "Код загружает данные, разделяет их на тренировочную и тестовую выборки, создаёт пайплайн с масштабированием и SVC, настраивает гиперпараметр C через GridSearchCV и вычисляет сбалансированную точность на тестовой выборке. Всё соответствует условиям задачи.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": {
+      "code_path": "data/reference_code/D01.py",
+      "metrics": {
+        "best_C": 10,
+        "balanced_accuracy": 0.9794549266247379
+      }
+    },
+    "solution_ru": "Эталонный код и фактические метрики получаются локальным запуском; см. reference.code_path и results/reference/code_metrics.json."
+  },
+  "rubric": {
+    "pass_at_1": "Запуск извлечённого кода без правок с первой попытки (JSON-декодирование строки answer не является правкой).",
+    "correctness": "Все метрики отличаются от эталона не более чем на 0.01 абсолютных; best_C/best_k должны совпасть точно.",
+    "methodology": [
+      "fit preprocessing только на train и внутри CV",
+      "подбор только по train/CV",
+      "оценка на отдельном test, кроме описательной D07",
+      "правильная метрика и pos_label",
+      "стратификация для классификации",
+      "фиксированные random_state там, где применимо"
+    ],
+    "manual_review": "Два независимых слепых проверяющих; для каждой методологической ошибки 0/1, затем Cohen kappa. Если kappa<0.6, уточнить рубрику и переоценить. Это не оценка LLM самим эталонным кодом."
+  }
+}
+```
+
+## R007 (тип B)
+
+Оцените утверждение: верно или неверно? Обоснуйте ответ. KMeans оптимизирует сумму квадратов расстояний до центроидов, однако стандартная итерационная процедура может остановиться в локальном минимуме.
+
+Ответ модели:
+
+```
+{
+    "answer": true,
+    "explanation": "KMeans действительно минимизирует сумму квадратов расстояний до центроидов. Поскольку алгоритм использует итеративный процесс, который зависит от начальных положений центроидов, он может застрять в локальном минимуме, не достигая глобального.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": true,
+    "solution_ru": "Целевая функция - inertia. Начальная инициализация влияет на результат; несколько инициализаций уменьшают риск неудачного локального решения."
+  },
+  "rubric": {
+    "0": "Вердикт неверен или отсутствует.",
+    "1": "Вердикт верен, но обоснование ошибочно или существенно неполно.",
+    "2": "Верный вердикт и корректное обоснование по обоим пунктам.",
+    "criteria": [
+      "сумма квадратов/inertia",
+      "зависимость от инициализации/локальный минимум"
+    ]
+  }
+}
+```
+
+## R008 (тип B)
+
+Оцените утверждение: верно или неверно? Обоснуйте ответ. Случайный выбор подмножества признаков при построении деревьев случайного леса предназначен, в частности, для уменьшения корреляции между деревьями.
+
+Ответ модели:
+
+```
+{
+    "answer": true,
+    "explanation": "Случайный выбор подмножества признаков при построении деревьев в случайном лесу помогает уменьшить корреляцию между деревьями, так как каждое дерево обучается на разных наборах признаков, что приводит к более разнообразным моделям и улучшает обобщающую способность ансамбля.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": true,
+    "solution_ru": "Разные деревья не всегда выбирают один и тот же сильный признак. Менее коррелированные ошибки лучше усредняются; эффект не гарантирован на каждом датасете."
+  },
+  "rubric": {
+    "0": "Вердикт неверен или отсутствует.",
+    "1": "Вердикт верен, но обоснование ошибочно или существенно неполно.",
+    "2": "Верный вердикт и корректное обоснование по обоим пунктам.",
+    "criteria": [
+      "разнообразие деревьев",
+      "меньшая корреляция помогает усреднению"
+    ]
+  }
+}
+```
+
+## R009 (тип C)
+
+У 900 насосов измерены температура в K, вибрация в мм/с и мощность в кВт. Меток нет. Нужно найти группы похожих режимов; число групп неизвестно. Предложите метод, обработку масштаба, способ выбора числа групп и проверку инженерного смысла.
+
+Ответ модели:
+
+```
+{
+    "answer": "K-means clustering with standardization, elbow method for determining the number of clusters, engineering sense check through cluster centroids analysis",
+    "explanation": "K-means is a popular method for clustering that can effectively group similar data points. Standardization is necessary because the features (temperature, vibration, power) have different units and scales. The elbow method helps to determine the optimal number of clusters by analyzing the decrease in within-cluster sum of squares. Checking the engineering sense involves analyzing the cluster centroids to ensure that the identified groups make logical sense from an engineering perspective (e.g., similar operating conditions).",
+    "confidence": 85
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": "Стандартизация и KMeans для нескольких k; silhouette/стабильность кластеров, анализ центров в исходных единицах и обсуждение с инженером. Проверить выбросы и форму кластеров; DBSCAN/HDBSCAN допустимы с обоснованием плотности и масштабирования.",
+    "solution_ru": "Стандартизация и KMeans для нескольких k; silhouette/стабильность кластеров, анализ центров в исходных единицах и обсуждение с инженером. Проверить выбросы и форму кластеров; DBSCAN/HDBSCAN допустимы с обоснованием плотности и масштабирования."
+  },
+  "rubric": {
+    "0": "Непригодное решение или критическая методологическая ошибка.",
+    "1": "Основной метод разумен, но один или несколько обязательных аспектов существенно не раскрыты.",
+    "2": "Обоснованное решение раскрывает все три критерия без критических ошибок.",
+    "criteria": [
+      "метод без учителя с обоснованием",
+      "обработка разных масштабов",
+      "выбор параметров и предметная проверка; кластеры не равны автоматически классам неисправностей"
+    ],
+    "accepted_alternatives": "Принимаются KMeans, GMM и методы плотности, если их предпосылки и параметры объяснены."
+  }
+}
+```
+
+## R010 (тип B)
+
+Оцените утверждение: верно или неверно? Обоснуйте ответ. ROC-AUC=0.95 гарантирует precision не ниже 0.95 при пороге классификации 0.5 независимо от доли положительного класса.
+
+Ответ модели:
+
+```
+{
+    "answer": false,
+    "explanation": "ROC-AUC отражает способность модели различать положительные и отрицательные случаи в целом, но не гарантирует конкретного уровня precision при определённом пороге. Precision зависит от распределения предсказанных вероятностей и доли положительного класса, поэтому ROC-AUC=0.95 не гарантирует precision не ниже 0.95 при пороге 0.5.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": false,
+    "solution_ru": "ROC-AUC описывает ранжирование по порогам; precision зависит от выбранного порога и базовой частоты. Такая гарантия отсутствует."
+  },
+  "rubric": {
+    "0": "Вердикт неверен или отсутствует.",
+    "1": "Вердикт верен, но обоснование ошибочно или существенно неполно.",
+    "2": "Верный вердикт и корректное обоснование по обоим пунктам.",
+    "criteria": [
+      "ROC-AUC оценивает ранжирование",
+      "precision зависит от порога и prevalence"
+    ]
+  }
+}
+```
+
+## R011 (тип B)
+
+Оцените утверждение: верно или неверно? Обоснуйте ответ. Обычный PCA использует метки классов и выбирает направления, лучше всего разделяющие классы.
+
+Ответ модели:
+
+```
+{
+    "answer": false,
+    "explanation": "Обычный PCA (метод главных компонент) не использует метки классов и не ориентирован на разделение классов. Его цель — найти направления (главные компоненты), которые максимизируют вариативность данных, а не разделяют классы.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": false,
+    "solution_ru": "PCA не использует y, а максимизирует объяснённую дисперсию X. Направление наибольшей дисперсии не обязано разделять классы."
+  },
+  "rubric": {
+    "0": "Вердикт неверен или отсутствует.",
+    "1": "Вердикт верен, но обоснование ошибочно или существенно неполно.",
+    "2": "Верный вердикт и корректное обоснование по обоим пунктам.",
+    "criteria": [
+      "PCA не использует метки",
+      "дисперсия, а не разделение классов"
+    ]
+  }
+}
+```
+
+## R012 (тип D)
+
+Напишите полный автономный Python-код на sklearn без загрузки данных из сети. На load_wine сделайте стратифицированный test_size=0.25,random_state=42. Обучите только на train Pipeline(StandardScaler(),PCA(n_components=2,svd_solver='full'),LogisticRegression(max_iter=2000,random_state=42)). Напечатайте JSON с test accuracy. PCA не должен видеть test при fit. Все неуказанные параметры оставьте по умолчанию. Код должен запускаться без исправлений.
+
+Ответ модели:
+
+```
+{
+    "answer": "from sklearn.datasets import load_wine\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.decomposition import PCA\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.metrics import accuracy_score\n\n# Загрузка данных\ndata = load_wine()\nX, y = data.data, data.target\n\n# Разделение данных на тренировочную и тестовую выборки\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)\n\n# Создание пайплайна\npipeline = Pipeline([\n    ('scaler', StandardScaler()),\n    ('pca', PCA(n_components=2, svd_solver='full')),\n    ('logreg', LogisticRegression(max_iter=2000, random_state=42))\n])\n\n# Обучение модели\npipeline.fit(X_train, y_train)\n\n# Предсказание и расчёт точности\ny_pred = pipeline.predict(X_test)\ntest_accuracy = accuracy_score(y_test, y_pred)\n\n# Вывод результата в формате JSON\nimport json\nprint(json.dumps({\"test_accuracy\": test_accuracy}))",
+    "explanation": "Код загружает набор данных load_wine, разделяет его на тренировочную и тестовую выборки с стратификацией, создаёт пайплайн из StandardScaler, PCA и LogisticRegression, обучает модель на тренировочных данных и выводит точность на тестовых в формате JSON.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": {
+      "code_path": "data/reference_code/D05.py",
+      "metrics": {
+        "accuracy": 0.9111111111111111
+      }
+    },
+    "solution_ru": "Эталонный код и фактические метрики получаются локальным запуском; см. reference.code_path и results/reference/code_metrics.json."
+  },
+  "rubric": {
+    "pass_at_1": "Запуск извлечённого кода без правок с первой попытки (JSON-декодирование строки answer не является правкой).",
+    "correctness": "Все метрики отличаются от эталона не более чем на 0.01 абсолютных; best_C/best_k должны совпасть точно.",
+    "methodology": [
+      "fit preprocessing только на train и внутри CV",
+      "подбор только по train/CV",
+      "оценка на отдельном test, кроме описательной D07",
+      "правильная метрика и pos_label",
+      "стратификация для классификации",
+      "фиксированные random_state там, где применимо"
+    ],
+    "manual_review": "Два независимых слепых проверяющих; для каждой методологической ошибки 0/1, затем Cohen kappa. Если kappa<0.6, уточнить рубрику и переоценить. Это не оценка LLM самим эталонным кодом."
+  }
+}
+```
+
+## R013 (тип C)
+
+Нужно предсказывать энергопотребление завода на следующий час по погоде, календарю и прошлому потреблению. Доступны два года почасовых наблюдений. Какую базовую модель и разбиение предложите? Как построить лаги и rolling-признаки без утечки?
+
+Ответ модели:
+
+```
+{
+    "answer": "Базовая модель: линейная регрессия или градиентный бустинг (например, XGBoost). Разбиение: временной аут-оф-семпл (например, обучение на данных до 18 месяцев, валидация на 3 месяца, тест на последние 3 месяца). Для построения лагов и rolling-признаков использовать лаги и скользящие окна по прошлому потреблению и погодным данным с задержкой минимум на 1 час относительно целевого значения, чтобы избежать утечки данных.",
+    "explanation": "Линейная регрессия или градиентный бустинг — хорошие стартовые модели для задач регрессии. Временное разбиение позволяет оценить, как модель будет работать на новых данных. Использование лагов и rolling-признаков с задержкой предотвращает использование информации из будущего и обеспечивает корректность модели.",
+    "confidence": 90
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": "Сезонная наивная модель (тот же час прошлого дня/недели) и Ridge/линейная регрессия или бустинг. Финальный test - последний период, валидация walk-forward/TimeSeriesSplit. Лаги и rolling используют только прошлое (shift перед rolling); погода доступна как прогноз на момент решения, а не будущие фактические измерения. RMSE/MAE по цели.",
+    "solution_ru": "Сезонная наивная модель (тот же час прошлого дня/недели) и Ridge/линейная регрессия или бустинг. Финальный test - последний период, валидация walk-forward/TimeSeriesSplit. Лаги и rolling используют только прошлое (shift перед rolling); погода доступна как прогноз на момент решения, а не будущие фактические измерения. RMSE/MAE по цели."
+  },
+  "rubric": {
+    "0": "Непригодное решение или критическая методологическая ошибка.",
+    "1": "Основной метод разумен, но один или несколько обязательных аспектов существенно не раскрыты.",
+    "2": "Обоснованное решение раскрывает все три критерия без критических ошибок.",
+    "criteria": [
+      "временное разбиение и сезонный baseline",
+      "разумная регрессионная модель/метрика",
+      "лаги/rolling и погода доступны в момент прогноза"
+    ],
+    "accepted_alternatives": "Не требуется единственный конкретный алгоритм."
+  }
+}
+```
+
+## R014 (тип B)
+
+Оцените утверждение: верно или неверно? Обоснуйте ответ. Для kNN с евклидовым расстоянием изменение единиц измерения одного признака может изменить набор ближайших соседей и предсказание.
+
+Ответ модели:
+
+```
+{
+    "answer": true,
+    "explanation": "Изменение единиц измерения признака изменяет масштаб этого признака, что влияет на вычисление евклидова расстояния. В результате набор ближайших соседей и предсказание модели kNN могут измениться.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": true,
+    "solution_ru": "Евклидово расстояние суммирует квадраты разностей; масштаб признака меняет его вклад и может изменить порядок соседей."
+  },
+  "rubric": {
+    "0": "Вердикт неверен или отсутствует.",
+    "1": "Вердикт верен, но обоснование ошибочно или существенно неполно.",
+    "2": "Верный вердикт и корректное обоснование по обоим пунктам.",
+    "criteria": [
+      "масштаб изменяет вклад в расстояние",
+      "возможна смена порядка соседей"
+    ]
+  }
+}
+```
+
+## R015 (тип C)
+
+В обучающих данных по станкам 1% отказов. Пропуск отказа стоит 100 условных единиц, ложная тревога - 2. Доступны размеченные примеры обоих классов. Предложите стартовую модель, метрики и способ выбора порога. Можно ли выбрать модель по одной accuracy?
+
+Ответ модели:
+
+```
+{
+    "answer": "Стартовая модель: логистическая регрессия. Метрики: precision, recall, F1-score, ROC-AUC. Способ выбора порога: анализ ROC-кривой и учёт соотношения стоимости пропуска отказа и ложной тревоги (100 vs 2). Выбирать модель только по accuracy нельзя, так как при сильном дисбалансе классов (1% отказов) accuracy будет высокой даже у модели, которая всегда предсказывает отсутствие отказа.",
+    "explanation": "Логистическая регрессия — простой и интерпретируемый метод, подходящий для задач бинарной классификации. Указанный набор метрик позволяет оценить качество модели с учётом дисбаланса классов. Анализ ROC-кривой поможет найти оптимальный порог, учитывая стоимость ошибок. Accuracy не подходит для оценки в условиях дисбаланса, так как не учитывает соотношение ошибок разных типов.",
+    "confidence": 95
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": "Логистическая регрессия/бустинг с учётом дисбаланса; PR-AUC, recall/precision и стоимость 100FN+2FP. Порог выбирать на validation/OOF по стоимости, test оставить финальным. Accuracy одной недостаточно: константа даёт 99%. Для идеально калиброванной p(failure) и нулевой цены верных решений порог 2/102, но калибровку надо проверить.",
+    "solution_ru": "Логистическая регрессия/бустинг с учётом дисбаланса; PR-AUC, recall/precision и стоимость 100FN+2FP. Порог выбирать на validation/OOF по стоимости, test оставить финальным. Accuracy одной недостаточно: константа даёт 99%. Для идеально калиброванной p(failure) и нулевой цены верных решений порог 2/102, но калибровку надо проверить."
+  },
+  "rubric": {
+    "0": "Непригодное решение или критическая методологическая ошибка.",
+    "1": "Основной метод разумен, но один или несколько обязательных аспектов существенно не раскрыты.",
+    "2": "Обоснованное решение раскрывает все три критерия без критических ошибок.",
+    "criteria": [
+      "не ограничиваться accuracy и сравнить с константой",
+      "стоимость/PR-метрики и обоснованная модель",
+      "порог по validation/OOF, не по test"
+    ],
+    "accepted_alternatives": "Конкретное значение порога 2/102 необязательно для 2 баллов; необходим корректный способ его выбора."
+  }
+}
+```
+
+## R016 (тип C)
+
+Нужно классифицировать 6000 коротких заявок ремонта на 4 категории. Представление - разреженные неотрицательные частоты 12 000 слов. Обучение и предсказание должны быть быстрыми. Предложите два разумных baseline и схему оценки; нужно ли превращать матрицу в плотную?
+
+Ответ модели:
+
+```
+{
+    "answer": [
+        "Multinomial Naive Bayes",
+        "Logistic Regression with L2 regularization"
+    ],
+    "explanation": "Multinomial Naive Bayes хорошо работает с текстовыми данными и разреженными матрицами, не требует много времени на обучение. Логистическая регрессия с L2-регуляризацией также быстро обучается и хорошо обобщает данные. Превращать матрицу в плотную не нужно, так как это увеличит объём данных и время вычислений, а алгоритмы хорошо работают с разреженными представлениями. Для оценки можно использовать accuracy, precision, recall, F1-score для каждой категории и макро- и микроусреднение этих метрик.",
+    "confidence": 85
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": "MultinomialNB/ComplementNB и линейная логистическая регрессия/LinearSVC. Сохранять sparse; vectorizer учить внутри train/CV. Стратифицированное разбиение, macro-F1 и матрица ошибок; дубликаты заявок не должны пересекать части.",
+    "solution_ru": "MultinomialNB/ComplementNB и линейная логистическая регрессия/LinearSVC. Сохранять sparse; vectorizer учить внутри train/CV. Стратифицированное разбиение, macro-F1 и матрица ошибок; дубликаты заявок не должны пересекать части."
+  },
+  "rubric": {
+    "0": "Непригодное решение или критическая методологическая ошибка.",
+    "1": "Основной метод разумен, но один или несколько обязательных аспектов существенно не раскрыты.",
+    "2": "Обоснованное решение раскрывает все три критерия без критических ошибок.",
+    "criteria": [
+      "байесовский и линейный baseline для sparse текста",
+      "не уплотнять; vectorizer без утечки",
+      "стратификация/macro-F1 и контроль дубликатов"
+    ],
+    "accepted_alternatives": "Допустим TF-IDF вместо counts с корректным Pipeline; GaussianNB не является естественным baseline для разреженных частот."
+  }
+}
+```
+
+## R017 (тип D)
+
+Напишите полный автономный Python-код на sklearn без загрузки данных из сети. Сгенерируйте X,y=make_blobs(n_samples=300,centers=3,n_features=2,cluster_std=0.8,random_state=42). Игнорируя y, примените StandardScaler к X, затем KMeans(n_clusters=3,n_init=10,random_state=42). Напечатайте JSON с silhouette по масштабированному X и предсказанным кластерам. Это описательная кластеризация всех 300 объектов; отдельный test не требуется. Не используйте accuracy по номерам кластеров. Все неуказанные параметры оставьте по умолчанию. Код должен запускаться без исправлений.
+
+Ответ модели:
+
+```
+{
+    "answer": "from sklearn.datasets import make_blobs\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.cluster import KMeans\nfrom sklearn.metrics import silhouette_score\nimport json\n\n# Генерация данных\nX, y = make_blobs(n_samples=300, centers=3, n_features=2, cluster_std=0.8, random_state=42)\n\n# Масштабирование данных\nscaler = StandardScaler()\nX_scaled = scaler.fit_transform(X)\n\n# Кластеризация\nkmeans = KMeans(n_clusters=3, n_init=10, random_state=42)\nclusters = kmeans.fit_predict(X_scaled)\n\n# Расчет silhouette score\nsilhouette = silhouette_score(X_scaled, clusters)\n\n# Вывод результата в формате JSON\nresult = {\"silhouette_score\": silhouette}\nprint(json.dumps(result))",
+    "explanation": "Код генерирует данные, масштабирует их с помощью StandardScaler, применяет KMeans для кластеризации и вычисляет коэффициент силуэта для оценки качества кластеризации. Результат выводится в формате JSON.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": {
+      "code_path": "data/reference_code/D07.py",
+      "metrics": {
+        "silhouette": 0.8783134858331793
+      }
+    },
+    "solution_ru": "Эталонный код и фактические метрики получаются локальным запуском; см. reference.code_path и results/reference/code_metrics.json."
+  },
+  "rubric": {
+    "pass_at_1": "Запуск извлечённого кода без правок с первой попытки (JSON-декодирование строки answer не является правкой).",
+    "correctness": "Все метрики отличаются от эталона не более чем на 0.01 абсолютных; best_C/best_k должны совпасть точно.",
+    "methodology": [
+      "fit preprocessing только на train и внутри CV",
+      "подбор только по train/CV",
+      "оценка на отдельном test, кроме описательной D07",
+      "правильная метрика и pos_label",
+      "стратификация для классификации",
+      "фиксированные random_state там, где применимо"
+    ],
+    "manual_review": "Два независимых слепых проверяющих; для каждой методологической ошибки 0/1, затем Cohen kappa. Если kappa<0.6, уточнить рубрику и переоценить. Это не оценка LLM самим эталонным кодом."
+  }
+}
+```
+
+## R018 (тип B)
+
+Оцените утверждение: верно или неверно? Обоснуйте ответ. StandardScaler можно обучить на объединении train и test до разбиения: утечки не будет, потому что scaler не использует целевые метки.
+
+Ответ модели:
+
+```
+{
+    "answer": false,
+    "explanation": "Использование объединённых данных train и test для обучения StandardScaler приведёт к утечке данных. Хотя scaler действительно не использует целевые метки, он использует статистические характеристики (среднее и стандартное отклонение) всего набора данных, включая тестовый. Это даст модели информацию о тестовом наборе во время обучения и может исказить оценку производительности модели.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": false,
+    "solution_ru": "Статистики тестовых признаков тоже являются информацией теста. Scaler обучают только на train и внутри каждого train-фолда CV."
+  },
+  "rubric": {
+    "0": "Вердикт неверен или отсутствует.",
+    "1": "Вердикт верен, но обоснование ошибочно или существенно неполно.",
+    "2": "Верный вердикт и корректное обоснование по обоим пунктам.",
+    "criteria": [
+      "статистики test создают утечку",
+      "fit только train/внутри CV"
+    ]
+  }
+}
+```
+
+## R019 (тип B)
+
+Оцените утверждение: верно или неверно? Обоснуйте ответ. В soft-margin SVM при прочих равных увеличение C усиливает штраф за нарушения зазора и соответствует более слабой регуляризации.
+
+Ответ модели:
+
+```
+{
+    "answer": true,
+    "explanation": "В soft-margin SVM параметр C является регуляризационным параметром, который контролирует баланс между максимизацией зазора и минимизацией ошибок классификации. Увеличение C означает, что модель будет сильнее штрафовать за нарушения зазора, стремясь уменьшить количество ошибок на обучающей выборке, что соответствует более слабой регуляризации (модель становится менее консервативной и склонной к переобучению).",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": true,
+    "solution_ru": "В целевой функции 0.5*||w||^2 + C*sum(xi) вклад ошибок относительно нормы растёт. Это не гарантия роста качества на тесте."
+  },
+  "rubric": {
+    "0": "Вердикт неверен или отсутствует.",
+    "1": "Вердикт верен, но обоснование ошибочно или существенно неполно.",
+    "2": "Верный вердикт и корректное обоснование по обоим пунктам.",
+    "criteria": [
+      "C увеличивает вес нарушений",
+      "регуляризация относительно ошибки слабее"
+    ]
+  }
+}
+```
+
+## R020 (тип D)
+
+Напишите полный автономный Python-код на sklearn без загрузки данных из сети. Загрузите load_diabetes(return_X_y=True) с параметрами загрузчика по умолчанию. Разбейте test_size=0.2,random_state=42 без стратификации. Обучите Pipeline(StandardScaler(),LinearRegression()) только на train. На test напечатайте JSON с rmse и r2. RMSE должен быть корнем из MSE, а не MSE. Все неуказанные параметры оставьте по умолчанию. Код должен запускаться без исправлений.
+
+Ответ модели:
+
+```
+{
+    "answer": "from sklearn.datasets import load_diabetes\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport json\n\n# Загрузка данных\nX, y = load_diabetes(return_X_y=True)\n\n# Разделение данных на тренировочную и тестовую выборки\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=None)\n\n# Создание и обучение модели\nmodel = Pipeline([('scaler', StandardScaler()), ('regressor', LinearRegression())])\nmodel.fit(X_train, y_train)\n\n# Предсказания на тестовой выборке\ny_pred = model.predict(X_test)\n\n# Расчет метрик\nrmse = mean_squared_error(y_test, y_pred, squared=False)\nr2 = r2_score(y_test, y_pred)\n\n# Вывод результатов в формате JSON\nresults = {'rmse': rmse, 'r2': r2}\nprint(json.dumps(results, indent=4))",
+    "explanation": "Код загружает данные, разделяет их на тренировочную и тестовую выборки, создаёт пайплайн с масштабированием и линейной регрессией, обучает модель и выводит RMSE и R2 в формате JSON.",
+    "confidence": 100
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": {
+      "code_path": "data/reference_code/D06.py",
+      "metrics": {
+        "rmse": 53.85344583676594,
+        "r2": 0.45260276297191926
+      }
+    },
+    "solution_ru": "Эталонный код и фактические метрики получаются локальным запуском; см. reference.code_path и results/reference/code_metrics.json."
+  },
+  "rubric": {
+    "pass_at_1": "Запуск извлечённого кода без правок с первой попытки (JSON-декодирование строки answer не является правкой).",
+    "correctness": "Все метрики отличаются от эталона не более чем на 0.01 абсолютных; best_C/best_k должны совпасть точно.",
+    "methodology": [
+      "fit preprocessing только на train и внутри CV",
+      "подбор только по train/CV",
+      "оценка на отдельном test, кроме описательной D07",
+      "правильная метрика и pos_label",
+      "стратификация для классификации",
+      "фиксированные random_state там, где применимо"
+    ],
+    "manual_review": "Два независимых слепых проверяющих; для каждой методологической ошибки 0/1, затем Cohen kappa. Если kappa<0.6, уточнить рубрику и переоценить. Это не оценка LLM самим эталонным кодом."
+  }
+}
+```
+
+## R021 (тип B)
+
+Оцените утверждение: верно или неверно? Обоснуйте ответ. Наивный Байес автоматически выдаёт хорошо калиброванные вероятности на любом датасете, поскольку это вероятностный алгоритм.
+
+Ответ модели:
+
+```
+{
+    "answer": false,
+    "explanation": "Наивный Байес — вероятностный алгоритм, но его предположения о независимости признаков часто не соответствуют реальности. Из-за этого вероятности, которые он выдаёт, могут быть некалиброванными, особенно на датасетах со сложными зависимостями между признаками.",
+    "confidence": 95
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": false,
+    "solution_ru": "Вероятностный выход не гарантирует калибровку; нарушение условной независимости и распределительных предположений может приводить к избыточной уверенности."
+  },
+  "rubric": {
+    "0": "Вердикт неверен или отсутствует.",
+    "1": "Вердикт верен, но обоснование ошибочно или существенно неполно.",
+    "2": "Верный вердикт и корректное обоснование по обоим пунктам.",
+    "criteria": [
+      "вероятностная модель не гарантирует калибровку",
+      "роль предположений/зависимостей признаков"
+    ]
+  }
+}
+```
+
+## R022 (тип C)
+
+У датчика 60 сильно коррелирующих числовых каналов. Для визуализации нужно двумерное представление без использования меток. Предложите метод и preprocessing. Гарантирует ли он сохранение различий между классами неисправностей?
+
+Ответ модели:
+
+```
+{
+    "answer": "PCA (Principal Component Analysis)",
+    "explanation": "PCA позволяет уменьшить размерность данных, сохраняя максимально возможную вариативность в первых нескольких компонентах. Это подходит для визуализации в двумерном пространстве. Однако PCA — метод неконтролируемого обучения и не учитывает метки классов, поэтому не гарантирует сохранение различий между классами неисправностей, хотя часто помогает визуально отделить кластеры.",
+    "confidence": 85
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": "PCA до 2 компонент, центрирование, обычно стандартизация при разных масштабах, обработка пропусков по train. Показать explained_variance_ratio_. PCA сохраняет дисперсию, а не гарантирует разделение классов; при оценке классификатора всё преобразование обучать внутри train.",
+    "solution_ru": "PCA до 2 компонент, центрирование, обычно стандартизация при разных масштабах, обработка пропусков по train. Показать explained_variance_ratio_. PCA сохраняет дисперсию, а не гарантирует разделение классов; при оценке классификатора всё преобразование обучать внутри train."
+  },
+  "rubric": {
+    "0": "Непригодное решение или критическая методологическая ошибка.",
+    "1": "Основной метод разумен, но один или несколько обязательных аспектов существенно не раскрыты.",
+    "2": "Обоснованное решение раскрывает все три критерия без критических ошибок.",
+    "criteria": [
+      "PCA и обоснование масштаба/центрирования",
+      "объяснённая дисперсия",
+      "нет гарантии сохранения классов, соблюдение train/test"
+    ],
+    "accepted_alternatives": "Другой метод визуализации допустим при явном обсуждении отличий; PCA является простым эталонным вариантом."
+  }
+}
+```
+
+## R023 (тип C)
+
+Для диагностики подшипников есть 180 размеченных записей, 320 числовых спектральных признаков и два класса. Требуется компактная модель с объяснимыми коэффициентами. Какой стартовый метод и схему проверки вы предложите? Укажите обработку признаков и основной риск.
+
+Ответ модели:
+
+```
+{
+    "answer": "Логистическая регрессия; k-fold кросс-валидация с k=5 или 10; стандартизация признаков (вычесть среднее и разделить на стандартное отклонение); риск — переобучение при большом количестве признаков и недостатке данных",
+    "explanation": "Логистическая регрессия подходит для бинарной классификации, обеспечивает объяснимость модели через коэффициенты и относительно компактна. k-fold кросс-валидация позволяет эффективно использовать данные и оценить обобщающую способность модели. Стандартизация необходима для корректной работы алгоритма и улучшения сходимости. При 320 признаках и только 180 образцах есть риск переобучения, особенно без регуляризации.",
+    "confidence": 85
+}
+```
+
+Эталон и рубрика:
+
+```json
+{
+  "reference": {
+    "answer": "Регуляризованная логистическая регрессия (L1/L2/elastic net) в Pipeline с масштабированием, стратифицированная CV и подбор силы регуляризации только внутри train. При повторных записях одного подшипника нужен group split. Основной риск: p>n, переобучение/нестабильность коэффициентов; корреляция ограничивает интерпретацию.",
+    "solution_ru": "Регуляризованная логистическая регрессия (L1/L2/elastic net) в Pipeline с масштабированием, стратифицированная CV и подбор силы регуляризации только внутри train. При повторных записях одного подшипника нужен group split. Основной риск: p>n, переобучение/нестабильность коэффициентов; корреляция ограничивает интерпретацию."
+  },
+  "rubric": {
+    "0": "Непригодное решение или критическая методологическая ошибка.",
+    "1": "Основной метод разумен, но один или несколько обязательных аспектов существенно не раскрыты.",
+    "2": "Обоснованное решение раскрывает все три критерия без критических ошибок.",
+    "criteria": [
+      "регуляризованная линейная модель и связь с p>n/интерпретацией",
+      "масштабирование внутри Pipeline",
+      "CV без утечки и риск нестабильности"
+    ],
+    "accepted_alternatives": "Допустима другая компактная регуляризованная модель, если объяснены ограничения; простое дерево допустимо с ограничением сложности и сравнением стабильности."
+  }
+}
+```
