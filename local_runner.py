@@ -56,8 +56,8 @@ def run(model_path, stage):
         events = RUN/'events.jsonl'
         done,_,_ = common.replay(common.load_lines(events))
         selected = [r for r in rows if stage=='all' or r['stage']==stage]
-        if stage != 'pilot' and not all(r['request_id'] in done and done[r['request_id']].get('parsed') for r in rows if r['stage']=='pilot'):
-            raise ValueError('Complete pilot first')
+        if stage != 'pilot' and not all(r['request_id'] in done for r in rows if r['stage']=='pilot'):
+            raise ValueError('Complete pilot first; content/answer-type mistakes are not retried')
         llm = Llama(model_path=str(model_path), n_ctx=8192, n_gpu_layers=-1,
                     seed=42, n_batch=512, verbose=False)
         for i,row in enumerate(selected,1):
