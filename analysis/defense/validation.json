@@ -1,5 +1,5 @@
 {
-  "executed_code_cells": 19,
+  "executed_code_cells": 33,
   "notebook_errors": 0,
   "offline_analysis_api_calls": 0,
   "generated_code_executions": 0,
@@ -9,5 +9,9 @@
   "responses": 1376,
   "guide_pdf_pages": 28,
   "guide_pdf_out_of_bounds_text": false,
-  "guide_words": 8182
+  "guide_words": 8182,
+  "explanatory_markdown_cells": 81,
+  "explained_logical_blocks": 19,
+  "explained_figures": 11,
+  "metric_files_unchanged": true
 }

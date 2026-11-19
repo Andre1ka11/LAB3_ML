@@ -3,6 +3,7 @@ import argparse
 from pathlib import Path
 import nbformat as nb
 from defense_analysis import freeze_sources
+from defense_explanations import enrich
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -29,9 +30,10 @@ ROOT=next(p for p in [Path.cwd(),*Path.cwd().parents] if (p/'scripts/defense_ana
 sys.path.insert(0,str(ROOT/'scripts'))
 from defense_analysis import analyze,audit,offline,baselines,load_model,MODELS,confusion
 from analysis_common import read_json,read_lines,raw_text,auto_correct,accuracy_ci,h12_comparison
+from defense_display import table as readable_table, hypotheses as readable_hypotheses, cases as readable_cases, manual as readable_manual
 OUT=ROOT/'analysis/defense'
 with offline():summary=analyze(ROOT)
-def table(name):display(pd.read_csv(OUT/name))
+def table(name):readable_table(OUT,name)
 def show(name):print(json.dumps(read_json(OUT/name),ensure_ascii=False,indent=2))
 def figure(name):display(Image(filename=str(OUT/'figures'/name)))
 show('summary.json')'''),
@@ -132,7 +134,7 @@ print(confusion(subset.truth.to_numpy(),subset.prediction.to_numpy()))'''),
 Прогноз команды — confirm для каждой гипотезы; правила сохранены до основных запусков каждой модели. Основная H5 заранее выбрана как Yandex vs Qwen, не заменяется более выгодным DeepSeek. H10: signed confidence gap, 95% кластерный bootstrap с сохранением F-пар. H12: при 5 примерах не меньшее качество LR с margin 0.05 F1; при 20 — проигрыш LR. Границы H12 односторонние 95% (перцентили 5/95), это не тот же интервал, что двухсторонний 95% 2.5/97.5.
 
 Гипотеза H12 — сочетание двух утверждений: обе части подтверждены → confirm; хотя бы одна опровергнута → reject; иначе insufficient_data. Отсутствие значимости не доказывает равенство.'''),
-    code("hyp=read_json(OUT/'hypotheses.json')\nshow('hypotheses.json')\nfigure('h5_gap.png')\nfigure('h10_gap.png')\nfigure('reliability.png')\nfigure('h12_delta.png')"),
+    code("hyp=read_json(OUT/'hypotheses.json')\nreadable_hypotheses(hyp)\nfigure('h5_gap.png')\nfigure('h10_gap.png')\nfigure('reliability.png')\nfigure('h12_delta.png')"),
     code('''MODEL='GigaChat-2'; SHOTS=5
 subset=pred[(pred.model==MODEL)&(pred.shots==SHOTS)].set_index('row_id').loc[ids]
 print(h12_comparison(y,subset.prediction.to_numpy(),baseline_predictions['LogisticRegression',SHOTS],SHOTS))
@@ -157,7 +159,7 @@ print('Эта ячейка только читает сохранённый ко
 Пять содержательных/форматных примеров и один незавершённый запрос DeepSeek. Данные ниже дословно взяты из журналов. Объяснения механизмов и границ интерпретации подробно разобраны в личном отчёте, раздел «Разбор ошибок».
 
 Yandex A03: рассуждение получает 0.7241 и затем ошибочно заменяет результат на 0.6364. Qwen A06: признаёт два голоса за 1, но отвечает 0. Qwen B03: отсутствие меток ошибочно считает отсутствием утечки. Giga B05: путает рост штрафа C с усилением регуляризации. F05: JSON-дробь 2/3 не является числом JSON. DeepSeek E: reasoning_tokens=4096 исчерпывают бюджет до итогового класса.'''),
-    code("show('case_studies.json')"),
+    code("readable_cases(read_json(OUT/'case_studies.json'))"),
     md('''## 11 Скорость стоимость память
 
 Рубли за верный ответ рассчитаны **на A/B/F**, с тем же знаменателем, что и accuracy. Цена всех 344 вызовов — другой показатель. Тарифная цена, списание денег и резерв неизвестных сетевых попыток различаются. У Qwen API-цена 0, полная стоимость электричества/оборудования неизвестна.
@@ -169,7 +171,7 @@ Yandex A03: рассуждение получает 0.7241 и затем оши�
 Ни одна отсутствующая оценка не заменяется нулём. B-вердикт проверен автоматически, обоснование 0–2 — отдельно. C и методология D: два участника независимо, смешанные ответы разных моделей, без ключа соответствия; затем kappa, уточнение рубрики при κ<0.6, разрешение разногласий. Отдельные пакеты по модели сами по себе не обеспечивают слепоту.
 
 Ограничения: восемь задач на тип; F-пары зависимы; публичный breast cancer мог быть в обучении; единственный train5/train20; режимы reasoning и квантование различаются; банк draft и эталоны требуют человеческой проверки; доверительный интервал не учитывает все источники неопределённости; нет полноценных ручных итогов C/D. Поэтому обобщать на все ML-задачи и клиническое применение нельзя.'''),
-    code("show('manual_status.json')"),
+    code("readable_manual(read_json(OUT/'manual_status.json'))"),
     md('''## 13 Как сформулировать результат на защите
 
 На нашем фиксированном банке DeepSeek существенно лучше остальных по итоговым A/B/F, но ограничение reasoning-бюджета делает его ненадёжным как классификатор строк в выбранном режиме. Qwen конкурентна few-shot, особенно при 5 примерах; это не подтверждает, что любой маленькой модели достаточно для любого ML. Классическая LR на 20 примерах даёт F1≈0.912 и не имеет проблемы незавершённой генерации. Ни одна confidence не заменяет проверку, особенно когда объяснение противоречит answer.
@@ -188,7 +190,7 @@ if LIVE:
 else:
     print('Живой вызов отключён. При Run All токены не расходуются.')''')]
     path=ROOT/'notebooks/defense.ipynb'
-    nb.write(nb.v4.new_notebook(cells=cells,metadata={'kernelspec':{'name':'python3','display_name':'Python 3 LAB3 defense','language':'python'}}),path)
+    nb.write(nb.v4.new_notebook(cells=enrich(cells),metadata={'kernelspec':{'name':'python3','display_name':'Python 3 LAB3 defense','language':'python'}}),path)
     return path
 
 

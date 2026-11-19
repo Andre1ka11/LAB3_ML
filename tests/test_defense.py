@@ -45,11 +45,22 @@ class DefenseTests(unittest.TestCase):
         notebook=nbformat.read(ROOT/'notebooks/defense.ipynb',as_version=4)
         nbformat.validate(notebook)
         cells=[c for c in notebook.cells if c.cell_type=='code']
-        self.assertEqual(len(cells),19)
+        self.assertEqual(len(cells),33)
         for cell in cells:
             ast.parse(cell.source);self.assertIsNotNone(cell.execution_count)
             self.assertFalse(any(o.output_type=='error' for o in cell.outputs))
         self.assertIn('LIVE=False',cells[-1].source)
+
+    def test_every_block_and_figure_has_teaching_explanations(self):
+        from defense_explanations import BLOCKS,FIGURES
+        notebook=nbformat.read(ROOT/'notebooks/defense.ipynb',as_version=4)
+        notes=[c.metadata.get('teaching',{}) for c in notebook.cells if c.cell_type=='markdown']
+        for role in ['before_block','after_block']:
+            self.assertEqual({r['block'] for r in notes if r.get('role')==role},set(BLOCKS))
+        for role in ['before_figure','after_figure']:
+            self.assertEqual({r['figure'] for r in notes if r.get('role')==role},set(FIGURES))
+        for i,cell in enumerate(notebook.cells):
+            if cell.cell_type=='code':self.assertEqual(notebook.cells[i-1].cell_type,'markdown')
 
 
 if __name__=='__main__':unittest.main()
