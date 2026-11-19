@@ -1,0 +1,123 @@
+{
+  "model_requested": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+  "responses": 5,
+  "parsed": 5,
+  "strict_format_ok": 5,
+  "input_tokens": 1570,
+  "output_tokens": 863,
+  "cost_estimate_rub": 0.6720999999999999,
+  "ledger_with_reserves_rub": 0.6721,
+  "pilot_excluded_from_evaluation": true,
+  "items": [
+    {
+      "task_id": "P01",
+      "error": null,
+      "status": "completed",
+      "model_returned": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+      "usage": {
+        "input_tokens": 287,
+        "input_tokens_details": {
+          "cached_tokens": 0,
+          "tool_tokens": 0
+        },
+        "output_tokens": 76,
+        "output_tokens_details": {
+          "reasoning_tokens": 21
+        },
+        "total_tokens": 363
+      },
+      "reasoning": null,
+      "temperature_returned": 0.0,
+      "cost_estimate_rub": 0.12409999999999999,
+      "latency_s": null
+    },
+    {
+      "task_id": "P02",
+      "error": null,
+      "status": "completed",
+      "model_returned": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+      "usage": {
+        "input_tokens": 314,
+        "input_tokens_details": {
+          "cached_tokens": 256,
+          "tool_tokens": 0
+        },
+        "output_tokens": 136,
+        "output_tokens_details": {
+          "reasoning_tokens": 90
+        },
+        "total_tokens": 450
+      },
+      "reasoning": null,
+      "temperature_returned": 0.0,
+      "cost_estimate_rub": 0.1046,
+      "latency_s": 4.4573401999950875
+    },
+    {
+      "task_id": "P03",
+      "error": null,
+      "status": "completed",
+      "model_returned": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+      "usage": {
+        "input_tokens": 320,
+        "input_tokens_details": {
+          "cached_tokens": 256,
+          "tool_tokens": 0
+        },
+        "output_tokens": 246,
+        "output_tokens_details": {
+          "reasoning_tokens": 167
+        },
+        "total_tokens": 566
+      },
+      "reasoning": null,
+      "temperature_returned": 0.0,
+      "cost_estimate_rub": 0.1614,
+      "latency_s": 7.3813566000026185
+    },
+    {
+      "task_id": "P04",
+      "error": null,
+      "status": "completed",
+      "model_returned": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+      "usage": {
+        "input_tokens": 332,
+        "input_tokens_details": {
+          "cached_tokens": 256,
+          "tool_tokens": 0
+        },
+        "output_tokens": 283,
+        "output_tokens_details": {
+          "reasoning_tokens": 186
+        },
+        "total_tokens": 615
+      },
+      "reasoning": null,
+      "temperature_returned": 0.0,
+      "cost_estimate_rub": 0.1835,
+      "latency_s": 5.419639400002779
+    },
+    {
+      "task_id": "P05",
+      "error": null,
+      "status": "completed",
+      "model_returned": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+      "usage": {
+        "input_tokens": 317,
+        "input_tokens_details": {
+          "cached_tokens": 256,
+          "tool_tokens": 0
+        },
+        "output_tokens": 122,
+        "output_tokens_details": {
+          "reasoning_tokens": 60
+        },
+        "total_tokens": 439
+      },
+      "reasoning": null,
+      "temperature_returned": 0.0,
+      "cost_estimate_rub": 0.09849999999999999,
+      "latency_s": 6.144559400010621
+    }
+  ]
+}

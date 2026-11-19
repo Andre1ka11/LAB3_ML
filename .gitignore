@@ -1,0 +1,20 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+.cache/
+.ipynb_checkpoints/
+tmp/
+output/
+
+results/models/**/.lock
+results/models/**/*.tmp
+results/models/**/process.stdout.log
+results/models/**/process.stderr.log
+results/models/**/.process.json
+analysis/**/.matplotlib/
+
+# Raw recovery copies; full API responses are preserved in events.jsonl.
+results/models/**/*.response.txt

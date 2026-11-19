@@ -1,0 +1,21 @@
+{
+  "model": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+  "endpoint": "https://ai.api.cloud.yandex.net/v1/responses",
+  "temperature": 0,
+  "max_output_tokens": 4096,
+  "thinking_mode": "default; no explicit thinking parameter requested",
+  "bank_version": "1.0.0-draft",
+  "bank_sha256": "5bbd63fecaadde46c4d64ebdc3ca742f27ff59b523c9c534ae40e6d8c8230e25",
+  "prompt_sha256": "8750df9af135e760c827110f7891c16ade38534b8e70d061e0d7b3118dff9eb9",
+  "requests_sha256": "784da435f8566ccb3fcc6c28b45b52c3c95ba3b24d48a7fdcf1a4f095dda9a5f",
+  "rates_rub_per_token": {
+    "input": 0.0003,
+    "cached_input": 7.5e-05,
+    "output": 0.0005
+  },
+  "tariff_checked": "2026-11-19",
+  "tariff_source": "https://aistudio.yandex.ru/ru/docs/ai-studio/pricing",
+  "cost_basis": "Published RUB rates and reported usage; not a Billing statement. Missing cache details are charged at the full input rate.",
+  "budget_rub": 300,
+  "pilot_budget_rub": 10
+}

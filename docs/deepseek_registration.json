@@ -1,0 +1,89 @@
+{
+  "config": {
+    "model": "gpt://b1gq6d9aarsdqtd0vvam/deepseek-v4.1-flash",
+    "endpoint": "https://ai.api.cloud.yandex.net/v1/responses",
+    "temperature": 0,
+    "max_output_tokens": 4096,
+    "thinking_mode": "default; no explicit thinking parameter requested",
+    "bank_version": "1.0.0-draft",
+    "bank_sha256": "5bbd63fecaadde46c4d64ebdc3ca742f27ff59b523c9c534ae40e6d8c8230e25",
+    "prompt_sha256": "8750df9af135e760c827110f7891c16ade38534b8e70d061e0d7b3118dff9eb9",
+    "requests_sha256": "784da435f8566ccb3fcc6c28b45b52c3c95ba3b24d48a7fdcf1a4f095dda9a5f",
+    "rates_rub_per_token": {
+      "input": 0.0003,
+      "cached_input": 7.5e-05,
+      "output": 0.0005
+    },
+    "tariff_checked": "2026-11-19",
+    "tariff_source": "https://aistudio.yandex.ru/ru/docs/ai-studio/pricing",
+    "cost_basis": "Published RUB rates and reported usage; not a Billing statement. Missing cache details are charged at the full input rate."
+  },
+  "forecasts": {
+    "H5": "confirm",
+    "H10": "confirm",
+    "H12": "confirm"
+  },
+  "criteria_confirmed": true,
+  "criteria": {
+    "language": "ru",
+    "parser_version": "1.1-outer-markdown-only",
+    "normalization": "Only a single outer Markdown JSON fence may be removed; record strict_format_ok=false and markdown_wrapper. Do not change answers or code. Apply identically to all models.",
+    "primary_model": "DeepSeek V4.1 Flash for H10/H12; YandexGPT remains the primary large model for H5",
+    "H5": {
+      "forecast": "confirm",
+      "comparison": "YandexGPT vs Qwen3 4B (qwen3:4b); local digest and quantization recorded before local run",
+      "tasks": "A01-A08 and B01-B08",
+      "statistic": "(accuracy_Yandex_A-accuracy_Qwen_A)-(accuracy_Yandex_B-accuracy_Qwen_B)",
+      "interval": "1000 paired bootstrap resamples within A/B, seed 42, 95% percentile CI",
+      "decision": "confirm if lower>0; reject if upper<=0; otherwise insufficient_data",
+      "limitation": "Only 8 tasks/type; size is confounded with training and quantization.",
+      "deepseek_role": "No replacement of the original YandexGPT-vs-Qwen primary comparison. Any DeepSeek-vs-Qwen comparison is secondary and reported separately."
+    },
+    "H10": {
+      "forecast": "confirm",
+      "tasks": "A+B+F: 24 tasks",
+      "correctness": "Numeric tolerance in bank; boolean verdict for B; F07 insufficient_data. Explanations evaluated separately.",
+      "statistic": "mean(confidence/100)-accuracy on parseable answers with valid confidence; explicitly report coverage, missing confidences and full-denominator accuracy",
+      "interval": "1000 bootstrap draws of task groups, seed 42; paired F variants kept together; 95% percentile CI",
+      "decision": "confirm if lower>0; reject if upper<=0; otherwise insufficient_data",
+      "secondary": "ECE with bins [0,.2,.4,.6,.8,1], include 1 in last bin; reliability diagram; ECE is not a directional overconfidence test"
+    },
+    "H12": {
+      "forecast": "confirm",
+      "test_rows": 100,
+      "shots": [
+        5,
+        20
+      ],
+      "baseline": "LogisticRegression with same six features, same train5/train20 and same test",
+      "primary_metric": "F1 minority class (label 1)",
+      "secondary_metric": "balanced_accuracy; GaussianNB and constant-majority baseline also reported",
+      "noninferiority_margin": 0.05,
+      "interval": "1000 paired bootstrap test-row resamples, seed 42; one-sided 95% bounds at percentiles 5 and 95",
+      "decision": "5-shot: lower delta > -0.05 supports noninferiority, upper delta < -0.05 contradicts it. 20-shot: upper delta < 0 supports loss, lower delta >= 0 contradicts it. Confirm H12 only if both expected parts supported; reject if either contradicted; otherwise insufficient_data. delta=F1_LLM-F1_LR.",
+      "baseline_disclosure": "Classical baseline and YandexGPT outputs already known. DeepSeek main and E responses not yet obtained."
+    },
+    "multiple_comparisons": "Three predeclared exploratory hypotheses; report effect sizes and intervals without claiming familywise-controlled significance. Four-model paired accuracy comparisons additionally use exact McNemar, with Holm correction for that separate family.",
+    "forecasts_date": "2026-11-19",
+    "results_not_yet_obtained": "No DeepSeek main-bank or E calls before this registration. YandexGPT results already known; H10/H12 are replications using the same rules.",
+    "pilot_disclosure": {
+      "requests": 5,
+      "excluded_from_evaluation": true,
+      "parsed": 5,
+      "strict_format_ok": 5,
+      "input_tokens": 1570,
+      "output_tokens": 863,
+      "cost_estimate_rub": 0.6721,
+      "reasoning_tokens_reported": true,
+      "recovery": "P01 restored from the raw response after local parser crash on content=null. No additional API call; original latency not available.",
+      "parameter_changes_after_pilot": "None. Only parser handling of null content in non-message reasoning blocks was corrected; prompts, model and generation parameters were unchanged."
+    },
+    "thinking_limitation": "No explicit reasoning parameter, as in YandexGPT. Provider defaults may differ by model; inspect and preserve actual response metadata."
+  },
+  "status_note": "Configuration and forecasts fixed before DeepSeek main calls; runner records the commit hash in registration_commit.txt.",
+  "request_content_comparison": {
+    "identical_to_yandex_run_except_model": true,
+    "requests": 344,
+    "payloads_without_model_sha256": "47c956b561f1c2cf47380d5b6cbedee200c71601115576a21c2b11fb621a830e"
+  }
+}
