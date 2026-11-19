@@ -40,7 +40,7 @@ def extract():
         review[row['task_id']]={'source_sha256':hashlib.sha256(code.encode()).hexdigest(),
             'raw_text_sha256':hashlib.sha256(text.encode()).hexdigest(),'start':match.start(1),'end':match.end(1),
             'extraction':method,'technical_inspection':NOTES[row['task_id']],
-            'reviewer':'Codex technical review; not two independent human ratings'}
+            'reviewer':'Preliminary technical review; not two independent human ratings'}
         if row['parsed'] is not None:raise ValueError('This diagnostic setup expects primary invalid-format D responses')
         primary.append({'task_id':row['task_id'],'source_sha256':None,'exit_code':None,'pass_at_1':False,
             'output_is_json':False,'metrics_match_reference':False,'metrics':None,'stderr':'',

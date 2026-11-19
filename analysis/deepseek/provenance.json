@@ -4,7 +4,7 @@
   "parser_version": "1.1-outer-markdown-only",
   "registration_commit": "0cac26cc471d39d7c76ef6272c4e637c3e4edbae",
   "input_hashes": {
-    "data/tasks.jsonl": "f9df8bef01e7c23d249ad69148ff2c35f4c60b9a8b435dc4bbe8f5380033ab66",
+    "data/tasks.jsonl": "c9895760239f4ef374f7b1a41b32cc62da8f416291425e3e0eb83c9d9d5d7c1b",
     "prompts/system_ru.txt": "8750df9af135e760c827110f7891c16ade38534b8e70d061e0d7b3118dff9eb9",
     "data/classification/test_labels.csv": "d819f0e7c00a85d3068f56b1522fe56a430da67d1775ac8d57d47a58d20c6674",
     "results/reference/classification_predictions.csv": "daa4d58b54eef5fad43043bb314dc7c07c728ccbab6458e58425c203b3b98fd7"

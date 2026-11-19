@@ -6,7 +6,7 @@
     "end": 1375,
     "extraction": "first fenced region, exact substring",
     "technical_inspection": "Inspected numpy/sklearn only. Uses estimator.score (accuracy), labels it balanced_accuracy; stdout is Python dict.",
-    "reviewer": "Codex technical review; not two independent human ratings"
+    "reviewer": "Preliminary technical review; not two independent human ratings"
   },
   "D02": {
     "source_sha256": "cdac73d4836fbf90d999447aa84a51227e3653083af9552e3d955b34e66d7b25",
@@ -15,7 +15,7 @@
     "end": 1543,
     "extraction": "first fenced region, exact substring",
     "technical_inspection": "Inspected sklearn/numpy only; Pipeline used without import; preserve NameError.",
-    "reviewer": "Codex technical review; not two independent human ratings"
+    "reviewer": "Preliminary technical review; not two independent human ratings"
   },
   "D03": {
     "source_sha256": "a2282eb6414ac1debfe073cdcbfa4148d5935884f43ffb41b6961663fc541b40",
@@ -24,7 +24,7 @@
     "end": 1642,
     "extraction": "first fenced region, exact substring",
     "technical_inspection": "Inspected sklearn only; train-only CV and test score; stdout Python dict.",
-    "reviewer": "Codex technical review; not two independent human ratings"
+    "reviewer": "Preliminary technical review; not two independent human ratings"
   },
   "D04": {
     "source_sha256": "7e20baeaccd4e31b9281c42b54b0fc2829c86d62c1f24953a9c3c56334659913",
@@ -33,7 +33,7 @@
     "end": 1291,
     "extraction": "first fenced region, exact substring",
     "technical_inspection": "Inspected sklearn only; output key balance_accuracy differs from required balanced_accuracy.",
-    "reviewer": "Codex technical review; not two independent human ratings"
+    "reviewer": "Preliminary technical review; not two independent human ratings"
   },
   "D05": {
     "source_sha256": "7d1c1442879ce40145bed0a7e2b5a19d90e4615a272466a33ed59ee294dee8d4",
@@ -42,7 +42,7 @@
     "end": 1144,
     "extraction": "first fenced region, exact substring",
     "technical_inspection": "Inspected sklearn/json references only; Pipeline and json imports missing; preserve NameError.",
-    "reviewer": "Codex technical review; not two independent human ratings"
+    "reviewer": "Preliminary technical review; not two independent human ratings"
   },
   "D06": {
     "source_sha256": "783ca64f75b93a6aa87ec7897d4aade7950c60428153507470d99b3f94b1fdc3",
@@ -51,7 +51,7 @@
     "end": 938,
     "extraction": "first triple-quoted region, exact substring",
     "technical_inspection": "Inspected sklearn/json only; body of invalid triple-quoted JSON answer, no code edits.",
-    "reviewer": "Codex technical review; not two independent human ratings"
+    "reviewer": "Preliminary technical review; not two independent human ratings"
   },
   "D07": {
     "source_sha256": "58b52eb2b77b7122ce44b77c747f7afb5250e822ffa3a2d85cfdc38660902e4e",
@@ -60,7 +60,7 @@
     "end": 919,
     "extraction": "first fenced region, exact substring",
     "technical_inspection": "Inspected sklearn only; descriptive clustering; stdout Python dict.",
-    "reviewer": "Codex technical review; not two independent human ratings"
+    "reviewer": "Preliminary technical review; not two independent human ratings"
   },
   "D08": {
     "source_sha256": "a79c2e0d670dc7394ef7c171693d824ee3e69798b335850b08569ac22a77f981",
@@ -69,6 +69,6 @@
     "end": 1096,
     "extraction": "first fenced region, exact substring",
     "technical_inspection": "Inspected sklearn only; correct original class mapping, JSON stdout rounded to three decimals.",
-    "reviewer": "Codex technical review; not two independent human ratings"
+    "reviewer": "Preliminary technical review; not two independent human ratings"
   }
 }

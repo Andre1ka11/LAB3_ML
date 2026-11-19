@@ -5,3 +5,4 @@ matplotlib==3.10.7
 nbformat==5.10.4
 nbclient==0.10.2
 ipykernel==6.30.1
+requests==2.34.2
