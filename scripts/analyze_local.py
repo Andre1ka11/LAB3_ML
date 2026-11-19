@@ -143,7 +143,7 @@ def analyze():
             'results/reference/classification_predictions.csv']
     write_json(OUT/'provenance.json',{'hash_policy':'UTF-8 text bytes, CRLF normalized to LF for Git checkout portability',
         'sha256':{p:hashlib.sha256((ROOT/p).read_bytes().replace(b'\r\n',b'\n')).hexdigest() for p in inputs},
-        'analysis_source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'analysis_source_sha256':hashlib.sha256(Path(__file__).read_bytes().replace(b'\r\n',b'\n')).hexdigest(),
         'registration_commit':(local_runner.RUN/'registration_commit.txt').read_text().strip(),
         'seed':42,'bootstrap_iterations':1000,'model_calls':0})
     write_json(OUT/'environment.json',{'python':platform.python_version(),'platform':platform.platform(),
