@@ -1,0 +1,15 @@
+{
+  "model": "GigaChat-2",
+  "endpoint": "https://gigachat.devices.sberbank.ru/api/v1/chat/completions",
+  "temperature": 0,
+  "max_output_tokens": 4096,
+  "thinking_mode": "provider default; no tools, search, or explicit reasoning parameter",
+  "bank_version": "1.0.0-draft",
+  "bank_sha256": "5bbd63fecaadde46c4d64ebdc3ca742f27ff59b523c9c534ae40e6d8c8230e25",
+  "prompt_sha256": "8750df9af135e760c827110f7891c16ade38534b8e70d061e0d7b3118dff9eb9",
+  "requests_sha256": "53a1e5e40c01cf68232ef9cc87b15260564cb3ae20997da7d677aa84ded882bc",
+  "rate_rub_per_token": 6.5e-05,
+  "tariff_checked": "2026-11-19",
+  "tariff_source": "https://developers.sber.ru/docs/ru/gigachat/tariffs/individual-tariffs",
+  "cost_basis": "Published package-equivalent RUB/token including VAT; not actual freemium cash spending"
+}

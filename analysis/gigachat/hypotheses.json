@@ -1,0 +1,92 @@
+{
+  "H5": {
+    "statistic_gap_A_minus_gap_B": -0.125,
+    "ci_low": -0.5,
+    "ci_high": 0.25,
+    "decision": "insufficient_data",
+    "n_A": 8,
+    "n_B": 8,
+    "seed": 42,
+    "bootstrap_iterations": 1000,
+    "comparison": "Primary: YandexGPT vs Qwen3-4B, unchanged from local experiment",
+    "secondary_gigachat_vs_qwen": {
+      "statistic_gap_A_minus_gap_B": -0.125,
+      "ci_low": -0.375,
+      "ci_high": 0.0,
+      "decision": "reject",
+      "n_A": 8,
+      "n_B": 8,
+      "seed": 42,
+      "bootstrap_iterations": 1000
+    }
+  },
+  "H10": {
+    "n_total": 24,
+    "n_valid": 22,
+    "coverage": 0.9166666666666666,
+    "mean_confidence": 0.9272727272727272,
+    "accuracy_on_valid": 0.5,
+    "full_denominator_accuracy": 0.4583333333333333,
+    "gap": 0.4272727272727273,
+    "ci_low": 0.21248511904761908,
+    "ci_high": 0.6432022727272727,
+    "ece": 0.42727272727272725,
+    "decision": "confirm",
+    "bins": [
+      {
+        "bin_low": 0.0,
+        "bin_high": 0.2,
+        "n": 0,
+        "mean_confidence": null,
+        "accuracy": null
+      },
+      {
+        "bin_low": 0.2,
+        "bin_high": 0.4,
+        "n": 0,
+        "mean_confidence": null,
+        "accuracy": null
+      },
+      {
+        "bin_low": 0.4,
+        "bin_high": 0.6,
+        "n": 0,
+        "mean_confidence": null,
+        "accuracy": null
+      },
+      {
+        "bin_low": 0.6,
+        "bin_high": 0.8,
+        "n": 0,
+        "mean_confidence": null,
+        "accuracy": null
+      },
+      {
+        "bin_low": 0.8,
+        "bin_high": 1.0,
+        "n": 22,
+        "mean_confidence": 0.9272727272727272,
+        "accuracy": 0.5
+      }
+    ]
+  },
+  "H12": {
+    "decision": "reject",
+    "comparisons": [
+      {
+        "shots": 5,
+        "delta_f1_llm_minus_lr": -0.19277757815307228,
+        "one_sided_95_lower": -0.25363048334358507,
+        "one_sided_95_upper": -0.13967070043426183,
+        "decision": "reject"
+      },
+      {
+        "shots": 20,
+        "delta_f1_llm_minus_lr": -0.09248759744861801,
+        "one_sided_95_lower": -0.16803774094757704,
+        "one_sided_95_upper": -0.015306584980651988,
+        "decision": "confirm"
+      }
+    ]
+  }
+}

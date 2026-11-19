@@ -1,0 +1,22 @@
+{
+  "hash_policy": "UTF-8 text bytes, CRLF normalized to LF for Git checkout portability",
+  "sha256": {
+    "data/tasks.jsonl": "c9895760239f4ef374f7b1a41b32cc62da8f416291425e3e0eb83c9d9d5d7c1b",
+    "data/bank_manifest.json": "8eb933a74f800f4335f57a8cdb09fd450182955f92c98d892ee0d7e153e52ea6",
+    "prompts/system_ru.txt": "8750df9af135e760c827110f7891c16ade38534b8e70d061e0d7b3118dff9eb9",
+    "docs/gigachat_registration.json": "9e35f62b4c92d4ee79b84b3f499686701d881e315590e48988338b86d965af57",
+    "results/models/gigachat/gigachat-2-v1/events.jsonl": "35eb6a01b95cfb32865722fed51b642371d29f490880118bb176f28aa727cf58",
+    "results/models/yandex/yandex-v1/events.jsonl": "9c077957dacb5cdba6fd583b24f7a62c34367ee6246f8ea3d0b67bfb78145889",
+    "results/models/local/qwen3-4b-q4-v1/events.jsonl": "fa12d29c61cf56a5086eb272425fa2cf13250c1ff9c56334e1a9da1d1f6453ac",
+    "analysis/local/hypotheses.json": "b81e57c145f29a8d5640056c8058bb00a2c740d2708c25155ddfd10e9aba3df7",
+    "analysis/gigachat/code_execution.json": "a17d6ff054a583f093b24c1ae3bc21a1bfb4a0f659d224edf373da008ec3c489",
+    "analysis/gigachat/diagnostic_code_execution.json": "554baad047a504b3eebdb4f559b14def71eda1a55a47287ecc02b630f5de94a1",
+    "docs/gigachat_code_review.json": "a500caa3df16b1c78839e99b56d3c67c8c36b7e6be76173fc8ad8aa6e5d2ba44",
+    "results/reference/classification_predictions.csv": "daa4d58b54eef5fad43043bb314dc7c07c728ccbab6458e58425c203b3b98fd7"
+  },
+  "analysis_source_sha256": "526eb4f8118e3f6fb0d5396d0b0ac9dfd4f8c866217fdd2d77b617c4f7ab627d",
+  "registration_commit": "9b810f0903ab41e5d0fd9defb0b85a61d916eed7",
+  "seed": 42,
+  "bootstrap_iterations": 1000,
+  "model_calls": 0
+}

@@ -1,0 +1,9 @@
+﻿task_id,source_sha256,exit_code,pass_at_1,output_is_json,metrics_match_reference,status,format_error,methodology_review
+D01,,,False,False,False,invalid_primary_response_format,invalid_json,pending_two_independent_reviewers
+D02,,,False,False,False,invalid_primary_response_format,invalid_json,pending_two_independent_reviewers
+D03,,,False,False,False,invalid_primary_response_format,invalid_json,pending_two_independent_reviewers
+D04,,,False,False,False,invalid_primary_response_format,invalid_json,pending_two_independent_reviewers
+D05,,,False,False,False,invalid_primary_response_format,invalid_json,pending_two_independent_reviewers
+D06,,,False,False,False,invalid_primary_response_format,invalid_json,pending_two_independent_reviewers
+D07,,,False,False,False,invalid_primary_response_format,invalid_json,pending_two_independent_reviewers
+D08,,,False,False,False,invalid_primary_response_format,invalid_json,pending_two_independent_reviewers
