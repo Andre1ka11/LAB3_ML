@@ -13,7 +13,7 @@ def figures(root,out,accuracy,classification,hypotheses,paired,costs,code,status
     fig,ax=plt.subplots(figsize=(9,4))
     data=np.array([[next((r['accuracy'] for r in accuracy if r['model']==m and r['type']==t),np.nan) for t in 'ABCDF'] for m in models])
     cmap=plt.get_cmap('YlGn').copy();cmap.set_bad('#e3e5e8');im=ax.imshow(data,vmin=0,vmax=1,cmap=cmap,aspect='auto')
-    ax.set(xticks=range(5),xticklabels=list('ABCDF'),yticks=range(4),yticklabels=models,title='Accuracy by task type; C/D human assessment pending')
+    ax.set(xticks=range(5),xticklabels=['A / 8','B verdict / 8','C expert / 7','D strict / 8','F / 8'],yticks=range(4),yticklabels=models,title='C: full rubric; D: primary contract + execution + metrics + methodology')
     for (i,j),v in np.ndenumerate(data):ax.text(j,i,'pending' if np.isnan(v) else f'{v:.1%}',ha='center',va='center')
     fig.colorbar(im,ax=ax);save('heatmap')
     fig,ax=plt.subplots(figsize=(9,4))

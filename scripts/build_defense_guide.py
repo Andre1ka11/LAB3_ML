@@ -24,6 +24,8 @@ def pct(x):return f'{float(x):.1%}'
 def build():
     models=['YandexGPT','Qwen3-4B','GigaChat-2','DeepSeek'];acc=csvrows('accuracy.csv');cl=load('classification.json');hyp=load('hypotheses.json');cost=csvrows('costs.csv');code=csvrows('code_metrics.csv')
     values={}
+    values['expert_review_table']=table(['Модель','Проверено','B среднее / 2','C среднее / 2','C полностью / 7','D строгий / 8','Дополнительно / 39'],
+        [[r['model'],r['reviewed'],f"{r['B_mean_0_2']:.3f}",f"{r['C_mean_0_2']:.3f}",r['C_full_2'],r['D_strict_correct'],r['expert_strict_39_correct']] for r in load('expert_review.json')['summary']])
     values['audit_table']=table(['Модель','Ответов','Started','Неопределённых попыток','Разрешённых повторов','Commit прогнозов'],
         [[r['model'],r['responses'],r['starts'],r['uncertain'],r['authorized_network_retries'],r['registration_commit'][:8]] for r in load('audit.json')['models']])
     rows=[]

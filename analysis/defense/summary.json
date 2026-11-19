@@ -10,5 +10,9 @@
   "analysis_api_calls": 0,
   "generated_code_executions": 0,
   "seed": 42,
-  "bootstrap_draws": 1000
+  "bootstrap_draws": 1000,
+  "expert_review_completed": true,
+  "expert_reviewed_answers": 92,
+  "expert_review_assessors": 1,
+  "independent_blind_team_review_completed": false
 }

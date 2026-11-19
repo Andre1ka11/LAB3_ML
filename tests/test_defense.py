@@ -5,6 +5,7 @@ import unittest
 import numpy as np
 import ast
 import nbformat
+import json
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from defense_analysis import audit,offline,baselines,confusion,explicit_refusal,holm_comparisons,MODELS
 
@@ -61,6 +62,28 @@ class DefenseTests(unittest.TestCase):
             self.assertEqual({r['figure'] for r in notes if r.get('role')==role},set(FIGURES))
         for i,cell in enumerate(notebook.cells):
             if cell.cell_type=='code':self.assertEqual(notebook.cells[i-1].cell_type,'markdown')
+
+    def test_expert_review_is_source_bound_and_not_a_pair_of_team_ratings(self):
+        from defense_expert_review import review
+        from unittest.mock import patch
+        import defense_expert_review
+        records={m:load[3] for m in MODELS for load in [__import__('defense_analysis').load_model(m)]}
+        data=json.loads((ROOT/'data/reviews/defense_expert_review.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(data['ratings']),92)
+        self.assertEqual(data['assessors'],1);self.assertIsNone(data['cohen_kappa'])
+        self.assertFalse(data['independent_blind_team_review_completed'])
+        data['ratings'][0]['response_sha256']='0'*64
+        original=defense_expert_review.read_json
+        with patch.object(defense_expert_review,'read_json',side_effect=lambda p:data if p.name=='defense_expert_review.json' else original(p)):
+            with self.assertRaises(AssertionError):review(ROOT,records)
+
+    def test_expert_summary_keeps_methodology_separate_from_contract(self):
+        data=json.loads((ROOT/'analysis/defense/expert_review.json').read_text(encoding='utf-8'))
+        by_model={r['model']:r for r in data['summary']}
+        self.assertEqual(by_model['GigaChat-2']['D_wrong_metric'],1)
+        self.assertEqual(by_model['GigaChat-2']['D_strict_correct'],0)
+        self.assertEqual(by_model['Qwen3-4B']['D_not_assessable'],2)
+        self.assertEqual(by_model['DeepSeek']['D_strict_correct'],8)
 
 
 if __name__=='__main__':unittest.main()

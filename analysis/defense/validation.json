@@ -7,11 +7,16 @@
   "source_journals_unchanged": true,
   "models": 4,
   "responses": 1376,
-  "guide_pdf_pages": 28,
+  "guide_pdf_pages": 30,
   "guide_pdf_out_of_bounds_text": false,
-  "guide_words": 8182,
+  "guide_words": 8812,
   "explanatory_markdown_cells": 81,
   "explained_logical_blocks": 19,
   "explained_figures": 11,
-  "metric_files_unchanged": true
+  "metric_files_unchanged": true,
+  "expert_reviewed_answers": 92,
+  "expert_review_assessors": 1,
+  "expert_source_hashes_verified": 92,
+  "independent_blind_team_review_completed": false,
+  "tests_passed": 81
 }

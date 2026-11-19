@@ -1,0 +1,5 @@
+﻿model,reviewed,B_mean_0_2,B_full_2,C_mean_0_2,C_full_2,C_total,D_wrong_metric,D_not_assessable,D_strict_correct,D_total,expert_strict_39_correct,expert_strict_39_accuracy,independent_team_review
+YandexGPT,23,1.875,7,1.1428571428571428,1,7,0,0,5,8,19,0.48717948717948717,False
+Qwen3-4B,23,1.25,4,0.5714285714285714,1,7,2,2,2,8,12,0.3076923076923077,False
+GigaChat-2,23,1.5,5,0.8571428571428571,0,7,1,0,0,8,11,0.28205128205128205,False
+DeepSeek,23,2.0,8,1.4285714285714286,3,7,0,0,8,8,35,0.8974358974358975,False

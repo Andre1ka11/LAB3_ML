@@ -52,7 +52,22 @@ def cases(value):
     display(pd.DataFrame(rows));details(value,'Раскрыть дословные ответы, условия и метаданные ошибок')
 
 
-def manual(value):
+def manual(value,out=None):
+    if out is not None:
+        out=Path(out)
+        expert=json.loads((out/'expert_review.json').read_text(encoding='utf-8'))
+        display(HTML('<h3>Экспертная проверка по рубрикам выполнена: 92 ответа</h3><p>'+html.escape(expert['limitations'])+'</p>'))
+        summary=pd.read_csv(out/'expert_review_summary.csv')
+        display(summary[['model','reviewed','B_mean_0_2','C_mean_0_2','C_full_2','D_strict_correct','expert_strict_39_correct']].rename(columns={
+            'model':'Модель','reviewed':'Проверено','B_mean_0_2':'B среднее / 2','C_mean_0_2':'C среднее / 2','C_full_2':'C полностью / 7',
+            'D_strict_correct':'D строгий / 8','expert_strict_39_correct':'Дополнительно верных / 39'}))
+        rows=pd.read_csv(out/'expert_ratings.csv',keep_default_na=False)
+        for model,group in rows.groupby('model',sort=False):
+            display(HTML('<details><summary>'+html.escape(model)+' — все 23 оценки и обоснования</summary>'+group[['task_id','score_0_2',
+                'leakage','test_tuning','train_evaluation','wrong_metric','missing_stratification','missing_seed','notes']].rename(columns={
+                'task_id':'Задача','score_0_2':'Балл 0–2','leakage':'Утечка','test_tuning':'Подбор по test','train_evaluation':'Оценка на train',
+                'wrong_metric':'Неверная метрика','missing_stratification':'Нет стратификации','missing_seed':'Нет seed','notes':'Обоснование'}).to_html(index=False,escape=True)+'</details>'))
+        display(HTML('<p>Ниже — отдельное состояние форм двух участников; они не подменены экспертной проверкой.</p>'))
     frame=pd.DataFrame(value).rename(columns={'model':'Модель','type':'Тип','required':'Требуется ответов',
         'paired_reviews':'Ответов с двумя оценками','status':'Статус','kappa':'Коэффициент согласия'})
     display(frame);details(value,'Раскрыть исходный объект состояния ручной проверки')

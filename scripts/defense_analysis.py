@@ -268,6 +268,8 @@ def analyze(root=ROOT):
         for t,row in read_json(root/'analysis'/analysis/'review_status.json').items():
             manual.append({'model':name,'type':t,'required':row['n_required'],'paired_reviews':row['n_paired_scores'],'status':row['status'],'kappa':row.get('kappa')})
     from analyze_local import h5_comparison
+    from defense_expert_review import review
+    expert_types=review(root,records_by_model)
     groups=lambda model:{t:[r for r in scores if r['model']==model and r['type']==t] for t in 'AB'}
     h5=h5_comparison(groups('YandexGPT'),groups('Qwen3-4B'))
     hypotheses={'H5_primary_Yandex_vs_Qwen':h5,'H10':h10,'H12':h12}
@@ -275,6 +277,8 @@ def analyze(root=ROOT):
     summary={'models':4,'responses':1376,'pilot':20,'evaluated_requests':1356,'ABF_tasks_per_model':24,
              'classification_rows_per_shots':100,'manual_reviews_pending':any(r['paired_reviews']<r['required'] for r in manual),
              'overall_39_accuracy':None,'analysis_api_calls':0,'generated_code_executions':0,'seed':42,'bootstrap_draws':1000}
+    summary.update(expert_review_completed=True,expert_reviewed_answers=92,expert_review_assessors=1,
+                   independent_blind_team_review_completed=False)
     for filename,data in [('summary.json',summary),('hypotheses.json',hypotheses),('classification.json',classification),('paired_comparisons.json',paired),('baselines.json',baseline_rows),('manual_status.json',manual)]:write_json(out/filename,data)
     for filename,data in [('accuracy.csv',types),('automatic_scores.csv',scores),('predictions.csv',pred_export),('costs.csv',costs),('code_metrics.csv',code_rows),('format_status.csv',statuses),('audit.csv',verification['models'])]:write_csv(out/filename,data)
     write_csv(out/'classification.csv',[{k:v for k,v in r.items() if k not in ['ci','confusion_0_1_abstain']} for r in classification])
@@ -287,7 +291,7 @@ def analyze(root=ROOT):
         'incomplete_details':r['raw_response'].get('incomplete_details'),'usage':r['raw_response']['usage'],'final_text':raw_text(r)})
     write_json(out/'case_studies.json',examples)
     from defense_figures import figures
-    figures(root,out,types,classification,hypotheses,paired,costs,code_rows,statuses,baseline_rows)
+    figures(root,out,types+expert_types,classification,hypotheses,paired,costs,code_rows,statuses,baseline_rows)
     return summary
 
 
